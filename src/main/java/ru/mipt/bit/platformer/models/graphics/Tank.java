@@ -22,12 +22,4 @@ public class Tank extends AbstractMovableGameGraphicObject {
     public boolean isStopped() {
         return movementProgress == MAX_PROGRESS;
     }
-
-    public GridPoint2 getDestinationCoordinates() {
-        return destinationCoordinates;
-    }
-
-    public float getMovementProgress() {
-        return movementProgress;
-    }
 }

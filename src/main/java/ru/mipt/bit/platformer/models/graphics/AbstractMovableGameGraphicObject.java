@@ -19,4 +19,12 @@ abstract public class AbstractMovableGameGraphicObject extends GameGraphicObject
     public void setMovementProgress(float movementProgress) {
         this.movementProgress = movementProgress;
     }
+
+    public GridPoint2 getDestinationCoordinates() {
+        return destinationCoordinates;
+    }
+
+    public float getMovementProgress() {
+        return movementProgress;
+    }
 }
