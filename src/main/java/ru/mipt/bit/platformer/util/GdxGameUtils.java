@@ -12,10 +12,12 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import ru.mipt.bit.platformer.models.graphics.AbstractMovableGraphicObject;
+import ru.mipt.bit.platformer.models.graphics.basic.GraphicObject;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
-
-import static com.badlogic.gdx.math.MathUtils.clamp;
 
 public final class GdxGameUtils {
 
@@ -52,38 +54,33 @@ public final class GdxGameUtils {
         return rectangle.setCenter(tileCenter);
     }
 
-    public static GridPoint2 incrementedY(GridPoint2 point) {
-        return new GridPoint2(point).add(0, 1);
-    }
+    public static void drawGameGraphicObjectsUnscaled(Batch batch, List<GraphicObject> graphicObjects,
+                                                      AbstractMovableGraphicObject movableGameGraphicObject) {
+        int regionWidth, regionHeight;
+        float regionOriginX, regionOriginY;
 
-    public static GridPoint2 decrementedX(GridPoint2 point) {
-        return new GridPoint2(point).sub(1, 0);
-    }
+        List<GraphicObject> objects = new ArrayList<>(graphicObjects);
+        objects.add(movableGameGraphicObject);
 
-    public static GridPoint2 decrementedY(GridPoint2 point) {
-        return new GridPoint2(point).sub(0, 1);
-    }
+        for (GraphicObject object : objects) {
+            TextureRegion textureRegion = object.getTextureRegion();
+            regionWidth = textureRegion.getRegionWidth();
+            regionHeight = textureRegion.getRegionHeight();
 
-    public static GridPoint2 incrementedX(GridPoint2 point) {
-        return new GridPoint2(point).add(1, 0);
-    }
+            regionOriginX = regionWidth / 2f;
+            regionOriginY = regionHeight / 2f;
 
-    public static void drawTextureRegionUnscaled(Batch batch, TextureRegion region, Rectangle rectangle, float rotation) {
-        int regionWidth = region.getRegionWidth();
-        int regionHeight = region.getRegionHeight();
-        float regionOriginX = regionWidth / 2f;
-        float regionOriginY = regionHeight / 2f;
-        batch.draw(region, rectangle.x, rectangle.y, regionOriginX, regionOriginY, regionWidth, regionHeight, 1f, 1f, rotation);
+            batch.draw(
+                    object.getTextureRegion(), object.getRectangle().x, object.getRectangle().y,
+                    regionOriginX, regionOriginY, regionWidth, regionHeight, 1f, 1f, object.getGameObject().getRotation()
+            );
+        }
     }
 
     public static Rectangle createBoundingRectangle(TextureRegion region) {
         return new Rectangle()
                 .setWidth(region.getRegionWidth())
                 .setHeight(region.getRegionHeight());
-    }
-
-    public static float continueProgress(float previousProgress, float deltaTime, float speed) {
-        return clamp(previousProgress + deltaTime / speed, 0f, 1f);
     }
 
     private static Vector2 calculateTileCenter(TiledMapTileLayer tileLayer, GridPoint2 tileCoordinates) {
