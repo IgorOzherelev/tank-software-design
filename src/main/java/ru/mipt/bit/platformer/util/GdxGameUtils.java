@@ -12,10 +12,8 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import ru.mipt.bit.platformer.models.graphics.AbstractMovableGameGraphicObject;
-import ru.mipt.bit.platformer.models.graphics.Tank;
-import ru.mipt.bit.platformer.models.graphics.basic.GameGraphicObject;
-import ru.mipt.bit.platformer.models.graphics.Direction;
+import ru.mipt.bit.platformer.models.graphics.AbstractMovableGameObject;
+import ru.mipt.bit.platformer.models.graphics.basic.GraphicObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,14 +54,15 @@ public final class GdxGameUtils {
         return rectangle.setCenter(tileCenter);
     }
 
-    public static void drawGameGraphicObjectsUnscaled(Batch batch, List<GameGraphicObject> graphicObjects, Tank tank) {
+    public static void drawGameGraphicObjectsUnscaled(Batch batch, List<GraphicObject> graphicObjects,
+                                                      AbstractMovableGameObject movableGameGraphicObject) {
         int regionWidth, regionHeight;
         float regionOriginX, regionOriginY;
 
-        List<GameGraphicObject> objects = new ArrayList<>(graphicObjects);
-        objects.add(tank);
+        List<GraphicObject> objects = new ArrayList<>(graphicObjects);
+        objects.add(movableGameGraphicObject);
 
-        for (GameGraphicObject object : objects) {
+        for (GraphicObject object : objects) {
             TextureRegion textureRegion = object.getTextureRegion();
             regionWidth = textureRegion.getRegionWidth();
             regionHeight = textureRegion.getRegionHeight();
@@ -73,17 +72,9 @@ public final class GdxGameUtils {
 
             batch.draw(
                     object.getTextureRegion(), object.getRectangle().x, object.getRectangle().y,
-                    regionOriginX, regionOriginY, regionWidth, regionHeight, 1f, 1f, object.getRotation()
+                    regionOriginX, regionOriginY, regionWidth, regionHeight, 1f, 1f, object.getGameObject().getRotation()
             );
         }
-    }
-
-    public static boolean checkIsMoveSafe(Direction direction, List<GameGraphicObject> graphicObjects,
-                                                AbstractMovableGameGraphicObject movableObject) {
-        return graphicObjects.stream()
-                .noneMatch(gameGraphicObject ->
-                        gameGraphicObject.getCoordinates()
-                                .equals(new GridPoint2(movableObject.getCoordinates()).add(direction.getShift())));
     }
 
     public static Rectangle createBoundingRectangle(TextureRegion region) {

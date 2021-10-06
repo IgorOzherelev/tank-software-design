@@ -2,13 +2,15 @@ package ru.mipt.bit.platformer.models.graphics;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
-import ru.mipt.bit.platformer.models.graphics.basic.GameGraphicObject;
+import ru.mipt.bit.platformer.models.graphics.basic.GraphicObject;
 
-abstract public class AbstractMovableGameGraphicObject extends GameGraphicObject implements Movable {
-    protected GridPoint2 destinationCoordinates = new GridPoint2(coordinates);
+import static com.badlogic.gdx.math.MathUtils.isEqual;
+
+abstract public class AbstractMovableGameObject extends GraphicObject implements Movable {
+    protected GridPoint2 destinationCoordinates = new GridPoint2(gameObject.getCoordinates());
     protected float movementProgress = 1f;
 
-    public AbstractMovableGameGraphicObject(Texture texture, GridPoint2 coordinates, float rotation) {
+    public AbstractMovableGameObject(Texture texture, GridPoint2 coordinates, float rotation) {
         super(texture, coordinates, rotation);
     }
 
@@ -26,5 +28,13 @@ abstract public class AbstractMovableGameGraphicObject extends GameGraphicObject
 
     public float getMovementProgress() {
         return movementProgress;
+    }
+
+    public boolean isStopped() {
+        return isEqual(movementProgress, MAX_PROGRESS);
+    }
+
+    public void setRotation(float rotation) {
+        this.gameObject.setRotation(rotation);
     }
 }

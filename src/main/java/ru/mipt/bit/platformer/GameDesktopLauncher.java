@@ -13,10 +13,9 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Interpolation;
-import ru.mipt.bit.platformer.models.Player;
+import ru.mipt.bit.platformer.controllers.PlayerController;
 import ru.mipt.bit.platformer.models.graphics.Tank;
-import ru.mipt.bit.platformer.models.graphics.basic.GameGraphicObject;
-import ru.mipt.bit.platformer.models.graphics.basic.GameGraphicObjectFactory;
+import ru.mipt.bit.platformer.models.graphics.basic.GraphicObject;
 import ru.mipt.bit.platformer.util.TileMovement;
 
 import java.util.ArrayList;
@@ -33,8 +32,8 @@ public class GameDesktopLauncher implements ApplicationListener {
     private MapRenderer levelRenderer;
     private TileMovement tileMovement;
 
-    private Player player;
-    private final List<GameGraphicObject> gameGraphicObjects = new ArrayList<>();
+    private PlayerController playerController;
+    private final List<GraphicObject> gameGraphicObjects = new ArrayList<>();
 
     @Override
     public void create() {
@@ -47,7 +46,7 @@ public class GameDesktopLauncher implements ApplicationListener {
         clear();
 
         // render each tile of the level
-        player.handleKeyEvent(Gdx.input, gameGraphicObjects);
+        playerController.handleKeyEvent(Gdx.input, gameGraphicObjects);
 
         levelRenderer.render();
 
@@ -55,7 +54,7 @@ public class GameDesktopLauncher implements ApplicationListener {
         batch.begin();
 
         // render graphic objects
-        drawGameGraphicObjectsUnscaled(batch, gameGraphicObjects, player.getTank());
+        drawGameGraphicObjectsUnscaled(batch, gameGraphicObjects, playerController.getPlayerControllableObject());
 
         // submit all drawing requests
         batch.end();
@@ -79,8 +78,8 @@ public class GameDesktopLauncher implements ApplicationListener {
     @Override
     public void dispose() {
         // dispose of all the native resources (classes which implement com.badlogic.gdx.utils.Disposable)
-        gameGraphicObjects.forEach(GameGraphicObject::dispose);
-        player.getTank().dispose();
+        gameGraphicObjects.forEach(GraphicObject::dispose);
+        playerController.getPlayerControllableObject().dispose();
 
         level.dispose();
         batch.dispose();
@@ -100,20 +99,20 @@ public class GameDesktopLauncher implements ApplicationListener {
     }
 
     private void initGameObjects(TiledMapTileLayer groundLayer) {
-        Tank tank = GameGraphicObjectFactory.createTank(
+        Tank tank = new Tank(
                 new Texture("images/tank_blue.png"),
                 new GridPoint2(3, 5), 0f
         );
 
-        GameGraphicObject tree = GameGraphicObjectFactory.createGameGraphicObject(
+        GraphicObject tree = new GraphicObject(
                 new Texture("images/greenTree.png"),
                 new GridPoint2(1, 5)
         );
 
         gameGraphicObjects.add(tree);
-        player = new Player(tank, tileMovement);
+        playerController = new PlayerController(tank, tileMovement);
 
-        moveRectangleAtTileCenter(groundLayer, tree.getRectangle(), tree.getCoordinates());
+        moveRectangleAtTileCenter(groundLayer, tree.getRectangle(), tree.getGameObject().getCoordinates());
     }
 
     // clear the screen

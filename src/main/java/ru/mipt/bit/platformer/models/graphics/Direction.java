@@ -1,10 +1,6 @@
 package ru.mipt.bit.platformer.models.graphics;
 
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.GridPoint2;
-
-import java.util.Arrays;
-import java.util.Optional;
 
 import static com.badlogic.gdx.Input.Keys.*;
 
@@ -24,18 +20,15 @@ public enum Direction {
         this.rotation = rotation;
     }
 
-    public static Direction getCalledDirection(Input input) {
-        Optional<Direction> called = Arrays.stream(Direction.values())
-                .filter(direction -> input.isKeyPressed(direction.key)).findFirst();
-
-        return called.orElse(null);
-    }
-
     public GridPoint2 getShift() {
         return shift;
     }
 
     public float getRotation() {
         return rotation;
+    }
+
+    public Integer getKey() {
+        return key;
     }
 }
