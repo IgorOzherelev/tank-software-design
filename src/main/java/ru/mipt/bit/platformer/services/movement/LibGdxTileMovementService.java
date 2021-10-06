@@ -1,36 +1,35 @@
-package ru.mipt.bit.platformer.util;
+package ru.mipt.bit.platformer.services.movement;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Rectangle;
-import ru.mipt.bit.platformer.models.graphics.AbstractMovableGameGraphicObject;
-import ru.mipt.bit.platformer.models.graphics.Tank;
+import ru.mipt.bit.platformer.models.movable.AbstractMovableGraphicObject;
 
-import static ru.mipt.bit.platformer.util.GdxGameUtils.moveRectangleAtTileCenter;
+import static ru.mipt.bit.platformer.util.GameGraphicUtils.placeRectangleAtTileCenter;
 
-public class TileMovement {
-
+public class LibGdxTileMovementService implements TileMovementService {
     private final TiledMapTileLayer tileLayer;
     private final Interpolation interpolation;
 
-    public TileMovement(TiledMapTileLayer tileLayer, Interpolation interpolation) {
+    public LibGdxTileMovementService(TiledMapTileLayer tileLayer, Interpolation interpolation) {
         this.tileLayer = tileLayer;
         this.interpolation = interpolation;
     }
 
-    public void calculateMovableGameObjectCoordinates(AbstractMovableGameGraphicObject movingGraphicObject) {
+    @Override
+    public void updateMovableGameObjectCoordinates(AbstractMovableGraphicObject movingGraphicObject) {
         Rectangle rectangle = movingGraphicObject.getRectangle();
         float progress = movingGraphicObject.getMovementProgress();
 
-        GridPoint2 fromTileCoordinates = movingGraphicObject.getCoordinates();
+        GridPoint2 fromTileCoordinates = movingGraphicObject.getGameObject().getCoordinates();
         GridPoint2 toTileCoordinates = movingGraphicObject.getDestinationCoordinates();
 
-        moveRectangleAtTileCenter(tileLayer, rectangle, fromTileCoordinates);
+        placeRectangleAtTileCenter(tileLayer, rectangle, fromTileCoordinates);
         float fromTileBottomLeftX = rectangle.x;
         float fromTileBottomLeftY = rectangle.y;
 
-        moveRectangleAtTileCenter(tileLayer, rectangle, toTileCoordinates);
+        placeRectangleAtTileCenter(tileLayer, rectangle, toTileCoordinates);
         float toTileBottomLeftX = rectangle.x;
         float toTileBottomLeftY = rectangle.y;
 

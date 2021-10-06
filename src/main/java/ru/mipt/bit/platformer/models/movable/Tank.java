@@ -1,9 +1,10 @@
-package ru.mipt.bit.platformer.models.graphics;
+package ru.mipt.bit.platformer.models.movable;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
 
-public class Tank extends AbstractMovableGameGraphicObject {
+
+public class Tank extends AbstractMovableGraphicObject {
     private static final float MOVEMENT_SPEED = 0.4f;
 
     public Tank(Texture texture, GridPoint2 coordinates, float rotation) {
@@ -15,11 +16,7 @@ public class Tank extends AbstractMovableGameGraphicObject {
         movementProgress = continueProgress(movementProgress, deltaTime, MOVEMENT_SPEED);
 
         if (isStopped()) {
-            coordinates = destinationCoordinates;
+            this.gameObject.setCoordinates(destinationCoordinates);
         }
-    }
-
-    public boolean isStopped() {
-        return movementProgress == MAX_PROGRESS;
     }
 }
