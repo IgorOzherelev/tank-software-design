@@ -3,7 +3,7 @@ package ru.mipt.bit.platformer.controllers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.GridPoint2;
-import ru.mipt.bit.platformer.models.graphics.AbstractMovableGameObject;
+import ru.mipt.bit.platformer.models.graphics.AbstractMovableGraphicObject;
 import ru.mipt.bit.platformer.models.graphics.Direction;
 import ru.mipt.bit.platformer.models.graphics.Tank;
 import ru.mipt.bit.platformer.models.graphics.basic.GraphicObject;
@@ -16,9 +16,9 @@ import static ru.mipt.bit.platformer.util.GameGraphicObjectCollisionUtils.checkI
 
 public class PlayerController {
     private final TileMovement tileMovement;
-    private final AbstractMovableGameObject playerControllableObject;
+    private final AbstractMovableGraphicObject playerControllableObject;
 
-    public PlayerController(AbstractMovableGameObject playerControllableObject, TileMovement tileMovement) {
+    public PlayerController(AbstractMovableGraphicObject playerControllableObject, TileMovement tileMovement) {
         this.playerControllableObject = playerControllableObject;
         this.tileMovement = tileMovement;
     }
@@ -39,7 +39,7 @@ public class PlayerController {
         tileMovement.calculateMovableGameObjectCoordinates(playerControllableObject);
     }
 
-    public AbstractMovableGameObject getPlayerControllableObject() {
+    public AbstractMovableGraphicObject getPlayerControllableObject() {
         return playerControllableObject;
     }
 }

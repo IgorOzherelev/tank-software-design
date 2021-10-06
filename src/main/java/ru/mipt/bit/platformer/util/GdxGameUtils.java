@@ -12,7 +12,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import ru.mipt.bit.platformer.models.graphics.AbstractMovableGameObject;
+import ru.mipt.bit.platformer.models.graphics.AbstractMovableGraphicObject;
 import ru.mipt.bit.platformer.models.graphics.basic.GraphicObject;
 
 import java.util.ArrayList;
@@ -55,7 +55,7 @@ public final class GdxGameUtils {
     }
 
     public static void drawGameGraphicObjectsUnscaled(Batch batch, List<GraphicObject> graphicObjects,
-                                                      AbstractMovableGameObject movableGameGraphicObject) {
+                                                      AbstractMovableGraphicObject movableGameGraphicObject) {
         int regionWidth, regionHeight;
         float regionOriginX, regionOriginY;
 

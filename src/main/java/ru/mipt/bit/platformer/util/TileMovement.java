@@ -4,7 +4,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Rectangle;
-import ru.mipt.bit.platformer.models.graphics.AbstractMovableGameObject;
+import ru.mipt.bit.platformer.models.graphics.AbstractMovableGraphicObject;
 
 import static ru.mipt.bit.platformer.util.GdxGameUtils.moveRectangleAtTileCenter;
 
@@ -18,7 +18,7 @@ public class TileMovement {
         this.interpolation = interpolation;
     }
 
-    public void calculateMovableGameObjectCoordinates(AbstractMovableGameObject movingGraphicObject) {
+    public void calculateMovableGameObjectCoordinates(AbstractMovableGraphicObject movingGraphicObject) {
         Rectangle rectangle = movingGraphicObject.getRectangle();
         float progress = movingGraphicObject.getMovementProgress();
 

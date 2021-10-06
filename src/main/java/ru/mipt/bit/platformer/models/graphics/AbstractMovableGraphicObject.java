@@ -6,11 +6,11 @@ import ru.mipt.bit.platformer.models.graphics.basic.GraphicObject;
 
 import static com.badlogic.gdx.math.MathUtils.isEqual;
 
-abstract public class AbstractMovableGameObject extends GraphicObject implements Movable {
+abstract public class AbstractMovableGraphicObject extends GraphicObject implements Movable {
     protected GridPoint2 destinationCoordinates = new GridPoint2(gameObject.getCoordinates());
     protected float movementProgress = 1f;
 
-    public AbstractMovableGameObject(Texture texture, GridPoint2 coordinates, float rotation) {
+    public AbstractMovableGraphicObject(Texture texture, GridPoint2 coordinates, float rotation) {
         super(texture, coordinates, rotation);
     }
 
