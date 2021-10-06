@@ -29,10 +29,6 @@ public class GraphicObject implements Disposable {
         this.rectangle = createBoundingRectangle(textureRegion);
     }
 
-    public Texture getTexture() {
-        return texture;
-    }
-
     public TextureRegion getTextureRegion() {
         return textureRegion;
     }

@@ -6,11 +6,6 @@ public class GameObject {
     protected float rotation;
     protected GridPoint2 coordinates;
 
-    public GameObject(GridPoint2 coordinates) {
-
-        this.coordinates = coordinates;
-    }
-
     public GameObject(GridPoint2 coordinates, float rotation) {
         this.rotation = rotation;
         this.coordinates = coordinates;
