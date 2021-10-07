@@ -4,7 +4,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Rectangle;
-import ru.mipt.bit.platformer.models.movable.AbstractMovableGraphicObject;
+import ru.mipt.bit.platformer.models.movable.AbstractMovableObject;
 
 import static ru.mipt.bit.platformer.util.GameGraphicUtils.placeRectangleAtTileCenter;
 
@@ -18,11 +18,11 @@ public class LibGdxTileMovementService implements TileMovementService {
     }
 
     @Override
-    public void updateMovableGameObjectCoordinates(AbstractMovableGraphicObject movingGraphicObject) {
-        Rectangle rectangle = movingGraphicObject.getRectangle();
+    public void updateMovableGameObjectCoordinates(AbstractMovableObject movingGraphicObject) {
+        Rectangle rectangle = movingGraphicObject.getGraphicObject().getRectangle();
         float progress = movingGraphicObject.getMovementProgress();
 
-        GridPoint2 fromTileCoordinates = movingGraphicObject.getGameObject().getCoordinates();
+        GridPoint2 fromTileCoordinates = movingGraphicObject.getCurrentCoordinates();
         GridPoint2 toTileCoordinates = movingGraphicObject.getDestinationCoordinates();
 
         placeRectangleAtTileCenter(tileLayer, rectangle, fromTileCoordinates);

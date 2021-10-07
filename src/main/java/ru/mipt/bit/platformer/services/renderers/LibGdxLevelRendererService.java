@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import ru.mipt.bit.platformer.models.Player;
 import ru.mipt.bit.platformer.models.objects.GraphicObject;
 
 import java.util.List;
@@ -21,13 +22,13 @@ public class LibGdxLevelRendererService implements RendererService {
     private final LibGdxGraphicObjectsRendererService objectsRendererService;
     private final LibGdxPlayerRendererService playerRendererService;
 
-    public LibGdxLevelRendererService(List<GraphicObject> graphicObjects, GraphicObject playerObject, TiledMap level) {
+    public LibGdxLevelRendererService(List<GraphicObject> graphicObjects, Player player, TiledMap level) {
         this.batch = new SpriteBatch();
         this.level = level;
         this.levelRenderer = createSingleLayerMapRenderer(level, batch);
 
         this.objectsRendererService = new LibGdxGraphicObjectsRendererService(graphicObjects, batch);
-        this.playerRendererService = new LibGdxPlayerRendererService(playerObject, batch);
+        this.playerRendererService = new LibGdxPlayerRendererService(player, batch);
     }
 
     public void setCurrentLayer(TiledMapTileLayer currentLayer) {

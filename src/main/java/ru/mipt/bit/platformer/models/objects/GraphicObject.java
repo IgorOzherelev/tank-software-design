@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.Disposable;
 
 import static ru.mipt.bit.platformer.util.GameGraphicUtils.createBoundingRectangle;
 
-public class GraphicObject implements Disposable {
+public class GraphicObject implements Disposable, Drawable {
     private Texture texture;
     private TextureRegion textureRegion;
     private Rectangle rectangle;
@@ -46,6 +46,7 @@ public class GraphicObject implements Disposable {
         this.texture.dispose();
     }
 
+    @Override
     public void draw(Batch batch) {
         int regionWidth, regionHeight;
         float regionOriginX, regionOriginY;

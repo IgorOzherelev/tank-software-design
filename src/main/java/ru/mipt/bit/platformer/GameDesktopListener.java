@@ -42,7 +42,7 @@ public class GameDesktopListener implements ApplicationListener {
         initGameObjects();
 
         tileMovementService = new LibGdxTileMovementService(groundLayer, Interpolation.smooth);
-        rendererService = new LibGdxLevelRendererService(gameGraphicObjects, player.getPlayerObject(), level);
+        rendererService = new LibGdxLevelRendererService(gameGraphicObjects, player, level);
         rendererService.setCurrentLayer(groundLayer);
 
         playerController = new PlayerController(player, tileMovementService);

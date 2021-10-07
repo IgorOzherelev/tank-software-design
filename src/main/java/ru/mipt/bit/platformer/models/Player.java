@@ -1,16 +1,16 @@
 package ru.mipt.bit.platformer.models;
 
-import ru.mipt.bit.platformer.models.movable.AbstractMovableGraphicObject;
+import ru.mipt.bit.platformer.models.movable.AbstractMovableObject;
 
 public class Player {
     private String nick;
-    private AbstractMovableGraphicObject playerObject;
+    private AbstractMovableObject playerObject;
 
     public Player(String nick) {
         this.nick = nick;
     }
 
-    public Player(String nick, AbstractMovableGraphicObject playerObject) {
+    public Player(String nick, AbstractMovableObject playerObject) {
         this.nick = nick;
         this.playerObject = playerObject;
     }
@@ -19,7 +19,7 @@ public class Player {
         return nick;
     }
 
-    public AbstractMovableGraphicObject getPlayerObject() {
+    public AbstractMovableObject getPlayerObject() {
         return playerObject;
     }
 
@@ -27,7 +27,7 @@ public class Player {
         this.nick = nick;
     }
 
-    public void setPlayerObject(AbstractMovableGraphicObject playerObject) {
+    public void setPlayerObject(AbstractMovableObject playerObject) {
         this.playerObject = playerObject;
     }
 }
