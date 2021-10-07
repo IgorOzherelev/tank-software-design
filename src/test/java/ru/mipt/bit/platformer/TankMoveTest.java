@@ -1,4 +1,4 @@
-package ru.mipt.bit.platformer.utils;
+package ru.mipt.bit.platformer;
 
 import com.badlogic.gdx.math.GridPoint2;
 import org.junit.jupiter.api.Assertions;
