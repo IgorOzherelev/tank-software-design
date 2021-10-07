@@ -18,7 +18,7 @@ public class LibGdxTileMovementService implements TileMovementService {
     }
 
     @Override
-    public void updateMovableGameObjectCoordinates(AbstractMovableObject movingGraphicObject) {
+    public void updateMovableGameObjectRectangle(AbstractMovableObject movingGraphicObject) {
         Rectangle rectangle = movingGraphicObject.getGraphicObject().getRectangle();
         float progress = movingGraphicObject.getMovementProgress();
 

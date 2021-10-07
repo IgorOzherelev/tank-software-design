@@ -11,6 +11,17 @@ public class Tank extends AbstractMovableObject {
         super(texture, coordinates, rotation);
     }
 
+    public Tank(GridPoint2 coordinates, float rotation) {
+        super(coordinates, rotation);
+    }
+
+    @Override
+    public void prepareForMove(Direction direction) {
+        this.setMovementProgress(Tank.MIN_PROGRESS);
+        this.setDestinationCoordinates(new GridPoint2(this.getCurrentCoordinates()).add(direction.getShift()));
+        this.setRotation(direction.getRotation());
+    }
+
     @Override
     public void move(float deltaTime) {
         movementProgress = continueProgress(movementProgress, deltaTime, MOVEMENT_SPEED);

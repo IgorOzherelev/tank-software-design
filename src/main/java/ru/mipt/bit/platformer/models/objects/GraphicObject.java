@@ -30,6 +30,10 @@ public class GraphicObject implements Disposable, Drawable {
         this.rectangle = createBoundingRectangle(textureRegion);
     }
 
+    public GraphicObject(GridPoint2 coordinates, float rotation) {
+        this.gameObject = new GameObject(coordinates, rotation);
+    }
+
     public Rectangle getRectangle() {
         return rectangle;
     }

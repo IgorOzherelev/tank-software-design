@@ -2,11 +2,9 @@ package ru.mipt.bit.platformer.controllers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.math.GridPoint2;
 import ru.mipt.bit.platformer.models.Player;
 import ru.mipt.bit.platformer.models.movable.AbstractMovableObject;
 import ru.mipt.bit.platformer.models.movable.Direction;
-import ru.mipt.bit.platformer.models.movable.Tank;
 import ru.mipt.bit.platformer.models.objects.GraphicObject;
 import ru.mipt.bit.platformer.services.movement.TileMovementService;
 
@@ -32,13 +30,11 @@ public class PlayerController {
         if (playerControllableObject.isStopped()) {
             direction = getCalledDirection(input);
             if (direction != null && checkIsMoveSafe(direction, gameObjects, playerControllableObject)) {
-                playerControllableObject.setMovementProgress(Tank.MIN_PROGRESS);
-                playerControllableObject.setDestinationCoordinates(new GridPoint2(playerControllableObject.getCurrentCoordinates()).add(direction.getShift()));
-                playerControllableObject.setRotation(direction.getRotation());
+                playerControllableObject.prepareForMove(direction);
             }
         }
 
         playerControllableObject.move(deltaTime);
-        tileMovementService.updateMovableGameObjectCoordinates(playerControllableObject);
+        tileMovementService.updateMovableGameObjectRectangle(playerControllableObject);
     }
 }
