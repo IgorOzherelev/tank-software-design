@@ -11,7 +11,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 import java.util.NoSuchElementException;
 
-public final class GameLevelLayerUtils {
+public final class LibGdxGameLevelUtils {
     public static <L extends MapLayer> L getSingleLayer(Map map) {
         MapLayers layers = map.getLayers();
         switch (layers.size()) {
@@ -35,5 +35,9 @@ public final class GameLevelLayerUtils {
         mapRenderer.getViewBounds().set(0f, 0f, viewWidth, viewHeight);
 
         return mapRenderer;
+    }
+
+    public static <T> T getTiledMapProperty(String propertyName, Class<T> propertyType, TiledMap tiledMap) {
+        return tiledMap.getProperties().get(propertyName, propertyType);
     }
 }

@@ -12,7 +12,7 @@ import ru.mipt.bit.platformer.models.objects.GraphicObject;
 import java.util.List;
 
 import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
-import static ru.mipt.bit.platformer.util.GameLevelLayerUtils.createSingleLayerMapRenderer;
+import static ru.mipt.bit.platformer.util.LibGdxGameLevelUtils.createSingleLayerMapRenderer;
 
 public class LibGdxLevelRendererService implements RendererService {
     private final MapRenderer levelRenderer;

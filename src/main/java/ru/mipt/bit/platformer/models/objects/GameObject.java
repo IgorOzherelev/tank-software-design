@@ -1,12 +1,12 @@
 package ru.mipt.bit.platformer.models.objects;
 
-import com.badlogic.gdx.math.GridPoint2;
+import ru.mipt.bit.platformer.logic.geometry.Point;
 
 public class GameObject {
     protected float rotation;
-    protected GridPoint2 coordinates;
+    protected Point coordinates;
 
-    public GameObject(GridPoint2 coordinates, float rotation) {
+    public GameObject(Point coordinates, float rotation) {
         this.rotation = rotation;
         this.coordinates = coordinates;
     }
@@ -15,11 +15,11 @@ public class GameObject {
         this.rotation = rotation;
     }
 
-    public void setCoordinates(GridPoint2 coordinates) {
+    public void setCoordinates(Point coordinates) {
         this.coordinates = coordinates;
     }
 
-    public GridPoint2 getCoordinates() {
+    public Point getCoordinates() {
         return coordinates;
     }
 

@@ -2,47 +2,42 @@ package ru.mipt.bit.platformer;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Interpolation;
 import ru.mipt.bit.platformer.controllers.PlayerController;
 import ru.mipt.bit.platformer.models.Player;
-import ru.mipt.bit.platformer.models.movable.Tank;
-import ru.mipt.bit.platformer.models.objects.GraphicObject;
+import ru.mipt.bit.platformer.models.objects.GameGraphicObjectStorage;
+import ru.mipt.bit.platformer.services.generator.LibGdxLevelMapGenerator;
 import ru.mipt.bit.platformer.services.movement.LibGdxTileMovementService;
 import ru.mipt.bit.platformer.services.movement.TileMovementService;
 import ru.mipt.bit.platformer.services.renderers.LibGdxLevelRendererService;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static ru.mipt.bit.platformer.util.GameLevelLayerUtils.getSingleLayer;
+import static ru.mipt.bit.platformer.util.LibGdxGameLevelUtils.getSingleLayer;
 
 public class GameDesktopListener implements ApplicationListener {
-    private TiledMap level;
-
-    private final List<GraphicObject> gameGraphicObjects = new ArrayList<>();
-    private Player player;
+    private GameGraphicObjectStorage storage;
 
     private LibGdxLevelRendererService rendererService;
-    private TileMovementService tileMovementService;
 
     private PlayerController playerController;
 
     @Override
     public void create() {
-        level = new TmxMapLoader().load("level.tmx");
+        TiledMap level = new TmxMapLoader().load("level.tmx");
         TiledMapTileLayer groundLayer = getSingleLayer(level);
 
-        player = new Player("SomeNick");
+        Player player = new Player("SomeNick");
 
-        initGameObjects();
+        storage = new GameGraphicObjectStorage();
+        LibGdxLevelMapGenerator mapGenerator = new LibGdxLevelMapGenerator(level, storage);
+        //mapGenerator.generateFromFile("level.map");
+        mapGenerator.generateRandomly(5, 1);
+        player.setPlayerObject(storage.getPlayerTank());
 
-        tileMovementService = new LibGdxTileMovementService(groundLayer, Interpolation.smooth);
-        rendererService = new LibGdxLevelRendererService(gameGraphicObjects, player, level);
+        TileMovementService tileMovementService = new LibGdxTileMovementService(groundLayer, Interpolation.smooth);
+        rendererService = new LibGdxLevelRendererService(storage.getGraphicObjects(), player, level);
         rendererService.setCurrentLayer(groundLayer);
 
         playerController = new PlayerController(player, tileMovementService);
@@ -50,7 +45,7 @@ public class GameDesktopListener implements ApplicationListener {
 
     @Override
     public void render() {
-        playerController.handleKeyEvent(Gdx.input, gameGraphicObjects);
+        playerController.handleKeyEvent(Gdx.input, storage.getGraphicObjects());
         rendererService.render();
     }
 
@@ -73,20 +68,5 @@ public class GameDesktopListener implements ApplicationListener {
     public void dispose() {
         // dispose of all the native resources (classes which implement com.badlogic.gdx.utils.Disposable)
         rendererService.dispose();
-    }
-
-    private void initGameObjects() {
-        Tank tank = new Tank(
-                new Texture("images/tank_blue.png"),
-                new GridPoint2(3, 5), 0f
-        );
-
-        GraphicObject tree = new GraphicObject(
-                new Texture("images/greenTree.png"),
-                new GridPoint2(1, 5)
-        );
-
-        player.setPlayerObject(tank);
-        gameGraphicObjects.add(tree);
     }
 }
