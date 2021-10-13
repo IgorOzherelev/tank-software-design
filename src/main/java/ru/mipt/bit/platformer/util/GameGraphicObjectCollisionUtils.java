@@ -1,6 +1,6 @@
 package ru.mipt.bit.platformer.util;
 
-import com.badlogic.gdx.math.GridPoint2;
+import ru.mipt.bit.platformer.logic.geometry.Point;
 import ru.mipt.bit.platformer.models.movable.AbstractMovableObject;
 import ru.mipt.bit.platformer.models.movable.Direction;
 import ru.mipt.bit.platformer.models.objects.GraphicObject;
@@ -13,6 +13,6 @@ public final class GameGraphicObjectCollisionUtils {
         return graphicObjects.stream()
                 .noneMatch(graphicObject ->
                         graphicObject.getGameObject().getCoordinates()
-                                .equals(new GridPoint2(movableObject.getCurrentCoordinates()).add(direction.getShift())));
+                                .equals(new Point(movableObject.getCurrentCoordinates()).add(direction.getShift())));
     }
 }

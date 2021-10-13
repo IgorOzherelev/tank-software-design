@@ -3,9 +3,9 @@ package ru.mipt.bit.platformer.models.objects;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Disposable;
+import ru.mipt.bit.platformer.logic.geometry.Point;
 
 import static ru.mipt.bit.platformer.util.GameGraphicUtils.createBoundingRectangle;
 
@@ -16,21 +16,21 @@ public class GraphicObject implements Disposable, Drawable {
 
     protected GameObject gameObject;
 
-    public GraphicObject(Texture texture, GridPoint2 coordinates, float rotation) {
+    public GraphicObject(Texture texture, Point coordinates, float rotation) {
         this.gameObject = new GameObject(coordinates, rotation);
         this.texture = texture;
         this.textureRegion = new TextureRegion(texture);
         this.rectangle = createBoundingRectangle(textureRegion);
     }
 
-    public GraphicObject(Texture texture, GridPoint2 coordinates) {
+    public GraphicObject(Texture texture, Point coordinates) {
         this.gameObject = new GameObject(coordinates, 0);
         this.texture = texture;
         this.textureRegion = new TextureRegion(texture);
         this.rectangle = createBoundingRectangle(textureRegion);
     }
 
-    public GraphicObject(GridPoint2 coordinates, float rotation) {
+    public GraphicObject(Point coordinates, float rotation) {
         this.gameObject = new GameObject(coordinates, rotation);
     }
 

@@ -6,7 +6,7 @@ import ru.mipt.bit.platformer.models.objects.GraphicObject;
 
 import java.util.List;
 
-import static ru.mipt.bit.platformer.util.GameGraphicUtils.placeRectangleAtTileCenter;
+import static ru.mipt.bit.platformer.util.GameGraphicUtils.*;
 
 public class LibGdxGraphicObjectsRendererService implements RendererService {
     private final Batch batch;
@@ -21,7 +21,7 @@ public class LibGdxGraphicObjectsRendererService implements RendererService {
     @Override
     public void render() {
         graphicObjects.forEach(graphicObject -> placeRectangleAtTileCenter(currentLayer, graphicObject.getRectangle(),
-                graphicObject.getGameObject().getCoordinates()));
+                convertPointToGridPoint(graphicObject.getGameObject().getCoordinates())));
         graphicObjects.forEach(graphicObject -> graphicObject.draw(batch));
     }
 

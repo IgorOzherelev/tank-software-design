@@ -6,9 +6,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Interpolation;
 import ru.mipt.bit.platformer.controllers.PlayerController;
+import ru.mipt.bit.platformer.logic.geometry.Point;
 import ru.mipt.bit.platformer.models.Player;
 import ru.mipt.bit.platformer.models.movable.Tank;
 import ru.mipt.bit.platformer.models.objects.GraphicObject;
@@ -78,12 +78,12 @@ public class GameDesktopListener implements ApplicationListener {
     private void initGameObjects() {
         Tank tank = new Tank(
                 new Texture("images/tank_blue.png"),
-                new GridPoint2(3, 5), 0f
+                new Point(3, 5), 0f
         );
 
         GraphicObject tree = new GraphicObject(
                 new Texture("images/greenTree.png"),
-                new GridPoint2(1, 5)
+                new Point(1, 5)
         );
 
         player.setPlayerObject(tank);
