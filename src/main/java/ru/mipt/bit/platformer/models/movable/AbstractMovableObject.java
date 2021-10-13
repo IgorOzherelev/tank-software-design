@@ -2,54 +2,42 @@ package ru.mipt.bit.platformer.models.movable;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.utils.Disposable;
+import ru.mipt.bit.platformer.logic.geometry.Point;
 import ru.mipt.bit.platformer.models.objects.Drawable;
-import ru.mipt.bit.platformer.models.objects.GraphicObject;
+import ru.mipt.bit.platformer.models.objects.LibGdxGraphicObject;
 
 import static com.badlogic.gdx.math.MathUtils.clamp;
 import static com.badlogic.gdx.math.MathUtils.isEqual;
 
-abstract public class AbstractMovableObject implements Drawable, Disposable {
+abstract public class AbstractMovableObject implements Drawable, Disposable, Movable {
     protected static final float MAX_PROGRESS = 1f;
     protected static final float MIN_PROGRESS = 0f;
 
     protected float movementProgress = MAX_PROGRESS;
 
-    protected GraphicObject graphicObject;
-    protected GridPoint2 destinationCoordinates;
+    protected LibGdxGraphicObject libGdxGraphicObject;
+    protected Point destinationCoordinates;
 
-    public AbstractMovableObject(Texture texture, GridPoint2 coordinates, float rotation) {
-        this.graphicObject = new GraphicObject(texture, coordinates, rotation);
-        this.destinationCoordinates = new GridPoint2(coordinates);
+    public AbstractMovableObject(Texture texture, Point coordinates, float rotation) {
+        this.libGdxGraphicObject = new LibGdxGraphicObject(texture, coordinates, rotation);
+        this.destinationCoordinates = new Point(coordinates);
     }
 
-    public AbstractMovableObject(GridPoint2 coordinates, float rotation) {
-        this.graphicObject = new GraphicObject(coordinates, rotation);
-        this.destinationCoordinates = new GridPoint2(coordinates);
+    public AbstractMovableObject(Point coordinates, float rotation) {
+        this.libGdxGraphicObject = new LibGdxGraphicObject(coordinates, rotation);
+        this.destinationCoordinates = new Point(coordinates);
     }
 
-    public GraphicObject getGraphicObject() {
-        return this.graphicObject;
+    public LibGdxGraphicObject getGraphicObject() {
+        return this.libGdxGraphicObject;
     }
 
-    public void setDestinationCoordinates(GridPoint2 destinationCoordinates) {
-        this.destinationCoordinates = destinationCoordinates;
+    public Point getCurrentCoordinates() {
+        return this.libGdxGraphicObject.getGameObject().getCoordinates();
     }
 
-    public void setCurrentCoordinates(GridPoint2 currentCoordinates) {
-        this.graphicObject.getGameObject().setCoordinates(currentCoordinates);
-    }
-
-    public GridPoint2 getCurrentCoordinates() {
-        return this.graphicObject.getGameObject().getCoordinates();
-    }
-
-    public void setMovementProgress(float movementProgress) {
-        this.movementProgress = movementProgress;
-    }
-
-    public GridPoint2 getDestinationCoordinates() {
+    public Point getDestinationCoordinates() {
         return destinationCoordinates;
     }
 
@@ -57,15 +45,11 @@ abstract public class AbstractMovableObject implements Drawable, Disposable {
         return movementProgress;
     }
 
-    public void setRotation(float rotation) {
-        this.graphicObject.getGameObject().setRotation(rotation);
-    }
-
     public float getRotation() {
-        return this.graphicObject.getGameObject().getRotation();
+        return this.libGdxGraphicObject.getGameObject().getRotation();
     }
 
-    float continueProgress(float previousProgress, float deltaTime, float speed) {
+    public float continueProgress(float previousProgress, float deltaTime, float speed) {
         return clamp(previousProgress + deltaTime / speed, 0f, 1f);
     }
 
@@ -79,11 +63,11 @@ abstract public class AbstractMovableObject implements Drawable, Disposable {
 
     @Override
     public void draw(Batch batch) {
-        graphicObject.draw(batch);
+        libGdxGraphicObject.draw(batch);
     }
 
     @Override
     public void dispose() {
-        graphicObject.dispose();
+        libGdxGraphicObject.dispose();
     }
 }

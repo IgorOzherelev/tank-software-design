@@ -1,25 +1,25 @@
 package ru.mipt.bit.platformer.models.movable;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.GridPoint2;
+import ru.mipt.bit.platformer.logic.geometry.Point;
 
 
 public class Tank extends AbstractMovableObject {
     private static final float MOVEMENT_SPEED = 0.4f;
 
-    public Tank(Texture texture, GridPoint2 coordinates, float rotation) {
+    public Tank(Texture texture, Point coordinates, float rotation) {
         super(texture, coordinates, rotation);
     }
 
-    public Tank(GridPoint2 coordinates, float rotation) {
+    public Tank(Point coordinates, float rotation) {
         super(coordinates, rotation);
     }
 
     @Override
     public void prepareForMove(Direction direction) {
-        this.setMovementProgress(Tank.MIN_PROGRESS);
-        this.setDestinationCoordinates(new GridPoint2(this.getCurrentCoordinates()).add(direction.getShift()));
-        this.setRotation(direction.getRotation());
+        this.movementProgress = AbstractMovableObject.MIN_PROGRESS;
+        this.destinationCoordinates = new Point(this.getCurrentCoordinates()).add(direction.getShift());
+        this.libGdxGraphicObject.getGameObject().setRotation(direction.getRotation());
     }
 
     @Override
@@ -27,7 +27,7 @@ public class Tank extends AbstractMovableObject {
         movementProgress = continueProgress(movementProgress, deltaTime, MOVEMENT_SPEED);
 
         if (isStopped()) {
-            this.setCurrentCoordinates((destinationCoordinates));
+            this.libGdxGraphicObject.getGameObject().setCoordinates(destinationCoordinates);
         }
     }
 }

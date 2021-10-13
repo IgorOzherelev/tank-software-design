@@ -11,7 +11,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 import java.util.NoSuchElementException;
 
-public final class GameLevelLayerUtils {
+public final class LibGdxGameLevelUtils {
     public static <L extends MapLayer> L getSingleLayer(Map map) {
         MapLayers layers = map.getLayers();
         switch (layers.size()) {

@@ -5,7 +5,7 @@ import com.badlogic.gdx.Input;
 import ru.mipt.bit.platformer.models.Player;
 import ru.mipt.bit.platformer.models.movable.AbstractMovableObject;
 import ru.mipt.bit.platformer.models.movable.Direction;
-import ru.mipt.bit.platformer.models.objects.GraphicObject;
+import ru.mipt.bit.platformer.models.objects.LibGdxGraphicObject;
 import ru.mipt.bit.platformer.services.movement.TileMovementService;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public class PlayerController {
         this.tileMovementService = tileMovementService;
     }
 
-    public void handleKeyEvent(Input input, List<GraphicObject> gameObjects) {
+    public void handleKeyEvent(Input input, List<LibGdxGraphicObject> gameObjects) {
         float deltaTime = Gdx.graphics.getDeltaTime();
         AbstractMovableObject playerControllableObject = player.getPlayerObject();
         Direction direction;

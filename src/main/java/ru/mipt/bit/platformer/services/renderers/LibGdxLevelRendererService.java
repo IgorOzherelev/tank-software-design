@@ -7,12 +7,12 @@ import com.badlogic.gdx.maps.MapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import ru.mipt.bit.platformer.models.Player;
-import ru.mipt.bit.platformer.models.objects.GraphicObject;
+import ru.mipt.bit.platformer.models.objects.LibGdxGraphicObject;
 
 import java.util.List;
 
 import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
-import static ru.mipt.bit.platformer.util.GameLevelLayerUtils.createSingleLayerMapRenderer;
+import static ru.mipt.bit.platformer.util.LibGdxGameLevelUtils.createSingleLayerMapRenderer;
 
 public class LibGdxLevelRendererService implements RendererService {
     private final MapRenderer levelRenderer;
@@ -22,12 +22,12 @@ public class LibGdxLevelRendererService implements RendererService {
     private final LibGdxGraphicObjectsRendererService objectsRendererService;
     private final LibGdxPlayerRendererService playerRendererService;
 
-    public LibGdxLevelRendererService(List<GraphicObject> graphicObjects, Player player, TiledMap level) {
+    public LibGdxLevelRendererService(List<LibGdxGraphicObject> libGdxGraphicObjects, Player player, TiledMap level) {
         this.batch = new SpriteBatch();
         this.level = level;
         this.levelRenderer = createSingleLayerMapRenderer(level, batch);
 
-        this.objectsRendererService = new LibGdxGraphicObjectsRendererService(graphicObjects, batch);
+        this.objectsRendererService = new LibGdxGraphicObjectsRendererService(libGdxGraphicObjects, batch);
         this.playerRendererService = new LibGdxPlayerRendererService(player, batch);
     }
 
