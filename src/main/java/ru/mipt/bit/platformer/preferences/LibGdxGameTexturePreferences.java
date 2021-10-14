@@ -2,10 +2,10 @@ package ru.mipt.bit.platformer.preferences;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 
-public class LibGdxGameTextureTexturePreferences implements TexturePreferences {
+public class LibGdxGameTexturePreferences implements TexturePreferences {
     private final TiledMap level;
 
-    public LibGdxGameTextureTexturePreferences(TiledMap level) {
+    public LibGdxGameTexturePreferences(TiledMap level) {
         this.level = level;
     }
 

@@ -12,7 +12,7 @@ import ru.mipt.bit.platformer.models.Player;
 import ru.mipt.bit.platformer.models.movable.Tank;
 import ru.mipt.bit.platformer.models.storages.GameObjectStorage;
 import ru.mipt.bit.platformer.models.objects.LibGdxGraphicObject;
-import ru.mipt.bit.platformer.preferences.LibGdxGameTextureTexturePreferences;
+import ru.mipt.bit.platformer.preferences.LibGdxGameTexturePreferences;
 import ru.mipt.bit.platformer.preferences.TexturePreferences;
 import ru.mipt.bit.platformer.services.generator.GameObjectsFromFileMapGenerator;
 import ru.mipt.bit.platformer.services.generator.MapGenerator;
@@ -38,7 +38,7 @@ public class GameDesktopListener implements ApplicationListener {
 
         Player player = new Player("SomeNick");
 
-        TexturePreferences texturePreferences = new LibGdxGameTextureTexturePreferences(level);
+        TexturePreferences texturePreferences = new LibGdxGameTexturePreferences(level);
 //        MapGenerator mapGenerator = new GameObjectsRandomGenerator(5, 1, texturePreferences);
 
         MapGenerator mapGenerator = new GameObjectsFromFileMapGenerator("level.map", texturePreferences);
