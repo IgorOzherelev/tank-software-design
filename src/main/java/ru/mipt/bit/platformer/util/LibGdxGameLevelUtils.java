@@ -36,4 +36,8 @@ public final class LibGdxGameLevelUtils {
 
         return mapRenderer;
     }
+
+    public static <T> T getTiledMapProperty(String propertyName, Class<T> propertyType, TiledMap tiledMap) {
+        return tiledMap.getProperties().get(propertyName, propertyType);
+    }
 }
