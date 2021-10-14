@@ -17,10 +17,10 @@ public final class CommonUtils {
     }
 
     public static List<String> splitFile(String file) {
-        if (file.contains("\n")) {
-            return List.of(file.split("\n"));
-        } else if (file.contains("\r\n")) {
+        if (file.contains("\r\n")) {
             return List.of(file.split("\r\n"));
+        } else if (file.contains("\n")) {
+            return List.of(file.split("\n"));
         }
 
         return new ArrayList<>();
