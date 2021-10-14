@@ -1,4 +1,6 @@
-package ru.mipt.bit.platformer.models.objects;
+package ru.mipt.bit.platformer.models.storages;
+
+import ru.mipt.bit.platformer.models.objects.GameObject;
 
 import java.util.List;
 

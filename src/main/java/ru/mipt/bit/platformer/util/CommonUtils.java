@@ -1,6 +1,8 @@
 package ru.mipt.bit.platformer.util;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public final class CommonUtils {
@@ -12,6 +14,16 @@ public final class CommonUtils {
         }
 
         return null;
+    }
+
+    public static List<String> splitFile(String file) {
+        if (file.contains("\n")) {
+            return List.of(file.split("\n"));
+        } else if (file.contains("\r\n")) {
+            return List.of(file.split("\r\n"));
+        }
+
+        return new ArrayList<>();
     }
 
     public static void checkStringLength(String name, String value, int length) {

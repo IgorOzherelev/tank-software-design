@@ -2,7 +2,7 @@ package ru.mipt.bit.platformer.services.generator;
 
 import ru.mipt.bit.platformer.logic.geometry.Point;
 import ru.mipt.bit.platformer.models.objects.GameObject;
-import ru.mipt.bit.platformer.models.objects.GameObjectStorage;
+import ru.mipt.bit.platformer.models.storages.GameObjectStorage;
 import ru.mipt.bit.platformer.preferences.TexturePreferences;
 
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.List;
 import static ru.mipt.bit.platformer.util.CommonUtils.*;
 import static ru.mipt.bit.platformer.util.CommonUtils.checkStringLength;
 
-public class GameObjectsFromFileGenerator extends AbstractGameObjectGenerator {
+public class GameObjectsFromFileMapGenerator extends AbstractGameObjectGenerator {
     private final static char TREE_TOKEN = 'T';
     private final static char FREE_TOKEN = '_';
     private final static char PLAYER_TOKEN = 'X';
@@ -19,7 +19,7 @@ public class GameObjectsFromFileGenerator extends AbstractGameObjectGenerator {
     private final String filePath;
     private final TexturePreferences texturePreferences;
 
-    public GameObjectsFromFileGenerator(String filePath, TexturePreferences texturePreferences) {
+    public GameObjectsFromFileMapGenerator(String filePath, TexturePreferences texturePreferences) {
         this.filePath = filePath;
         this.texturePreferences = texturePreferences;
     }
@@ -29,13 +29,13 @@ public class GameObjectsFromFileGenerator extends AbstractGameObjectGenerator {
         int width = texturePreferences.getMapWidth();
         int height = texturePreferences.getMapHeight();
 
-        String file = loadFile(filePath, GameObjectsRandomGenerator.class);
+        String file = loadFile(filePath, GameObjectsRandomMapGenerator.class);
 
         checkNotNull(filePath, file);
         checkStringLength(filePath, file.replaceAll("\\s", ""), width * height);
         List<GameObject> trees = new ArrayList<>();
 
-        List<String> map = List.of(file.split("\r\n"));
+        List<String> map = splitFile(file);
         String line;
         GameObject tree;
         GameObject tank;

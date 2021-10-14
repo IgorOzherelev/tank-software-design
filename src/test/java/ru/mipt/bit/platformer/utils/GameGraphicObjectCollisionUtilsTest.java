@@ -13,7 +13,7 @@ import java.util.List;
 
 import static ru.mipt.bit.platformer.util.GameGraphicObjectCollisionUtils.checkIsMoveSafe;
 
-public class GameLibGdxGraphicObjectCollisionUtilsTest {
+public class GameGraphicObjectCollisionUtilsTest {
     private final List<LibGdxGraphicObject> libGdxGraphicObjects = new ArrayList<>();
 
     @AfterEach

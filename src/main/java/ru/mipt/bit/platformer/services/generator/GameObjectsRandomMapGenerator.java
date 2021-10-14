@@ -2,21 +2,21 @@ package ru.mipt.bit.platformer.services.generator;
 
 import ru.mipt.bit.platformer.logic.geometry.Point;
 import ru.mipt.bit.platformer.models.objects.GameObject;
-import ru.mipt.bit.platformer.models.objects.GameObjectStorage;
+import ru.mipt.bit.platformer.models.storages.GameObjectStorage;
 import ru.mipt.bit.platformer.preferences.TexturePreferences;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class GameObjectsRandomGenerator extends AbstractGameObjectGenerator {
+public class GameObjectsRandomMapGenerator extends AbstractGameObjectGenerator {
     private final TexturePreferences texturePreferences;
 
     int treesQuantity;
     int tanksQuantity;
 
-    public GameObjectsRandomGenerator(int treesQuantity,
-                                      int tanksQuantity, TexturePreferences texturePreferences) {
+    public GameObjectsRandomMapGenerator(int treesQuantity,
+                                         int tanksQuantity, TexturePreferences texturePreferences) {
         this.tanksQuantity = tanksQuantity;
         this.treesQuantity = treesQuantity;
         this.texturePreferences = texturePreferences;

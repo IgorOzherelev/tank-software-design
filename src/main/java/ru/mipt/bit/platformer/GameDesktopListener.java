@@ -10,12 +10,11 @@ import com.badlogic.gdx.math.Interpolation;
 import ru.mipt.bit.platformer.controllers.PlayerController;
 import ru.mipt.bit.platformer.models.Player;
 import ru.mipt.bit.platformer.models.movable.Tank;
-import ru.mipt.bit.platformer.models.objects.GameObjectStorage;
+import ru.mipt.bit.platformer.models.storages.GameObjectStorage;
 import ru.mipt.bit.platformer.models.objects.LibGdxGraphicObject;
 import ru.mipt.bit.platformer.preferences.LibGdxGameTextureTexturePreferences;
 import ru.mipt.bit.platformer.preferences.TexturePreferences;
-import ru.mipt.bit.platformer.services.generator.GameObjectsFromFileGenerator;
-import ru.mipt.bit.platformer.services.generator.GameObjectsRandomGenerator;
+import ru.mipt.bit.platformer.services.generator.GameObjectsFromFileMapGenerator;
 import ru.mipt.bit.platformer.services.generator.MapGenerator;
 import ru.mipt.bit.platformer.services.movement.LibGdxTileMovementService;
 import ru.mipt.bit.platformer.services.movement.TileMovementService;
@@ -42,7 +41,7 @@ public class GameDesktopListener implements ApplicationListener {
         TexturePreferences texturePreferences = new LibGdxGameTextureTexturePreferences(level);
 //        MapGenerator mapGenerator = new GameObjectsRandomGenerator(5, 1, texturePreferences);
 
-        MapGenerator mapGenerator = new GameObjectsFromFileGenerator("level.map", texturePreferences);
+        MapGenerator mapGenerator = new GameObjectsFromFileMapGenerator("level.map", texturePreferences);
 
         GameObjectStorage storage = mapGenerator.generate();
         player.setPlayerObject(new Tank(new Texture("images/tank_blue.png"),
