@@ -66,7 +66,7 @@ public class GameObjectsFromFileMapGenerator extends AbstractGameObjectGenerator
             }
         }
 
-        storage.setGameObjects(trees);
+        storage.setTrees(trees);
 
         return storage;
     }

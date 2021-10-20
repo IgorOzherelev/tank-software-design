@@ -20,6 +20,7 @@ public class GameObjectsRandomMapGenerator extends AbstractGameObjectGenerator {
         this.tanksQuantity = tanksQuantity;
         this.treesQuantity = treesQuantity;
         this.texturePreferences = texturePreferences;
+        checkTotalObjectsQuantity();
     }
 
     @Override
@@ -29,6 +30,7 @@ public class GameObjectsRandomMapGenerator extends AbstractGameObjectGenerator {
         int height = texturePreferences.getMapHeight();
 
         List<GameObject> trees = new ArrayList<>();
+        List<GameObject> tanks = new ArrayList<>();
 
         int totalObjectsQuantity = treesQuantity + tanksQuantity;
         int[] x = new Random().ints(0, width)
@@ -36,8 +38,13 @@ public class GameObjectsRandomMapGenerator extends AbstractGameObjectGenerator {
         int[] y = new Random().ints(0, height)
                 .distinct().limit(totalObjectsQuantity).toArray();
 
-        for (int i = 0; i < treesQuantity; i++) {
+        int i;
+        for (i = 0; i < treesQuantity; i++) {
             trees.add(new GameObject(new Point(x[i], y[i]), 0f));
+        }
+
+        for (; i < totalObjectsQuantity - 1; i++) {
+            tanks.add(new GameObject(new Point(x[i], y[i]), 0f));
         }
 
         GameObject playerTank = new GameObject(
@@ -45,8 +52,17 @@ public class GameObjectsRandomMapGenerator extends AbstractGameObjectGenerator {
         );
 
         storage.setPlayerGameObject(playerTank);
-        storage.setGameObjects(trees);
+        storage.setTrees(trees);
+        storage.setTanks(tanks);
 
         return storage;
+    }
+
+    private void checkTotalObjectsQuantity() {
+        int halfOfMapSquare = texturePreferences.getMapWidth() * texturePreferences.getMapHeight() / 2;
+        if (halfOfMapSquare <= tanksQuantity * treesQuantity) {
+            throw new IllegalArgumentException("Wrong total tanks and trees quantity >= map square / 2: "
+                    + "trees: " + treesQuantity + "tanks: " + tanksQuantity + "map square / 2: " + halfOfMapSquare);
+        }
     }
 }

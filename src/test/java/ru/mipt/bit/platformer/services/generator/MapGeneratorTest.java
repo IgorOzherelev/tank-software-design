@@ -44,7 +44,7 @@ public class MapGeneratorTest {
         );
 
         storage = generator.generate();
-        List<GameObject> gameObjects = storage.getGameObjects();
+        List<GameObject> gameObjects = storage.getTrees();
         Assertions.assertEquals(7, gameObjects.size());
 
         Assertions.assertTrue(expected.containsAll(gameObjects));
@@ -56,7 +56,7 @@ public class MapGeneratorTest {
         generator = new GameObjectsRandomMapGenerator(5, 1, preferences);
 
         storage = generator.generate();
-        Assertions.assertEquals(5, storage.getGameObjects().size());
+        Assertions.assertEquals(5, storage.getTrees().size());
         Assertions.assertNotNull(storage.getPlayerGameObject());
     }
 }

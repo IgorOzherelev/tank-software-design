@@ -1,21 +1,36 @@
 package ru.mipt.bit.platformer.services.renderers;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import ru.mipt.bit.platformer.models.objects.GameObject;
 import ru.mipt.bit.platformer.models.objects.LibGdxGraphicObject;
+import ru.mipt.bit.platformer.models.storages.GameObjectStorage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static ru.mipt.bit.platformer.util.GameGraphicUtils.*;
 
-public class LibGdxGraphicObjectsRendererService implements RendererService {
+public class LibGdxTreesRendererService implements RendererService {
     private final Batch batch;
     private final List<LibGdxGraphicObject> libGdxGraphicObjects;
     private TiledMapTileLayer currentLayer;
 
-    public LibGdxGraphicObjectsRendererService(List<LibGdxGraphicObject> libGdxGraphicObjects, Batch batch) {
-        this.libGdxGraphicObjects = libGdxGraphicObjects;
+    public LibGdxTreesRendererService(GameObjectStorage storage, Batch batch) {
+        this.libGdxGraphicObjects = createLibGdxTrees(storage.getTrees());
         this.batch = batch;
+    }
+
+    private List<LibGdxGraphicObject> createLibGdxTrees(List<GameObject> trees) {
+        List<LibGdxGraphicObject> libGdxTrees = new ArrayList<>();
+        trees.forEach(gameObject -> libGdxTrees.add(
+                new LibGdxGraphicObject(
+                        new Texture(treeLibGdxTexturePath),
+                        gameObject.getCoordinates()))
+        );
+
+        return libGdxTrees;
     }
 
     @Override

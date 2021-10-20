@@ -7,7 +7,8 @@ import com.badlogic.gdx.maps.MapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import ru.mipt.bit.platformer.models.Player;
-import ru.mipt.bit.platformer.models.objects.LibGdxGraphicObject;
+import ru.mipt.bit.platformer.models.movable.Movable;
+import ru.mipt.bit.platformer.models.storages.GameObjectStorage;
 
 import java.util.List;
 
@@ -19,20 +20,27 @@ public class LibGdxLevelRendererService implements RendererService {
     private final Batch batch;
     private final TiledMap level;
 
-    private final LibGdxGraphicObjectsRendererService objectsRendererService;
+    private final LibGdxTreesRendererService objectsRendererService;
     private final LibGdxPlayerRendererService playerRendererService;
+    private final LibGdxTanksRendererService tanksRendererService;
 
-    public LibGdxLevelRendererService(List<LibGdxGraphicObject> libGdxGraphicObjects, Player player, TiledMap level) {
+    public LibGdxLevelRendererService(GameObjectStorage storage, Player player, TiledMap level) {
         this.batch = new SpriteBatch();
         this.level = level;
         this.levelRenderer = createSingleLayerMapRenderer(level, batch);
 
-        this.objectsRendererService = new LibGdxGraphicObjectsRendererService(libGdxGraphicObjects, batch);
-        this.playerRendererService = new LibGdxPlayerRendererService(player, batch);
+        this.objectsRendererService = new LibGdxTreesRendererService(storage, batch);
+        this.playerRendererService = new LibGdxPlayerRendererService(player, storage, batch);
+        this.tanksRendererService = new LibGdxTanksRendererService(storage, batch);
     }
 
     public void setCurrentLayer(TiledMapTileLayer currentLayer) {
         this.objectsRendererService.setCurrentLayer(currentLayer);
+    }
+
+    public List<? extends Movable> getMovables() {
+        // пока что двигаются только танки
+        return tanksRendererService.getTanks();
     }
 
     @Override
@@ -43,6 +51,7 @@ public class LibGdxLevelRendererService implements RendererService {
 
         objectsRendererService.render();
         playerRendererService.render();
+        tanksRendererService.render();
 
         batch.end();
     }

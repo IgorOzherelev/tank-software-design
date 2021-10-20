@@ -1,7 +1,7 @@
 package ru.mipt.bit.platformer.services.movement;
 
-import ru.mipt.bit.platformer.models.movable.AbstractMovableObject;
+import ru.mipt.bit.platformer.models.movable.Movable;
 
 public interface TileMovementService {
-    void updateMovableGameObjectRectangle(AbstractMovableObject movingGraphicObject);
+    void updateMovableGameObjectRectangle(Movable movingGraphicObject);
 }

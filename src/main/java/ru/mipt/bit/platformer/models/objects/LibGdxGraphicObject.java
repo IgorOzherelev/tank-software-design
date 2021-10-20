@@ -16,8 +16,8 @@ public class LibGdxGraphicObject implements Disposable, Drawable {
 
     protected GameObject gameObject;
 
-    public LibGdxGraphicObject(Texture texture, Point coordinates, float rotation) {
-        this.gameObject = new GameObject(coordinates, rotation);
+    public LibGdxGraphicObject(Texture texture, GameObject gameObject) {
+        this.gameObject = gameObject;
         this.texture = texture;
         this.textureRegion = new TextureRegion(texture);
         this.rectangle = createBoundingRectangle(textureRegion);
@@ -30,8 +30,8 @@ public class LibGdxGraphicObject implements Disposable, Drawable {
         this.rectangle = createBoundingRectangle(textureRegion);
     }
 
-    public LibGdxGraphicObject(Point coordinates, float rotation) {
-        this.gameObject = new GameObject(coordinates, rotation);
+    public LibGdxGraphicObject(GameObject gameObject) {
+        this.gameObject = gameObject;
     }
 
     public Rectangle getRectangle() {

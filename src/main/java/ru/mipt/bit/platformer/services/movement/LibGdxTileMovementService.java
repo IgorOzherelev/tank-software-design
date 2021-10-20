@@ -5,7 +5,8 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Rectangle;
 import ru.mipt.bit.platformer.logic.geometry.Point;
-import ru.mipt.bit.platformer.models.movable.AbstractMovableObject;
+import ru.mipt.bit.platformer.models.movable.AbstractLibGdxMovableObject;
+import ru.mipt.bit.platformer.models.movable.Movable;
 
 import static ru.mipt.bit.platformer.util.GameGraphicUtils.placeRectangleAtTileCenter;
 
@@ -19,7 +20,8 @@ public class LibGdxTileMovementService implements TileMovementService {
     }
 
     @Override
-    public void updateMovableGameObjectRectangle(AbstractMovableObject movingGraphicObject) {
+    public void updateMovableGameObjectRectangle(Movable movingObject) {
+        AbstractLibGdxMovableObject movingGraphicObject = (AbstractLibGdxMovableObject) movingObject;
         Rectangle rectangle = movingGraphicObject.getGraphicObject().getRectangle();
         float progress = movingGraphicObject.getMovementProgress();
 

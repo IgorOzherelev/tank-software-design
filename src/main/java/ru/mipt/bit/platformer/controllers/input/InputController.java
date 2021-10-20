@@ -1,4 +1,4 @@
-package ru.mipt.bit.platformer.controllers;
+package ru.mipt.bit.platformer.controllers.input;
 
 import com.badlogic.gdx.Input;
 import ru.mipt.bit.platformer.models.movable.Direction;

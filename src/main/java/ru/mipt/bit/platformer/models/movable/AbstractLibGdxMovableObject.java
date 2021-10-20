@@ -5,12 +5,13 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.utils.Disposable;
 import ru.mipt.bit.platformer.logic.geometry.Point;
 import ru.mipt.bit.platformer.models.objects.Drawable;
+import ru.mipt.bit.platformer.models.objects.GameObject;
 import ru.mipt.bit.platformer.models.objects.LibGdxGraphicObject;
 
 import static com.badlogic.gdx.math.MathUtils.clamp;
 import static com.badlogic.gdx.math.MathUtils.isEqual;
 
-abstract public class AbstractMovableObject implements Drawable, Disposable, Movable {
+abstract public class AbstractLibGdxMovableObject implements Drawable, Disposable, Movable {
     protected static final float MAX_PROGRESS = 1f;
     protected static final float MIN_PROGRESS = 0f;
 
@@ -19,14 +20,14 @@ abstract public class AbstractMovableObject implements Drawable, Disposable, Mov
     protected LibGdxGraphicObject libGdxGraphicObject;
     protected Point destinationCoordinates;
 
-    public AbstractMovableObject(Texture texture, Point coordinates, float rotation) {
-        this.libGdxGraphicObject = new LibGdxGraphicObject(texture, coordinates, rotation);
-        this.destinationCoordinates = new Point(coordinates);
+    public AbstractLibGdxMovableObject(Texture texture, GameObject gameObject) {
+        this.libGdxGraphicObject = new LibGdxGraphicObject(texture, gameObject);
+        this.destinationCoordinates = new Point(gameObject.getCoordinates());
     }
 
-    public AbstractMovableObject(Point coordinates, float rotation) {
-        this.libGdxGraphicObject = new LibGdxGraphicObject(coordinates, rotation);
-        this.destinationCoordinates = new Point(coordinates);
+    public AbstractLibGdxMovableObject(GameObject gameObject) {
+        this.libGdxGraphicObject = new LibGdxGraphicObject(gameObject);
+        this.destinationCoordinates = new Point(gameObject.getCoordinates());
     }
 
     public LibGdxGraphicObject getGraphicObject() {

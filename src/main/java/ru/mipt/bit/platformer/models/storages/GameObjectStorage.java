@@ -5,19 +5,28 @@ import ru.mipt.bit.platformer.models.objects.GameObject;
 import java.util.List;
 
 public class GameObjectStorage {
-    private List<GameObject> gameObjects;
+    private List<GameObject> trees;
+    private List<GameObject> tanks;
     private GameObject playerGameObject;
 
-    public List<GameObject> getGameObjects() {
-        return gameObjects;
+    public List<GameObject> getTrees() {
+        return trees;
     }
 
     public GameObject getPlayerGameObject() {
         return playerGameObject;
     }
 
-    public void setGameObjects(List<GameObject> gameObjects) {
-        this.gameObjects = gameObjects;
+    public List<GameObject> getTanks() {
+        return tanks;
+    }
+
+    public void setTanks(List<GameObject> tanks) {
+        this.tanks = tanks;
+    }
+
+    public void setTrees(List<GameObject> trees) {
+        this.trees = trees;
     }
 
     public void setPlayerGameObject(GameObject playerGameObject) {
