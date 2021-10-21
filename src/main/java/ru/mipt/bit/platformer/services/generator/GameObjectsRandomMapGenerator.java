@@ -20,12 +20,13 @@ public class GameObjectsRandomMapGenerator extends AbstractGameObjectGenerator {
         this.tanksQuantity = tanksQuantity;
         this.treesQuantity = treesQuantity;
         this.texturePreferences = texturePreferences;
+
+        checkTreesAndTanksQuantity(treesQuantity, tanksQuantity);
         checkTotalObjectsQuantity();
     }
 
     @Override
     public GameObjectStorage generate() {
-        // пока что танк один, поэтому такая реализация для танков
         int width = texturePreferences.getMapWidth();
         int height = texturePreferences.getMapHeight();
 
@@ -43,8 +44,10 @@ public class GameObjectsRandomMapGenerator extends AbstractGameObjectGenerator {
             trees.add(new GameObject(new Point(x[i], y[i]), 0f));
         }
 
-        for (; i < totalObjectsQuantity - 1; i++) {
-            tanks.add(new GameObject(new Point(x[i], y[i]), 0f));
+        if (tanksQuantity > 1) {
+            for (; i < totalObjectsQuantity - 1; i++) {
+                tanks.add(new GameObject(new Point(x[i], y[i]), 0f));
+            }
         }
 
         GameObject playerTank = new GameObject(
@@ -56,6 +59,13 @@ public class GameObjectsRandomMapGenerator extends AbstractGameObjectGenerator {
         storage.setTanks(tanks);
 
         return storage;
+    }
+
+    private void checkTreesAndTanksQuantity(int treesQuantity, int tanksQuantity) {
+        if (tanksQuantity <= 0 || treesQuantity < 0) {
+            throw new IllegalArgumentException("tanksQuantity <=0 or treesQuantity < 0" +
+                    " tanksQuantity: " + tanksQuantity + " treesQuantity: " + treesQuantity);
+        }
     }
 
     private void checkTotalObjectsQuantity() {

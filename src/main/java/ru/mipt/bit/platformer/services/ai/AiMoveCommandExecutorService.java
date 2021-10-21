@@ -3,8 +3,7 @@ package ru.mipt.bit.platformer.services.ai;
 import ru.mipt.bit.platformer.models.ai.AiMoveCommand;
 import ru.mipt.bit.platformer.models.movable.Direction;
 import ru.mipt.bit.platformer.models.movable.Movable;
-import ru.mipt.bit.platformer.models.storages.GameObjectStorage;
-import ru.mipt.bit.platformer.preferences.TexturePreferences;
+import ru.mipt.bit.platformer.services.colliding.CollidingManagerService;
 import ru.mipt.bit.platformer.services.movement.TileMovementService;
 
 import java.util.List;
@@ -13,16 +12,14 @@ public class AiMoveCommandExecutorService implements AiCommandExecutorService {
     private final List<? extends Movable> movables;
     private final TileMovementService tileMovementService;
 
-    private final GameObjectStorage storage;
-    private final TexturePreferences preferences;
+    private final CollidingManagerService collidingManagerService;
     private final float deltaTime;
 
     public AiMoveCommandExecutorService(List<? extends Movable> movables, TileMovementService tileMovementService,
-                                        GameObjectStorage storage, TexturePreferences preferences, float deltaTime) {
+                                        CollidingManagerService collidingManagerService, float deltaTime) {
         this.movables = movables;
         this.tileMovementService = tileMovementService;
-        this.storage = storage;
-        this.preferences = preferences;
+        this.collidingManagerService = collidingManagerService;
         this.deltaTime = deltaTime;
     }
 
@@ -32,7 +29,7 @@ public class AiMoveCommandExecutorService implements AiCommandExecutorService {
         AiMoveCommand moveCommand;
 
         for (Movable movable : movables) {
-            moveCommand = new AiMoveCommand(movable, randomDirection, storage, preferences, deltaTime);
+            moveCommand = new AiMoveCommand(collidingManagerService, movable, randomDirection, deltaTime);
             moveCommand.execute();
             tileMovementService.updateMovableGameObjectRectangle(movable);
         }

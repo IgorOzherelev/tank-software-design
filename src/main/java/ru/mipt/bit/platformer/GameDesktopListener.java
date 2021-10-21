@@ -6,26 +6,30 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Interpolation;
-import ru.mipt.bit.platformer.controllers.ai.AiMovableController;
+import ru.mipt.bit.platformer.controllers.ai.AiMoveController;
 import ru.mipt.bit.platformer.controllers.player.PlayerController;
 import ru.mipt.bit.platformer.models.Player;
+import ru.mipt.bit.platformer.models.colliding.Colliding;
 import ru.mipt.bit.platformer.models.storages.GameObjectStorage;
 import ru.mipt.bit.platformer.preferences.LibGdxGameTexturePreferences;
 import ru.mipt.bit.platformer.preferences.TexturePreferences;
+import ru.mipt.bit.platformer.services.colliding.CollidingManagerService;
 import ru.mipt.bit.platformer.services.generator.GameObjectsRandomMapGenerator;
 import ru.mipt.bit.platformer.services.generator.MapGenerator;
 import ru.mipt.bit.platformer.services.movement.LibGdxTileMovementService;
 import ru.mipt.bit.platformer.services.movement.TileMovementService;
 import ru.mipt.bit.platformer.services.renderers.LibGdxLevelRendererService;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static ru.mipt.bit.platformer.util.LibGdxGameLevelUtils.getSingleLayer;
 
 public class GameDesktopListener implements ApplicationListener {
-    private GameObjectStorage storage;
     private LibGdxLevelRendererService rendererService;
 
     private PlayerController playerController;
-    private AiMovableController aiMovableController;
+    private AiMoveController aiMoveController;
 
     @Override
     public void create() {
@@ -35,26 +39,37 @@ public class GameDesktopListener implements ApplicationListener {
         Player player = new Player("SomeNick");
 
         TexturePreferences texturePreferences = new LibGdxGameTexturePreferences(level);
-        MapGenerator mapGenerator = new GameObjectsRandomMapGenerator(5, 3, texturePreferences);
+        MapGenerator mapGenerator = new GameObjectsRandomMapGenerator(3, 5, texturePreferences);
 
 //        MapGenerator mapGenerator = new GameObjectsFromFileMapGenerator("level.map", texturePreferences);
 
-        storage = mapGenerator.generate();
+        GameObjectStorage storage = mapGenerator.generate();
 
         TileMovementService tileMovementService = new LibGdxTileMovementService(groundLayer, Interpolation.smooth);
 
         rendererService = new LibGdxLevelRendererService(storage, player, level);
         rendererService.setCurrentLayer(groundLayer);
 
-        aiMovableController = new AiMovableController(texturePreferences, tileMovementService);
-        playerController = new PlayerController(player, tileMovementService, texturePreferences);
+        List<? extends Colliding> tanks = rendererService.getMovables();
+        List<? extends Colliding> trees = storage.getTrees();
+
+        List<Colliding> collidingList = new ArrayList<>();
+        collidingList.addAll(tanks);
+        collidingList.addAll(trees);
+        collidingList.add(player.getPlayerObject());
+
+        CollidingManagerService collidingManagerService = new CollidingManagerService(texturePreferences.getMapWidth(), texturePreferences.getMapHeight());
+        collidingManagerService.addCollidings(collidingList);
+
+        aiMoveController = new AiMoveController(collidingManagerService, tileMovementService);
+        playerController = new PlayerController(collidingManagerService, player, tileMovementService);
     }
 
     @Override
     public void render() {
         float deltaTime = Gdx.graphics.getDeltaTime();
-        playerController.handleKeyEvent(Gdx.input, storage, deltaTime);
-        aiMovableController.handleAiMovements(storage, rendererService.getMovables(), deltaTime);
+        playerController.handleKeyEvent(Gdx.input, deltaTime);
+        aiMoveController.handleAiMovements(rendererService.getMovables(), deltaTime);
         rendererService.render();
     }
 

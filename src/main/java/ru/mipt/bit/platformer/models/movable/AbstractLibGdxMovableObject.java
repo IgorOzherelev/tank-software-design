@@ -8,6 +8,8 @@ import ru.mipt.bit.platformer.models.objects.Drawable;
 import ru.mipt.bit.platformer.models.objects.GameObject;
 import ru.mipt.bit.platformer.models.objects.LibGdxGraphicObject;
 
+import java.util.Objects;
+
 import static com.badlogic.gdx.math.MathUtils.clamp;
 import static com.badlogic.gdx.math.MathUtils.isEqual;
 
@@ -57,6 +59,24 @@ abstract public class AbstractLibGdxMovableObject implements Drawable, Disposabl
     abstract public void prepareForMove(Direction direction);
 
     abstract public void move(float deltaTime);
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AbstractLibGdxMovableObject that = (AbstractLibGdxMovableObject) o;
+        return libGdxGraphicObject.equals(that.libGdxGraphicObject) && destinationCoordinates.equals(that.destinationCoordinates);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(libGdxGraphicObject, destinationCoordinates);
+    }
+
+    @Override
+    public boolean isCollisionPossible(Point point) {
+        return point.equals(destinationCoordinates);
+    }
 
     public boolean isStopped() {
         return isEqual(movementProgress, MAX_PROGRESS);

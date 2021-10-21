@@ -1,10 +1,11 @@
 package ru.mipt.bit.platformer.models.objects;
 
 import ru.mipt.bit.platformer.logic.geometry.Point;
+import ru.mipt.bit.platformer.models.colliding.Colliding;
 
 import java.util.Objects;
 
-public class GameObject {
+public class GameObject implements Colliding {
     protected float rotation;
     protected Point coordinates;
 
@@ -45,5 +46,10 @@ public class GameObject {
     @Override
     public int hashCode() {
         return Objects.hash(coordinates);
+    }
+
+    @Override
+    public boolean isCollisionPossible(Point point) {
+        return coordinates.equals(point);
     }
 }
