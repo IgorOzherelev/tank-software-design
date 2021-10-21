@@ -75,7 +75,7 @@ abstract public class AbstractLibGdxMovableObject implements Drawable, Disposabl
 
     @Override
     public boolean isCollisionPossible(Point point) {
-        return point.equals(destinationCoordinates);
+        return point.equals(destinationCoordinates) || point.equals(this.getCurrentCoordinates());
     }
 
     public boolean isStopped() {
