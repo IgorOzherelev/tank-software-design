@@ -1,6 +1,6 @@
 package ru.mipt.bit.platformer.models.movable;
 
-import ru.mipt.bit.platformer.logic.geometry.Point;
+import ru.mipt.bit.platformer.geometry.Point;
 import ru.mipt.bit.platformer.models.colliding.Colliding;
 
 public interface Movable extends Colliding {
@@ -11,4 +11,5 @@ public interface Movable extends Colliding {
     Point getCurrentCoordinates();
     Point getDestinationCoordinates();
     float getMovementProgress();
+    float getRotation();
 }

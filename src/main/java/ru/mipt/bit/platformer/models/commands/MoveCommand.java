@@ -1,6 +1,6 @@
 package ru.mipt.bit.platformer.models.commands;
 
-import ru.mipt.bit.platformer.logic.geometry.Point;
+import ru.mipt.bit.platformer.geometry.Point;
 import ru.mipt.bit.platformer.models.movable.Direction;
 import ru.mipt.bit.platformer.models.movable.Movable;
 import ru.mipt.bit.platformer.services.colliding.CollidingManagerService;

@@ -1,6 +1,6 @@
 package ru.mipt.bit.platformer.models.objects;
 
-import ru.mipt.bit.platformer.logic.geometry.Point;
+import ru.mipt.bit.platformer.geometry.Point;
 import ru.mipt.bit.platformer.models.colliding.Colliding;
 
 import java.util.Objects;

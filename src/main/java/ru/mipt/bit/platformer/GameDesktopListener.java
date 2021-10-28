@@ -6,6 +6,8 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Interpolation;
+import org.awesome.ai.state.GameState;
+import org.awesome.ai.strategy.NotRecommendingAI;
 import ru.mipt.bit.platformer.controllers.bot.BotMoveController;
 import ru.mipt.bit.platformer.controllers.player.PlayerController;
 import ru.mipt.bit.platformer.models.Player;
@@ -13,9 +15,14 @@ import ru.mipt.bit.platformer.models.colliding.Colliding;
 import ru.mipt.bit.platformer.models.storages.GameObjectStorage;
 import ru.mipt.bit.platformer.preferences.LibGdxGameTexturePreferences;
 import ru.mipt.bit.platformer.preferences.TexturePreferences;
-import ru.mipt.bit.platformer.services.ai.CustomAI;
-import ru.mipt.bit.platformer.services.ai.CustomRandomAI;
+import ru.mipt.bit.platformer.services.ai.AwesomeAiServiceAdapter;
+import ru.mipt.bit.platformer.services.ai.CustomAiService;
+import ru.mipt.bit.platformer.services.ai.CustomRandomAiService;
 import ru.mipt.bit.platformer.services.colliding.CollidingManagerService;
+import ru.mipt.bit.platformer.services.commands.BotCommandExecutorService;
+import ru.mipt.bit.platformer.services.commands.CommandExecutorService;
+import ru.mipt.bit.platformer.services.gamestate.AiGameStateService;
+import ru.mipt.bit.platformer.services.gamestate.AwesomeAiGameStateService;
 import ru.mipt.bit.platformer.services.generator.GameObjectsFromFileMapGenerator;
 import ru.mipt.bit.platformer.services.generator.MapGenerator;
 import ru.mipt.bit.platformer.services.movement.LibGdxTileMovementService;
@@ -29,18 +36,21 @@ import static ru.mipt.bit.platformer.util.LibGdxGameLevelUtils.getSingleLayer;
 
 public class GameDesktopListener implements ApplicationListener {
     private LibGdxLevelRendererService rendererService;
+    private CustomAiService customAiService;
 
     private PlayerController playerController;
     private BotMoveController botMoveController;
+    private CollidingManagerService collidingManagerService;
+    private TexturePreferences texturePreferences;
+
+    private final Player player = new Player("SomeNick");
 
     @Override
     public void create() {
         TiledMap level = new TmxMapLoader().load("level.tmx");
         TiledMapTileLayer groundLayer = getSingleLayer(level);
 
-        Player player = new Player("SomeNick");
-
-        TexturePreferences texturePreferences = new LibGdxGameTexturePreferences(level);
+        texturePreferences = new LibGdxGameTexturePreferences(level);
         //MapGenerator mapGenerator = new GameObjectsRandomMapGenerator(10, 1, texturePreferences);
 
         MapGenerator mapGenerator = new GameObjectsFromFileMapGenerator("level.map", texturePreferences);
@@ -52,6 +62,13 @@ public class GameDesktopListener implements ApplicationListener {
         rendererService = new LibGdxLevelRendererService(storage, player, level);
         rendererService.setCurrentLayer(groundLayer);
 
+        //        customAiService = new CustomRandomAiService(rendererService.getMovables(), collidingManagerService);
+
+        initCollidingManagerService(storage);
+        initMovableObjectControllers(storage, tileMovementService);
+    }
+
+    private void initCollidingManagerService(GameObjectStorage storage) {
         List<? extends Colliding> tanks = rendererService.getMovables();
         List<? extends Colliding> trees = storage.getTrees();
 
@@ -60,20 +77,37 @@ public class GameDesktopListener implements ApplicationListener {
         collidingList.addAll(trees);
         collidingList.add(player.getPlayerObject());
 
-        CollidingManagerService collidingManagerService = new CollidingManagerService(texturePreferences.getMapWidth(), texturePreferences.getMapHeight());
+        collidingManagerService = new CollidingManagerService(
+                texturePreferences.getMapWidth(),
+                texturePreferences.getMapHeight()
+        );
         collidingManagerService.addCollidings(collidingList);
+    }
 
-        CustomAI customAI = new CustomRandomAI(rendererService.getMovables(), collidingManagerService);
+    private void initMovableObjectControllers(GameObjectStorage storage,
+                                              TileMovementService tileMovementService) {
+        AiGameStateService<GameState> aiGameStateService = new AwesomeAiGameStateService(
+                texturePreferences,
+                rendererService.getMovables(),
+                storage.getTrees(),
+                player.getPlayerObject()
+        );
+        aiGameStateService.init();
 
-        botMoveController = new BotMoveController(tileMovementService, customAI);
+        customAiService = new AwesomeAiServiceAdapter(aiGameStateService, collidingManagerService, new NotRecommendingAI());
+
+        CommandExecutorService commandExecutorService = new BotCommandExecutorService(customAiService);
+
+        botMoveController = new BotMoveController(tileMovementService, commandExecutorService);
         playerController = new PlayerController(collidingManagerService, player, tileMovementService);
     }
 
     @Override
     public void render() {
         float deltaTime = Gdx.graphics.getDeltaTime();
-        playerController.handleKeyEvent(Gdx.input, deltaTime);
-        botMoveController.handleAiMovements(rendererService.getMovables(), deltaTime);
+        playerController.handleKeyEvent(deltaTime);
+        customAiService.setDeltaTime(deltaTime);
+        botMoveController.handleAiMovements(rendererService.getMovables());
         rendererService.render();
     }
 

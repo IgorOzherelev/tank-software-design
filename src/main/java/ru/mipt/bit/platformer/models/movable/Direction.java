@@ -1,6 +1,6 @@
 package ru.mipt.bit.platformer.models.movable;
 
-import ru.mipt.bit.platformer.logic.geometry.Point;
+import ru.mipt.bit.platformer.geometry.Point;
 
 public enum Direction {
     UP(new Point(0, 1), 90f), //w

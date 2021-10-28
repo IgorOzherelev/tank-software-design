@@ -3,7 +3,7 @@ package ru.mipt.bit.platformer.services.generator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import ru.mipt.bit.platformer.logic.geometry.Point;
+import ru.mipt.bit.platformer.geometry.Point;
 import ru.mipt.bit.platformer.models.objects.GameObject;
 import ru.mipt.bit.platformer.models.storages.GameObjectStorage;
 import ru.mipt.bit.platformer.preferences.TexturePreferences;

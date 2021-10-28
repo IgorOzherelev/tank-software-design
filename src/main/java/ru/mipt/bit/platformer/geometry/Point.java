@@ -1,4 +1,4 @@
-package ru.mipt.bit.platformer.logic.geometry;
+package ru.mipt.bit.platformer.geometry;
 
 import java.util.Objects;
 

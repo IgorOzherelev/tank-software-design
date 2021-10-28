@@ -3,7 +3,7 @@ package ru.mipt.bit.platformer.models.movable;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.utils.Disposable;
-import ru.mipt.bit.platformer.logic.geometry.Point;
+import ru.mipt.bit.platformer.geometry.Point;
 import ru.mipt.bit.platformer.models.objects.Drawable;
 import ru.mipt.bit.platformer.models.objects.GameObject;
 import ru.mipt.bit.platformer.models.objects.LibGdxGraphicObject;
@@ -36,28 +36,35 @@ abstract public class AbstractLibGdxMovableObject implements Drawable, Disposabl
         return this.libGdxGraphicObject;
     }
 
+    @Override
     public Point getCurrentCoordinates() {
         return this.libGdxGraphicObject.getGameObject().getCoordinates();
     }
 
+    @Override
     public Point getDestinationCoordinates() {
         return destinationCoordinates;
     }
 
+    @Override
     public float getMovementProgress() {
         return movementProgress;
     }
 
+    @Override
     public float getRotation() {
         return this.libGdxGraphicObject.getGameObject().getRotation();
     }
 
+    @Override
     public float continueProgress(float previousProgress, float deltaTime, float speed) {
         return clamp(previousProgress + deltaTime / speed, 0f, 1f);
     }
 
+    @Override
     abstract public void prepareForMove(Direction direction);
 
+    @Override
     abstract public void move(float deltaTime);
 
     @Override
@@ -78,6 +85,7 @@ abstract public class AbstractLibGdxMovableObject implements Drawable, Disposabl
         return point.equals(destinationCoordinates) || point.equals(this.getCurrentCoordinates());
     }
 
+    @Override
     public boolean isStopped() {
         return isEqual(movementProgress, MAX_PROGRESS);
     }

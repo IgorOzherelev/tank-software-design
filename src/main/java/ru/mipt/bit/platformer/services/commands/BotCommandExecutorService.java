@@ -1,17 +1,17 @@
 package ru.mipt.bit.platformer.services.commands;
 
 import ru.mipt.bit.platformer.models.commands.Command;
-import ru.mipt.bit.platformer.services.ai.CustomAI;
+import ru.mipt.bit.platformer.services.ai.CustomAiService;
 
 public class BotCommandExecutorService implements CommandExecutorService {
-    private final CustomAI customAI;
+    private final CustomAiService customAIService;
 
-    public BotCommandExecutorService(CustomAI customAI) {
-        this.customAI = customAI;
+    public BotCommandExecutorService(CustomAiService customAIService) {
+        this.customAIService = customAIService;
     }
 
     @Override
     public void execute() {
-        customAI.recommend().forEach(Command::execute);
+        customAIService.recommend().forEach(Command::execute);
     }
 }

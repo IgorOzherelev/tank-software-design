@@ -10,15 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class CustomRandomAI implements CustomAI {
+public class CustomRandomAiService implements CustomAiService {
     private final Random random = new Random();
 
     private final List<? extends Movable> movables;
     private final CollidingManagerService collidingManagerService;
     private float deltaTime;
 
-    public CustomRandomAI(List<? extends Movable> movables,
-                          CollidingManagerService collidingManagerService) {
+    public CustomRandomAiService(List<? extends Movable> movables,
+                                 CollidingManagerService collidingManagerService) {
         this.movables = movables;
         this.collidingManagerService = collidingManagerService;
     }

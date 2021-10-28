@@ -1,7 +1,7 @@
 package ru.mipt.bit.platformer.models.movable;
 
 import com.badlogic.gdx.graphics.Texture;
-import ru.mipt.bit.platformer.logic.geometry.Point;
+import ru.mipt.bit.platformer.geometry.Point;
 import ru.mipt.bit.platformer.models.objects.GameObject;
 
 

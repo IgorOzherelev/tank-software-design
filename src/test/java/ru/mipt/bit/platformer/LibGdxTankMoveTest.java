@@ -2,7 +2,7 @@ package ru.mipt.bit.platformer;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import ru.mipt.bit.platformer.logic.geometry.Point;
+import ru.mipt.bit.platformer.geometry.Point;
 import ru.mipt.bit.platformer.models.movable.Direction;
 import ru.mipt.bit.platformer.models.movable.LibGdxTank;
 import ru.mipt.bit.platformer.models.objects.GameObject;

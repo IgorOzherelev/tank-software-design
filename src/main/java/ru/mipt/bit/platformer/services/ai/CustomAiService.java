@@ -4,7 +4,7 @@ import ru.mipt.bit.platformer.models.commands.Command;
 
 import java.util.List;
 
-public interface CustomAI {
+public interface CustomAiService {
     List<? extends Command> recommend();
     void setDeltaTime(float deltaTime);
 }

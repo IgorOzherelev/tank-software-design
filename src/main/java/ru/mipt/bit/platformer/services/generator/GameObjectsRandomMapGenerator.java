@@ -1,6 +1,6 @@
 package ru.mipt.bit.platformer.services.generator;
 
-import ru.mipt.bit.platformer.logic.geometry.Point;
+import ru.mipt.bit.platformer.geometry.Point;
 import ru.mipt.bit.platformer.models.objects.GameObject;
 import ru.mipt.bit.platformer.models.storages.GameObjectStorage;
 import ru.mipt.bit.platformer.preferences.TexturePreferences;
