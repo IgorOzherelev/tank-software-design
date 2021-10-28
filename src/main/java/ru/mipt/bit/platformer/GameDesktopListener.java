@@ -8,7 +8,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Interpolation;
 import org.awesome.ai.state.GameState;
 import org.awesome.ai.strategy.NotRecommendingAI;
-import ru.mipt.bit.platformer.controllers.bot.BotMoveController;
+import ru.mipt.bit.platformer.controllers.bot.BotsController;
 import ru.mipt.bit.platformer.controllers.player.PlayerController;
 import ru.mipt.bit.platformer.models.Player;
 import ru.mipt.bit.platformer.models.colliding.Colliding;
@@ -17,9 +17,8 @@ import ru.mipt.bit.platformer.preferences.LibGdxGameTexturePreferences;
 import ru.mipt.bit.platformer.preferences.TexturePreferences;
 import ru.mipt.bit.platformer.services.ai.AwesomeAiServiceAdapter;
 import ru.mipt.bit.platformer.services.ai.CustomAiService;
-import ru.mipt.bit.platformer.services.ai.CustomRandomAiService;
 import ru.mipt.bit.platformer.services.colliding.CollidingManagerService;
-import ru.mipt.bit.platformer.services.commands.BotCommandExecutorService;
+import ru.mipt.bit.platformer.services.commands.BotsCommandExecutorService;
 import ru.mipt.bit.platformer.services.commands.CommandExecutorService;
 import ru.mipt.bit.platformer.services.gamestate.AiGameStateService;
 import ru.mipt.bit.platformer.services.gamestate.AwesomeAiGameStateService;
@@ -39,7 +38,7 @@ public class GameDesktopListener implements ApplicationListener {
     private CustomAiService customAiService;
 
     private PlayerController playerController;
-    private BotMoveController botMoveController;
+    private BotsController botsController;
     private CollidingManagerService collidingManagerService;
     private TexturePreferences texturePreferences;
 
@@ -96,9 +95,9 @@ public class GameDesktopListener implements ApplicationListener {
 
         customAiService = new AwesomeAiServiceAdapter(aiGameStateService, collidingManagerService, new NotRecommendingAI());
 
-        CommandExecutorService commandExecutorService = new BotCommandExecutorService(customAiService);
+        CommandExecutorService commandExecutorService = new BotsCommandExecutorService(customAiService);
 
-        botMoveController = new BotMoveController(tileMovementService, commandExecutorService);
+        botsController = new BotsController(tileMovementService, commandExecutorService);
         playerController = new PlayerController(collidingManagerService, player, tileMovementService);
     }
 
@@ -107,7 +106,7 @@ public class GameDesktopListener implements ApplicationListener {
         float deltaTime = Gdx.graphics.getDeltaTime();
         playerController.handleKeyEvent(deltaTime);
         customAiService.setDeltaTime(deltaTime);
-        botMoveController.handleAiMovements(rendererService.getMovables());
+        botsController.handleAiMovements(rendererService.getMovables());
         rendererService.render();
     }
 

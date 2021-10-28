@@ -6,11 +6,11 @@ import ru.mipt.bit.platformer.services.movement.TileMovementService;
 
 import java.util.List;
 
-public class BotMoveController {
+public class BotsController {
     private final TileMovementService tileMovementService;
     private final CommandExecutorService commandExecutorService;
 
-    public BotMoveController(TileMovementService tileMovementService, CommandExecutorService commandExecutorService) {
+    public BotsController(TileMovementService tileMovementService, CommandExecutorService commandExecutorService) {
         this.tileMovementService = tileMovementService;
         this.commandExecutorService = commandExecutorService;
     }
