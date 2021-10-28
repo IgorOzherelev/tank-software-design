@@ -13,9 +13,10 @@ import ru.mipt.bit.platformer.models.colliding.Colliding;
 import ru.mipt.bit.platformer.models.storages.GameObjectStorage;
 import ru.mipt.bit.platformer.preferences.LibGdxGameTexturePreferences;
 import ru.mipt.bit.platformer.preferences.TexturePreferences;
+import ru.mipt.bit.platformer.services.ai.CustomAI;
+import ru.mipt.bit.platformer.services.ai.CustomRandomAI;
 import ru.mipt.bit.platformer.services.colliding.CollidingManagerService;
 import ru.mipt.bit.platformer.services.generator.GameObjectsFromFileMapGenerator;
-import ru.mipt.bit.platformer.services.generator.GameObjectsRandomMapGenerator;
 import ru.mipt.bit.platformer.services.generator.MapGenerator;
 import ru.mipt.bit.platformer.services.movement.LibGdxTileMovementService;
 import ru.mipt.bit.platformer.services.movement.TileMovementService;
@@ -62,7 +63,9 @@ public class GameDesktopListener implements ApplicationListener {
         CollidingManagerService collidingManagerService = new CollidingManagerService(texturePreferences.getMapWidth(), texturePreferences.getMapHeight());
         collidingManagerService.addCollidings(collidingList);
 
-        botMoveController = new BotMoveController(collidingManagerService, tileMovementService);
+        CustomAI customAI = new CustomRandomAI(rendererService.getMovables(), collidingManagerService);
+
+        botMoveController = new BotMoveController(tileMovementService, customAI);
         playerController = new PlayerController(collidingManagerService, player, tileMovementService);
     }
 
