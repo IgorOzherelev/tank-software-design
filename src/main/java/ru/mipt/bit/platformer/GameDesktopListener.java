@@ -6,7 +6,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Interpolation;
-import ru.mipt.bit.platformer.controllers.ai.AiMoveController;
+import ru.mipt.bit.platformer.controllers.bot.BotMoveController;
 import ru.mipt.bit.platformer.controllers.player.PlayerController;
 import ru.mipt.bit.platformer.models.Player;
 import ru.mipt.bit.platformer.models.colliding.Colliding;
@@ -14,6 +14,7 @@ import ru.mipt.bit.platformer.models.storages.GameObjectStorage;
 import ru.mipt.bit.platformer.preferences.LibGdxGameTexturePreferences;
 import ru.mipt.bit.platformer.preferences.TexturePreferences;
 import ru.mipt.bit.platformer.services.colliding.CollidingManagerService;
+import ru.mipt.bit.platformer.services.generator.GameObjectsFromFileMapGenerator;
 import ru.mipt.bit.platformer.services.generator.GameObjectsRandomMapGenerator;
 import ru.mipt.bit.platformer.services.generator.MapGenerator;
 import ru.mipt.bit.platformer.services.movement.LibGdxTileMovementService;
@@ -29,7 +30,7 @@ public class GameDesktopListener implements ApplicationListener {
     private LibGdxLevelRendererService rendererService;
 
     private PlayerController playerController;
-    private AiMoveController aiMoveController;
+    private BotMoveController botMoveController;
 
     @Override
     public void create() {
@@ -39,9 +40,9 @@ public class GameDesktopListener implements ApplicationListener {
         Player player = new Player("SomeNick");
 
         TexturePreferences texturePreferences = new LibGdxGameTexturePreferences(level);
-        MapGenerator mapGenerator = new GameObjectsRandomMapGenerator(3, 5, texturePreferences);
+        //MapGenerator mapGenerator = new GameObjectsRandomMapGenerator(10, 1, texturePreferences);
 
-//        MapGenerator mapGenerator = new GameObjectsFromFileMapGenerator("level.map", texturePreferences);
+        MapGenerator mapGenerator = new GameObjectsFromFileMapGenerator("level.map", texturePreferences);
 
         GameObjectStorage storage = mapGenerator.generate();
 
@@ -61,7 +62,7 @@ public class GameDesktopListener implements ApplicationListener {
         CollidingManagerService collidingManagerService = new CollidingManagerService(texturePreferences.getMapWidth(), texturePreferences.getMapHeight());
         collidingManagerService.addCollidings(collidingList);
 
-        aiMoveController = new AiMoveController(collidingManagerService, tileMovementService);
+        botMoveController = new BotMoveController(collidingManagerService, tileMovementService);
         playerController = new PlayerController(collidingManagerService, player, tileMovementService);
     }
 
@@ -69,7 +70,7 @@ public class GameDesktopListener implements ApplicationListener {
     public void render() {
         float deltaTime = Gdx.graphics.getDeltaTime();
         playerController.handleKeyEvent(Gdx.input, deltaTime);
-        aiMoveController.handleAiMovements(rendererService.getMovables(), deltaTime);
+        botMoveController.handleAiMovements(rendererService.getMovables(), deltaTime);
         rendererService.render();
     }
 

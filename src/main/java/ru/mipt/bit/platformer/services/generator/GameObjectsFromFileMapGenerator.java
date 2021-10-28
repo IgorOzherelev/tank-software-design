@@ -14,7 +14,7 @@ import static ru.mipt.bit.platformer.util.CommonUtils.checkStringLength;
 public class GameObjectsFromFileMapGenerator extends AbstractGameObjectGenerator {
     private final static char TREE_TOKEN = 'T';
     private final static char FREE_TOKEN = '_';
-    private final static char PLAYER_TOKEN = 'X';
+    private final static char TANK_TOKEN = 'X';
 
     private final String filePath;
     private final TexturePreferences texturePreferences;
@@ -39,6 +39,7 @@ public class GameObjectsFromFileMapGenerator extends AbstractGameObjectGenerator
         String line;
         GameObject tree;
         GameObject tank;
+        List<GameObject> botTanks = new ArrayList<>();
         for (int i = 0; i < map.size(); i++) {
             line = map.get(i);
             checkStringLength(line, width);
@@ -49,14 +50,18 @@ public class GameObjectsFromFileMapGenerator extends AbstractGameObjectGenerator
                         tree = new GameObject(new Point(i, j), 0f);
                         trees.add(tree);
                         break;
-                    case PLAYER_TOKEN:
-                        if (storage.getPlayerGameObject() != null) {
-                            throw new IllegalArgumentException("Wrong map format, two player tanks:\n" + map);
+                    case TANK_TOKEN:
+                        if (storage.getPlayerGameObject() == null) {
+                            tank = new GameObject(
+                                    new Point(i, j), 0f
+                            );
+                            storage.setPlayerGameObject(tank);
+                        } else {
+                            botTanks.add(new GameObject(
+                                    new Point(i, j), 0f
+                            ));
                         }
-                        tank = new GameObject(
-                                new Point(i, j), 0f
-                        );
-                        storage.setPlayerGameObject(tank);
+
                         break;
                     case FREE_TOKEN:
                         break;
@@ -67,6 +72,7 @@ public class GameObjectsFromFileMapGenerator extends AbstractGameObjectGenerator
         }
 
         storage.setTrees(trees);
+        storage.setTanks(botTanks);
 
         return storage;
     }

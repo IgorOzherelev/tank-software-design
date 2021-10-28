@@ -1,19 +1,19 @@
-package ru.mipt.bit.platformer.models.ai;
+package ru.mipt.bit.platformer.models.commands;
 
 import ru.mipt.bit.platformer.logic.geometry.Point;
 import ru.mipt.bit.platformer.models.movable.Direction;
 import ru.mipt.bit.platformer.models.movable.Movable;
 import ru.mipt.bit.platformer.services.colliding.CollidingManagerService;
 
-public class AiMoveCommand implements AiCommand {
+public class MoveCommand implements Command {
     private final Movable movable;
     private final Direction direction;
 
     private final float deltaTime;
     private final CollidingManagerService collidingManagerService;
 
-    public AiMoveCommand(CollidingManagerService collidingManagerService, Movable movable, Direction direction,
-                         float deltaTime) {
+    public MoveCommand(CollidingManagerService collidingManagerService, Movable movable, Direction direction,
+                       float deltaTime) {
         this.collidingManagerService = collidingManagerService;
         this.movable = movable;
         this.direction = direction;
