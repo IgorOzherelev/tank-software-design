@@ -1,33 +1,33 @@
 package ru.mipt.bit.platformer.models;
 
-import ru.mipt.bit.platformer.models.movable.Movable;
+import ru.mipt.bit.platformer.models.logic.LogicTank;
 
 public class Player {
     private String nick;
-    private Movable playerObject;
+    private LogicTank playerTank;
 
     public Player(String nick) {
         this.nick = nick;
     }
 
-    public Player(String nick, Movable playerObject) {
+    public Player(String nick, LogicTank playerTank) {
         this.nick = nick;
-        this.playerObject = playerObject;
+        this.playerTank = playerTank;
     }
 
     public String getNick() {
         return nick;
     }
 
-    public Movable getPlayerObject() {
-        return playerObject;
+    public LogicTank getPlayerTank() {
+        return playerTank;
     }
 
     public void setNick(String nick) {
         this.nick = nick;
     }
 
-    public void setPlayerObject(Movable playerObject) {
-        this.playerObject = playerObject;
+    public void setPlayerTank(LogicTank playerTank) {
+        this.playerTank = playerTank;
     }
 }
