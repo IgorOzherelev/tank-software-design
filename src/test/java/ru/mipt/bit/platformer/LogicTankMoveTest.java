@@ -27,7 +27,7 @@ public class LogicTankMoveTest {
         logicTank.tick(1);
         Assertions.assertEquals(logicTank.getDestinationCoordinates(), new Point(4, 5));
         Assertions.assertEquals(logicTank.getMovementProgress(), 1f);
-        Assertions.assertEquals(logicTank.getRotation(), Direction.RIGHT.getOrientation());
+        Assertions.assertEquals(logicTank.getRotation(), Direction.RIGHT.getRotation());
     }
 
     @Test
@@ -36,7 +36,7 @@ public class LogicTankMoveTest {
         logicTank.tick(1);
         Assertions.assertEquals(logicTank.getDestinationCoordinates(), new Point(2, 5));
         Assertions.assertEquals(logicTank.getMovementProgress(), 1f);
-        Assertions.assertEquals(logicTank.getRotation(), Direction.LEFT.getOrientation());
+        Assertions.assertEquals(logicTank.getRotation(), Direction.LEFT.getRotation());
     }
 
     @Test
@@ -45,7 +45,7 @@ public class LogicTankMoveTest {
         logicTank.tick(1);
         Assertions.assertEquals(logicTank.getDestinationCoordinates(), new Point(3, 6));
         Assertions.assertEquals(logicTank.getMovementProgress(), 1f);
-        Assertions.assertEquals(logicTank.getRotation(), Direction.UP.getOrientation());
+        Assertions.assertEquals(logicTank.getRotation(), Direction.UP.getRotation());
     }
 
     @Test
@@ -54,6 +54,6 @@ public class LogicTankMoveTest {
         logicTank.tick(1);
         Assertions.assertEquals(logicTank.getDestinationCoordinates(), new Point(3, 4));
         Assertions.assertEquals(logicTank.getMovementProgress(), 1f);
-        Assertions.assertEquals(logicTank.getRotation(), Direction.DOWN.getOrientation());
+        Assertions.assertEquals(logicTank.getRotation(), Direction.DOWN.getRotation());
     }
 }

@@ -5,18 +5,19 @@ import ru.mipt.bit.platformer.geometry.Point;
 import ru.mipt.bit.platformer.geometry.Direction;
 import ru.mipt.bit.platformer.managers.CollidingManager;
 import ru.mipt.bit.platformer.models.Movable;
+import ru.mipt.bit.platformer.models.Shooting;
 
 import java.util.Objects;
 
 import static com.badlogic.gdx.math.MathUtils.isEqual;
 
-public class LogicTank implements Movable {
+public class LogicTank implements Movable, Shooting {
     private static final float MOVEMENT_SPEED = 0.4f;
 
     private Point currentCoordinates;
     private Point destinationCoordinates;
 
-    private Rotation rotation = Rotation.E;
+    private Direction direction = Direction.RIGHT;
     private float movementProgress = MAX_PROGRESS;
 
     public LogicTank(Point currentCoordinates) {
@@ -33,7 +34,7 @@ public class LogicTank implements Movable {
     }
 
     public Rotation getRotation() {
-        return rotation;
+        return direction.getRotation();
     }
 
     public float getMovementProgress() {
@@ -62,11 +63,14 @@ public class LogicTank implements Movable {
         if (isStopped()) {
             if (collidingManager.isMoveSafe(direction, this)) {
                 this.destinationCoordinates = new Point(this.currentCoordinates).add(direction.getShift());
-                this.rotation = direction.getOrientation();
+                this.direction = direction;
                 this.movementProgress = MIN_PROGRESS;
             }
         }
     }
+
+    @Override
+    public void move(CollidingManager collidingManager) {}
 
     @Override
     public boolean equals(Object o) {
@@ -87,8 +91,15 @@ public class LogicTank implements Movable {
         return "LogicTank{" +
                 "currentCoordinates=" + currentCoordinates +
                 ", destinationCoordinates=" + destinationCoordinates +
-                ", rotation=" + rotation +
+                ", direction=" + direction +
                 ", movementProgress=" + movementProgress +
                 '}';
+    }
+
+    @Override
+    public void shoot(CollidingManager collidingManager) {
+        LogicBullet logicBullet = new LogicBullet(new Point(currentCoordinates).add(direction.getShift()), direction);
+        //collidingManager.subscribe();
+        logicBullet.move(collidingManager);
     }
 }

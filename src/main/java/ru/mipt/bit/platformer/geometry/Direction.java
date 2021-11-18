@@ -18,7 +18,7 @@ public enum Direction {
         return shift;
     }
 
-    public Rotation getOrientation() {
+    public Rotation getRotation() {
         return rotation;
     }
 }
