@@ -61,16 +61,13 @@ public class LogicTank implements Movable, Shooting {
     @Override
     public void move(Direction direction, Level level) {
         if (isStopped()) {
-            if (level.isMoveSafe(direction, this)) {
+            if (level.isSafeDirection(direction, this)) {
                 this.destinationCoordinates = new Point(this.currentCoordinates).add(direction.getShift());
                 this.direction = direction;
                 this.movementProgress = MIN_PROGRESS;
             }
         }
     }
-
-    @Override
-    public void move(Level level) {}
 
     @Override
     public boolean equals(Object o) {
@@ -98,8 +95,10 @@ public class LogicTank implements Movable, Shooting {
 
     @Override
     public void shoot(Level level) {
-        LogicBullet logicBullet = new LogicBullet(new Point(currentCoordinates).add(direction.getShift()), direction);
-        //collidingManager.subscribe();
-        logicBullet.move(level);
+        if (level.isSafeDirection(direction, this)) {
+            LogicBullet logicBullet = new LogicBullet(new Point(currentCoordinates).add(direction.getShift()), direction);
+            //level.subscribe(logicBullet);
+            logicBullet.move(direction, level);
+        }
     }
 }

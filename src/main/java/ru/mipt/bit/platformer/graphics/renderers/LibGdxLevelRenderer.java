@@ -1,33 +1,52 @@
 package ru.mipt.bit.platformer.graphics.renderers;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import ru.mipt.bit.platformer.event.EventGameType;
+import ru.mipt.bit.platformer.graphics.objects.Drawable;
+import ru.mipt.bit.platformer.graphics.objects.LibGdxGraphicBullet;
+import ru.mipt.bit.platformer.graphics.objects.LibGdxGraphicObstacle;
+import ru.mipt.bit.platformer.graphics.objects.LibGdxGraphicTank;
 import ru.mipt.bit.platformer.level.Level;
+import ru.mipt.bit.platformer.models.Colliding;
+import ru.mipt.bit.platformer.models.logic.LogicBullet;
+import ru.mipt.bit.platformer.models.logic.LogicObstacle;
+import ru.mipt.bit.platformer.models.logic.LogicTank;
 import ru.mipt.bit.platformer.movement.TileMovement;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 import static ru.mipt.bit.platformer.utils.LibGdxGameUtils.createSingleLayerMapRenderer;
+import static ru.mipt.bit.platformer.utils.LibGdxGraphicUtils.convertPointToGridPoint;
+import static ru.mipt.bit.platformer.utils.LibGdxGraphicUtils.placeRectangleAtTileCenter;
 
 public class LibGdxLevelRenderer implements Renderer {
     private final MapRenderer levelRenderer;
     private final Batch batch;
     private final TiledMap tiledMap;
+    private final TileMovement tileMovement;
 
-    private final LibGdxObstacleRenderer obstacleRendererService;
-    private final LibGdxPlayerRenderer playerRendererService;
-    private final LibGdxTanksRenderer tanksRendererService;
+    private final List<LibGdxGraphicTank> libGdxGraphicTanks;
+    private final List<LibGdxGraphicObstacle> libGdxGraphicObstacles;
+
+    private final Map<Colliding, Drawable> collidingToDrawableMap = new HashMap<>();
 
     public LibGdxLevelRenderer(Level level, TiledMap tiledMap, TileMovement tileMovement) {
         this.batch = new SpriteBatch();
         this.tiledMap = tiledMap;
         this.levelRenderer = createSingleLayerMapRenderer(tiledMap, batch);
+        this.tileMovement = tileMovement;
 
-        this.obstacleRendererService = new LibGdxObstacleRenderer(level, batch, tileMovement.getTileLayer());
-        this.playerRendererService = new LibGdxPlayerRenderer(level, batch, tileMovement);
-        this.tanksRendererService = new LibGdxTanksRenderer(level, batch, tileMovement);
+        this.libGdxGraphicTanks = createLibGdxGraphicTanks(level.getAllLogicTanks());
+        this.libGdxGraphicObstacles = createLibGdxGraphicTrees(level.getLogicObstacles());
     }
 
     @Override
@@ -36,9 +55,22 @@ public class LibGdxLevelRenderer implements Renderer {
         levelRenderer.render();
         batch.begin();
 
-        obstacleRendererService.render();
-        playerRendererService.render();
-        tanksRendererService.render();
+        libGdxGraphicObstacles.forEach(graphicObstacle ->
+                placeRectangleAtTileCenter(
+                        tileMovement.getTileLayer(),
+                        graphicObstacle.getRectangle(),
+                        convertPointToGridPoint(graphicObstacle
+                                .getLogicObstacle()
+                                .getCurrentCoordinates())
+                )
+        );
+
+        libGdxGraphicObstacles.forEach(graphicObject -> graphicObject.drawTexture(batch));
+
+        libGdxGraphicTanks.forEach(libGdxGraphicTank -> {
+            libGdxGraphicTank.drawTexture(batch);
+            libGdxGraphicTank.drawMovement(tileMovement);
+        });
 
         batch.end();
     }
@@ -48,14 +80,52 @@ public class LibGdxLevelRenderer implements Renderer {
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
     }
 
+    private List<LibGdxGraphicTank> createLibGdxGraphicTanks(List<LogicTank> logicTanks) {
+        List<LibGdxGraphicTank> libGdxTanks = new ArrayList<>();
+
+        logicTanks.forEach(logicTank -> libGdxTanks.add(
+                new LibGdxGraphicTank(new Texture(tankTexturePath), logicTank))
+        );
+
+        return libGdxTanks;
+    }
+
+    private List<LibGdxGraphicObstacle> createLibGdxGraphicTrees(List<LogicObstacle> trees) {
+        List<LibGdxGraphicObstacle> libGdxTrees = new ArrayList<>();
+        trees.forEach(logicObstacle -> libGdxTrees.add(
+                        new LibGdxGraphicObstacle(
+                                new Texture(treeTexturePath),
+                                logicObstacle.getCurrentCoordinates())
+                )
+        );
+
+        return libGdxTrees;
+    }
+
     /**
      * Releases all resources of this object.
      */
     @Override
     public void dispose() {
         tiledMap.dispose();
-        obstacleRendererService.dispose();
-        playerRendererService.dispose();
+
+        libGdxGraphicObstacles.forEach(LibGdxGraphicObstacle::dispose);
+        libGdxGraphicTanks.forEach(LibGdxGraphicTank::dispose);
+
         batch.dispose();
+    }
+
+    @Override
+    public void update(EventGameType eventGameType, Colliding colliding) {
+        switch (eventGameType) {
+            case ADD_BULLET:
+                collidingToDrawableMap.put(
+                        colliding,
+                        new LibGdxGraphicBullet(new Texture(bulletTexturePath), (LogicBullet) colliding)
+                );
+                break;
+            case REMOVE:
+                collidingToDrawableMap.remove(colliding);
+        }
     }
 }

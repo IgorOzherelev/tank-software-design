@@ -4,14 +4,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.utils.Disposable;
 import ru.mipt.bit.platformer.models.logic.LogicTank;
 import ru.mipt.bit.platformer.movement.TileMovement;
 
 import static ru.mipt.bit.platformer.utils.LibGdxGraphicUtils.createBoundingRectangle;
 import static ru.mipt.bit.platformer.utils.LibGdxGraphicUtils.drawRegionUnscaled;
 
-public class LibGdxGraphicTank implements Disposable, Drawable {
+public class LibGdxGraphicTank implements Drawable {
     private final Texture texture;
     private final TextureRegion textureRegion;
     private final Rectangle rectangle;

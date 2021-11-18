@@ -2,6 +2,7 @@ package ru.mipt.bit.platformer.models.logic;
 
 import ru.mipt.bit.platformer.geometry.Direction;
 import ru.mipt.bit.platformer.geometry.Point;
+import ru.mipt.bit.platformer.geometry.Rotation;
 import ru.mipt.bit.platformer.level.Level;
 import ru.mipt.bit.platformer.models.Movable;
 
@@ -21,6 +22,18 @@ public class LogicBullet implements Movable {
     public LogicBullet(Point currentCoordinates, Direction direction) {
         this.currentCoordinates = currentCoordinates;
         this.direction = direction;
+    }
+
+    public Rotation getRotation() {
+        return direction.getRotation();
+    }
+
+    public Point getDestinationCoordinates() {
+        return destinationCoordinates;
+    }
+
+    public float getMovementProgress() {
+        return movementProgress;
     }
 
     @Override
@@ -53,9 +66,4 @@ public class LogicBullet implements Movable {
 
     @Override
     public void move(Direction direction, Level level) {}
-
-    @Override
-    public void move(Level level) {
-
-    }
 }

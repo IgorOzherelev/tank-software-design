@@ -41,27 +41,27 @@ public class LevelSaveMoveTest {
 
     @Test
     public void testMoveDown_negative() {
-        Assertions.assertFalse(LEVEL.isMoveSafe(Direction.DOWN, LOGIC_TANK));
+        Assertions.assertFalse(LEVEL.isSafeDirection(Direction.DOWN, LOGIC_TANK));
     }
 
     @Test
     public void testMoveUp_negative() {
-        Assertions.assertFalse(LEVEL.isMoveSafe(Direction.UP, LOGIC_TANK));
+        Assertions.assertFalse(LEVEL.isSafeDirection(Direction.UP, LOGIC_TANK));
     }
 
     @Test
     public void testMoveLeft_negative() {
-        Assertions.assertFalse(LEVEL.isMoveSafe(Direction.LEFT, LOGIC_TANK));
+        Assertions.assertFalse(LEVEL.isSafeDirection(Direction.LEFT, LOGIC_TANK));
     }
 
     @Test
     public void testMoveRight_negative() {
-        Assertions.assertFalse(LEVEL.isMoveSafe(Direction.RIGHT, LOGIC_TANK));
+        Assertions.assertFalse(LEVEL.isSafeDirection(Direction.RIGHT, LOGIC_TANK));
     }
 
     @Test
     public void test_positive() {
         LogicTank logicTank = new LogicTank(new Point(0, 0));
-        Assertions.assertTrue(LEVEL.isMoveSafe(Direction.UP, logicTank));
+        Assertions.assertTrue(LEVEL.isSafeDirection(Direction.UP, logicTank));
     }
 }

@@ -11,7 +11,6 @@ public interface Movable extends Colliding {
 
     boolean isStopped();
     void move(Direction direction, Level level);
-    void move(Level level);
 
     default float continueProgress(float previousProgress, float deltaTime, float speed) {
         return clamp(previousProgress + deltaTime / speed, MIN_PROGRESS, MAX_PROGRESS);
