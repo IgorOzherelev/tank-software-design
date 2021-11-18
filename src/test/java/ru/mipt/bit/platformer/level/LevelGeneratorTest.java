@@ -1,4 +1,4 @@
-package ru.mipt.bit.platformer.services.generator;
+package ru.mipt.bit.platformer.level;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;

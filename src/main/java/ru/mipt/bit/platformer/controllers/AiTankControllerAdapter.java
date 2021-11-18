@@ -6,7 +6,6 @@ import ru.mipt.bit.platformer.commands.Command;
 import ru.mipt.bit.platformer.converters.LevelToGameStateConverter;
 import ru.mipt.bit.platformer.converters.RecommendationToCommandConverter;
 import ru.mipt.bit.platformer.level.Level;
-import ru.mipt.bit.platformer.managers.CollidingManager;
 
 import java.util.List;
 
@@ -17,12 +16,12 @@ public class AiTankControllerAdapter implements TankController {
     private final LevelToGameStateConverter levelToGameStateConverter;
     private final RecommendationToCommandConverter recommendationToCommandConverter;
 
-    public AiTankControllerAdapter(Level level, CollidingManager collidingManager, AI ai) {
+    public AiTankControllerAdapter(Level level, AI ai) {
         this.level = level;
         this.ai = ai;
 
         this.levelToGameStateConverter = new LevelToGameStateConverter();
-        this.recommendationToCommandConverter = new RecommendationToCommandConverter(collidingManager);
+        this.recommendationToCommandConverter = new RecommendationToCommandConverter(level);
     }
 
     @Override

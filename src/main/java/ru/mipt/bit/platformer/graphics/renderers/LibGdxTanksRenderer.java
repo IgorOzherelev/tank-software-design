@@ -10,7 +10,7 @@ import ru.mipt.bit.platformer.movement.TileMovement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LibGdxTanksRenderer implements RendererService {
+public class LibGdxTanksRenderer implements Renderer {
     private final Batch batch;
     private final List<LibGdxGraphicTank> libGdxGraphicTanks;
     private final TileMovement tileMovement;

@@ -4,46 +4,45 @@ import ru.mipt.bit.platformer.commands.Command;
 import ru.mipt.bit.platformer.commands.MoveCommand;
 import ru.mipt.bit.platformer.commands.ShootCommand;
 import ru.mipt.bit.platformer.geometry.Direction;
-import ru.mipt.bit.platformer.models.Movable;
-import ru.mipt.bit.platformer.managers.CollidingManager;
+import ru.mipt.bit.platformer.level.Level;
 import ru.mipt.bit.platformer.models.logic.LogicTank;
 
 public enum Action {
     Shoot() {
         @Override
-        public Command createCommand(CollidingManager collidingManager,
+        public Command createCommand(Level level,
                                      LogicTank logicTank) {
-            return new ShootCommand(collidingManager, logicTank);
+            return new ShootCommand(level, logicTank);
         }
     },
     MoveNorth() {
         @Override
-        public Command createCommand(CollidingManager collidingManager,
+        public Command createCommand(Level level,
                                      LogicTank logicTank) {
-            return new MoveCommand(collidingManager, logicTank, Direction.UP);
+            return new MoveCommand(level, logicTank, Direction.UP);
         }
     },
     MoveEast() {
         @Override
-        public Command createCommand(CollidingManager collidingManager,
+        public Command createCommand(Level level,
                                      LogicTank logicTank) {
-            return new MoveCommand(collidingManager, logicTank, Direction.RIGHT);
+            return new MoveCommand(level, logicTank, Direction.RIGHT);
         }
     },
     MoveSouth() {
         @Override
-        public Command createCommand(CollidingManager collidingManager,
+        public Command createCommand(Level level,
                                      LogicTank logicTank) {
-            return new MoveCommand(collidingManager, logicTank, Direction.DOWN);
+            return new MoveCommand(level, logicTank, Direction.DOWN);
         }
     },
     MoveWest() {
         @Override
-        public Command createCommand(CollidingManager collidingManager,
+        public Command createCommand(Level level,
                                      LogicTank logicTank) {
-            return new MoveCommand(collidingManager, logicTank, Direction.LEFT);
+            return new MoveCommand(level, logicTank, Direction.LEFT);
         }
     };
 
-    public abstract Command createCommand(CollidingManager collidingManager, LogicTank logicTank);
+    public abstract Command createCommand(Level level, LogicTank logicTank);
 }

@@ -3,7 +3,7 @@ package ru.mipt.bit.platformer.models.logic;
 import ru.mipt.bit.platformer.geometry.Rotation;
 import ru.mipt.bit.platformer.geometry.Point;
 import ru.mipt.bit.platformer.geometry.Direction;
-import ru.mipt.bit.platformer.managers.CollidingManager;
+import ru.mipt.bit.platformer.level.Level;
 import ru.mipt.bit.platformer.models.Movable;
 import ru.mipt.bit.platformer.models.Shooting;
 
@@ -59,9 +59,9 @@ public class LogicTank implements Movable, Shooting {
     }
 
     @Override
-    public void move(Direction direction, CollidingManager collidingManager) {
+    public void move(Direction direction, Level level) {
         if (isStopped()) {
-            if (collidingManager.isMoveSafe(direction, this)) {
+            if (level.isMoveSafe(direction, this)) {
                 this.destinationCoordinates = new Point(this.currentCoordinates).add(direction.getShift());
                 this.direction = direction;
                 this.movementProgress = MIN_PROGRESS;
@@ -70,7 +70,7 @@ public class LogicTank implements Movable, Shooting {
     }
 
     @Override
-    public void move(CollidingManager collidingManager) {}
+    public void move(Level level) {}
 
     @Override
     public boolean equals(Object o) {
@@ -97,9 +97,9 @@ public class LogicTank implements Movable, Shooting {
     }
 
     @Override
-    public void shoot(CollidingManager collidingManager) {
+    public void shoot(Level level) {
         LogicBullet logicBullet = new LogicBullet(new Point(currentCoordinates).add(direction.getShift()), direction);
         //collidingManager.subscribe();
-        logicBullet.move(collidingManager);
+        logicBullet.move(level);
     }
 }

@@ -12,7 +12,7 @@ import java.util.List;
 
 import static ru.mipt.bit.platformer.utils.LibGdxGraphicUtils.*;
 
-public class LibGdxObstacleRenderer implements RendererService {
+public class LibGdxObstacleRenderer implements Renderer {
     private final Batch batch;
     private final List<LibGdxGraphicObstacle> libGdxGraphicObstacles;
     private final TiledMapTileLayer currentLayer;

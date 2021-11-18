@@ -1,7 +1,6 @@
 package ru.mipt.bit.platformer.graphics.renderers;
 
-
-public interface RendererService {
+public interface Renderer {
     String tankLibGdxTexturePath = "images/tank_blue.png";
     String treeLibGdxTexturePath = "images/greenTree.png";
 

@@ -66,6 +66,6 @@ public class LevelGeneratorFromFile implements LevelGenerator {
             }
         }
 
-        return new Level(trees, botTanks, playerTank);
+        return new Level(trees, botTanks, playerTank, texturePreferences);
     }
 }

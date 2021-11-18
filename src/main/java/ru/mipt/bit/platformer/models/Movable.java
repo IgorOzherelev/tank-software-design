@@ -1,7 +1,7 @@
 package ru.mipt.bit.platformer.models;
 
 import ru.mipt.bit.platformer.geometry.Direction;
-import ru.mipt.bit.platformer.managers.CollidingManager;
+import ru.mipt.bit.platformer.level.Level;
 
 import static com.badlogic.gdx.math.MathUtils.clamp;
 
@@ -10,8 +10,8 @@ public interface Movable extends Colliding {
     float MIN_PROGRESS = 0f;
 
     boolean isStopped();
-    void move(Direction direction, CollidingManager collidingManager);
-    void move(CollidingManager collidingManager);
+    void move(Direction direction, Level level);
+    void move(Level level);
 
     default float continueProgress(float previousProgress, float deltaTime, float speed) {
         return clamp(previousProgress + deltaTime / speed, MIN_PROGRESS, MAX_PROGRESS);

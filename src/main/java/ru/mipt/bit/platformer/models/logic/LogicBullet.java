@@ -2,7 +2,7 @@ package ru.mipt.bit.platformer.models.logic;
 
 import ru.mipt.bit.platformer.geometry.Direction;
 import ru.mipt.bit.platformer.geometry.Point;
-import ru.mipt.bit.platformer.managers.CollidingManager;
+import ru.mipt.bit.platformer.level.Level;
 import ru.mipt.bit.platformer.models.Movable;
 
 import java.util.Objects;
@@ -52,10 +52,10 @@ public class LogicBullet implements Movable {
     }
 
     @Override
-    public void move(Direction direction, CollidingManager collidingManager) {}
+    public void move(Direction direction, Level level) {}
 
     @Override
-    public void move(CollidingManager collidingManager) {
+    public void move(Level level) {
 
     }
 }

@@ -6,7 +6,7 @@ import ru.mipt.bit.platformer.graphics.objects.LibGdxGraphicTank;
 import ru.mipt.bit.platformer.level.Level;
 import ru.mipt.bit.platformer.movement.TileMovement;
 
-public class LibGdxPlayerRenderer implements RendererService {
+public class LibGdxPlayerRenderer implements Renderer {
     private final Batch batch;
     private final LibGdxGraphicTank libGdxGraphicTank;
     private final TileMovement tileMovement;

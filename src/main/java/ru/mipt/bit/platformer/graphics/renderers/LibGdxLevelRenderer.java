@@ -11,7 +11,7 @@ import ru.mipt.bit.platformer.movement.TileMovement;
 import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 import static ru.mipt.bit.platformer.utils.LibGdxGameUtils.createSingleLayerMapRenderer;
 
-public class LibGdxLevelRenderer implements RendererService {
+public class LibGdxLevelRenderer implements Renderer {
     private final MapRenderer levelRenderer;
     private final Batch batch;
     private final TiledMap tiledMap;

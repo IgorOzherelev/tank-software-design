@@ -1,19 +1,19 @@
 package ru.mipt.bit.platformer.commands;
 
-import ru.mipt.bit.platformer.managers.CollidingManager;
+import ru.mipt.bit.platformer.level.Level;
 import ru.mipt.bit.platformer.models.logic.LogicTank;
 
 public class ShootCommand implements Command {
     private final LogicTank logicTank;
-    private final CollidingManager collidingManager;
+    private final Level level;
 
-    public ShootCommand(CollidingManager collidingManager, LogicTank logicTank) {
+    public ShootCommand(Level level, LogicTank logicTank) {
         this.logicTank = logicTank;
-        this.collidingManager = collidingManager;
+        this.level = level;
     }
 
     @Override
     public void execute() {
-        logicTank.shoot(collidingManager);
+        logicTank.shoot(level);
     }
 }

@@ -1,7 +1,7 @@
 package ru.mipt.bit.platformer.models;
 
-import ru.mipt.bit.platformer.managers.CollidingManager;
+import ru.mipt.bit.platformer.level.Level;
 
 public interface Shooting {
-    void shoot(CollidingManager collidingManager);
+    void shoot(Level level);
 }

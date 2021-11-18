@@ -54,7 +54,7 @@ public class LevelGeneratorRandom implements LevelGenerator {
                 new Point(randomPoints.get(totalObjectsQuantity - 1))
         );
 
-        return new Level(trees, botTanks, playerTank);
+        return new Level(trees, botTanks, playerTank, texturePreferences);
     }
 
     private List<Point> generateRandomPoints(int width, int height, int totalObjectsQuantity) {
