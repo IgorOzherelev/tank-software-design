@@ -96,6 +96,14 @@ public class Level implements EventGamePublisher {
         for (Map.Entry<EventGameType, List<EventGameSubscriber>> entry : eventToSubscribers.entrySet()) {
             if (entry.getKey() == eventGameType) {
                 entry.getValue().forEach(subscriber -> subscriber.update(eventGameType, colliding));
+
+                switch (eventGameType) {
+                    case ADD_BULLET:
+                        collidingList.add(colliding);
+                        break;
+                    case REMOVE:
+                        collidingList.remove(colliding);
+                }
             }
         }
     }
