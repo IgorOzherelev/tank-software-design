@@ -35,7 +35,7 @@ public class LogicTankMoveTest {
         CollidingManager collidingManager = new CollidingManager(level, preferences);
         logicTanks.add(new LogicTank(collidingManager, level, new Point(3, 5)));
 
-        collidingManager.init();
+        level.notifyAllAboutInitiation();
     }
     
     @Test

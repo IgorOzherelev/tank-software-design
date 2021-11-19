@@ -43,6 +43,8 @@ public class GameDesktopListener implements ApplicationListener {
         rendererService = new LibGdxLevelRenderer(level, tiledMap, tileMovement);
         Player player = new Player("nick", level.getPlayerLogicTank());
 
+        level.notifyAllAboutInitiation();
+
         playerTankController = new PlayerTankController(player, new LibGdxActionKeyboardMapper());
         aiTankController = new AiRandomTankController(level.getBotLogicTanks());
 //        aiTankController = new AiTankControllerAdapter(level, new NotRecommendingAI());

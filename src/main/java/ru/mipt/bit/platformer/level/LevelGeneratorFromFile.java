@@ -64,7 +64,6 @@ public class LevelGeneratorFromFile implements LevelGenerator {
             }
         }
 
-        collidingManager.init();
         return level;
     }
 }

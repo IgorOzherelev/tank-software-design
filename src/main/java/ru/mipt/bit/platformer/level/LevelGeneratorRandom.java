@@ -59,7 +59,6 @@ public class LevelGeneratorRandom implements LevelGenerator {
             }
         }
 
-        collidingManager.init();
         return level;
     }
 

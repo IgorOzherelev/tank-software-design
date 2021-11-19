@@ -43,5 +43,8 @@ public class LibGdxGraphicObstacle implements Drawable {
     }
 
     @Override
-    public void drawMovement(TileMovement tileMovement) {}
+    public void drawMovement(TileMovement tileMovement) {
+        tileMovement.moveRectangleBetweenTileCenters(rectangle, logicObstacle.getCurrentCoordinates(),
+                logicObstacle.getCurrentCoordinates(), 0);
+    }
 }

@@ -41,7 +41,7 @@ public class CollidingManagerTest {
         logicTanks.add(new LogicTank(collidingManager, level, new Point(4, 5)));
         logicTanks.add(new LogicTank(collidingManager, level, new Point(5, 4)));
 
-        collidingManager.init();
+        level.notifyAllAboutInitiation();
     }
 
     @Test
