@@ -3,11 +3,7 @@ package ru.mipt.bit.platformer.level;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import ru.mipt.bit.platformer.level.LevelGeneratorFromFile;
-import ru.mipt.bit.platformer.level.LevelGeneratorRandom;
-import ru.mipt.bit.platformer.level.LevelGenerator;
 import ru.mipt.bit.platformer.geometry.Point;
-import ru.mipt.bit.platformer.level.Level;
 import ru.mipt.bit.platformer.models.logic.LogicObstacle;
 import ru.mipt.bit.platformer.preferences.TexturePreferences;
 
@@ -37,13 +33,13 @@ public class LevelGeneratorTest {
     public void test001_gameObjectsFromFileMapGenerator_positive() {
         generator = new LevelGeneratorFromFile("level.map", preferences);
         List<LogicObstacle> expected = List.of(
-                new LogicObstacle(new Point(0, 2)),
-                new LogicObstacle(new Point(0, 6)),
-                new LogicObstacle(new Point(1, 4)),
-                new LogicObstacle(new Point(3, 1)),
-                new LogicObstacle(new Point(3, 7)),
-                new LogicObstacle(new Point(4, 4)),
-                new LogicObstacle(new Point(5, 7))
+                new LogicObstacle(new Point(0, 2), level),
+                new LogicObstacle(new Point(0, 6), level),
+                new LogicObstacle(new Point(1, 4), level),
+                new LogicObstacle(new Point(3, 1), level),
+                new LogicObstacle(new Point(3, 7), level),
+                new LogicObstacle(new Point(4, 4), level),
+                new LogicObstacle(new Point(5, 7), level)
         );
 
         level = generator.generate();

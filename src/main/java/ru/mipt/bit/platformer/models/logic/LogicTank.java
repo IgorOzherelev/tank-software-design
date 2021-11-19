@@ -4,23 +4,28 @@ import ru.mipt.bit.platformer.geometry.Rotation;
 import ru.mipt.bit.platformer.geometry.Point;
 import ru.mipt.bit.platformer.geometry.Direction;
 import ru.mipt.bit.platformer.level.Level;
-import ru.mipt.bit.platformer.models.Movable;
+import ru.mipt.bit.platformer.managers.CollidingManager;
+import ru.mipt.bit.platformer.models.GameObject;
 import ru.mipt.bit.platformer.models.Shooting;
 
 import java.util.Objects;
 
 import static com.badlogic.gdx.math.MathUtils.isEqual;
 
-public class LogicTank implements Movable, Shooting {
+public class LogicTank implements GameObject, Shooting {
     private static final float MOVEMENT_SPEED = 0.4f;
+
+    private final CollidingManager collidingManager;
+    private final Level level;
 
     private Point currentCoordinates;
     private Point destinationCoordinates;
-
     private Direction direction = Direction.RIGHT;
     private float movementProgress = MAX_PROGRESS;
 
-    public LogicTank(Point currentCoordinates) {
+    public LogicTank(CollidingManager collidingManager, Level level, Point currentCoordinates) {
+        this.collidingManager = collidingManager;
+        this.level = level;
         this.currentCoordinates = currentCoordinates;
         this.destinationCoordinates = new Point(currentCoordinates);
     }
@@ -41,7 +46,8 @@ public class LogicTank implements Movable, Shooting {
         return movementProgress;
     }
 
-    public void tick(float deltaTime) {
+    @Override
+    public void live(float deltaTime) {
         movementProgress = continueProgress(movementProgress, deltaTime, MOVEMENT_SPEED);
         if (isStopped()) {
             currentCoordinates = destinationCoordinates;
@@ -59,14 +65,28 @@ public class LogicTank implements Movable, Shooting {
     }
 
     @Override
-    public void move(Direction direction, Level level) {
+    public void move(Direction direction) {
         if (isStopped()) {
-            if (level.isSafeDirection(direction, this)) {
+            if (collidingManager.isSafeDirection(direction, this)) {
                 this.destinationCoordinates = new Point(this.currentCoordinates).add(direction.getShift());
                 this.direction = direction;
                 this.movementProgress = MIN_PROGRESS;
             }
         }
+    }
+
+    @Override
+    public void shoot() {
+        if (collidingManager.isSafeDirection(direction, this)) {
+            LogicBullet logicBullet = new LogicBullet(new Point(currentCoordinates).add(direction.getShift()), direction, collidingManager, level);
+            //level.subscribe(logicBullet);
+            logicBullet.move(direction);
+        }
+    }
+
+    @Override
+    public boolean isAlive() {
+        return false;
     }
 
     @Override
@@ -91,14 +111,5 @@ public class LogicTank implements Movable, Shooting {
                 ", direction=" + direction +
                 ", movementProgress=" + movementProgress +
                 '}';
-    }
-
-    @Override
-    public void shoot(Level level) {
-        if (level.isSafeDirection(direction, this)) {
-            LogicBullet logicBullet = new LogicBullet(new Point(currentCoordinates).add(direction.getShift()), direction);
-            //level.subscribe(logicBullet);
-            logicBullet.move(direction, level);
-        }
     }
 }

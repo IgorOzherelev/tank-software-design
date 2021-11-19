@@ -21,7 +21,7 @@ public class AiTankControllerAdapter implements TankController {
         this.ai = ai;
 
         this.levelToGameStateConverter = new LevelToGameStateConverter();
-        this.recommendationToCommandConverter = new RecommendationToCommandConverter(level);
+        this.recommendationToCommandConverter = new RecommendationToCommandConverter();
     }
 
     @Override

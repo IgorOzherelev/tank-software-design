@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.mipt.bit.platformer.geometry.Point;
 import ru.mipt.bit.platformer.level.Level;
+import ru.mipt.bit.platformer.managers.CollidingManager;
 import ru.mipt.bit.platformer.models.logic.LogicTank;
 import ru.mipt.bit.platformer.geometry.Direction;
 import ru.mipt.bit.platformer.preferences.TexturePreferences;
@@ -13,8 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LogicTankMoveTest {
-    private static LogicTank logicTank;
-    private static Level level;
+    private static final List<LogicTank> logicTanks = new ArrayList<>();
 
     @BeforeEach
     public void beforeEach() {
@@ -30,43 +30,47 @@ public class LogicTankMoveTest {
             }
         };
 
-        logicTank = new LogicTank(new Point(3, 5));
-        level = new Level(new ArrayList<>(), List.of(logicTank), new LogicTank(new Point(0,0)), preferences);
+        logicTanks.clear();
+        Level level = new Level(new ArrayList<>(), logicTanks);
+        CollidingManager collidingManager = new CollidingManager(level, preferences);
+        logicTanks.add(new LogicTank(collidingManager, level, new Point(3, 5)));
+
+        collidingManager.init();
     }
     
     @Test
     public void TankMoveTest_Right() {
-        logicTank.move(Direction.RIGHT, level);
-        logicTank.tick(1);
-        Assertions.assertEquals(logicTank.getDestinationCoordinates(), new Point(4, 5));
-        Assertions.assertEquals(logicTank.getMovementProgress(), 1f);
-        Assertions.assertEquals(logicTank.getRotation(), Direction.RIGHT.getRotation());
+        logicTanks.get(0).move(Direction.RIGHT);
+        logicTanks.get(0).live(1);
+        Assertions.assertEquals(logicTanks.get(0).getDestinationCoordinates(), new Point(4, 5));
+        Assertions.assertEquals(logicTanks.get(0).getMovementProgress(), 1f);
+        Assertions.assertEquals(logicTanks.get(0).getRotation(), Direction.RIGHT.getRotation());
     }
 
     @Test
     public void TankMoveTest_Left() {
-        logicTank.move(Direction.LEFT, level);
-        logicTank.tick(1);
-        Assertions.assertEquals(logicTank.getDestinationCoordinates(), new Point(2, 5));
-        Assertions.assertEquals(logicTank.getMovementProgress(), 1f);
-        Assertions.assertEquals(logicTank.getRotation(), Direction.LEFT.getRotation());
+        logicTanks.get(0).move(Direction.LEFT);
+        logicTanks.get(0).live(1);
+        Assertions.assertEquals(logicTanks.get(0).getDestinationCoordinates(), new Point(2, 5));
+        Assertions.assertEquals(logicTanks.get(0).getMovementProgress(), 1f);
+        Assertions.assertEquals(logicTanks.get(0).getRotation(), Direction.LEFT.getRotation());
     }
 
     @Test
     public void TankMoveTest_Up() {
-        logicTank.move(Direction.UP, level);
-        logicTank.tick(1);
-        Assertions.assertEquals(logicTank.getDestinationCoordinates(), new Point(3, 6));
-        Assertions.assertEquals(logicTank.getMovementProgress(), 1f);
-        Assertions.assertEquals(logicTank.getRotation(), Direction.UP.getRotation());
+        logicTanks.get(0).move(Direction.UP);
+        logicTanks.get(0).live(1);
+        Assertions.assertEquals(logicTanks.get(0).getDestinationCoordinates(), new Point(3, 6));
+        Assertions.assertEquals(logicTanks.get(0).getMovementProgress(), 1f);
+        Assertions.assertEquals(logicTanks.get(0).getRotation(), Direction.UP.getRotation());
     }
 
     @Test
     public void TankMoveTest_Down() {
-        logicTank.move(Direction.DOWN, level);
-        logicTank.tick(1);
-        Assertions.assertEquals(logicTank.getDestinationCoordinates(), new Point(3, 4));
-        Assertions.assertEquals(logicTank.getMovementProgress(), 1f);
-        Assertions.assertEquals(logicTank.getRotation(), Direction.DOWN.getRotation());
+        logicTanks.get(0).move(Direction.DOWN);
+        logicTanks.get(0).live(1);
+        Assertions.assertEquals(logicTanks.get(0).getDestinationCoordinates(), new Point(3, 4));
+        Assertions.assertEquals(logicTanks.get(0).getMovementProgress(), 1f);
+        Assertions.assertEquals(logicTanks.get(0).getRotation(), Direction.DOWN.getRotation());
     }
 }

@@ -1,6 +1,7 @@
 package ru.mipt.bit.platformer.level;
 
 import ru.mipt.bit.platformer.geometry.Point;
+import ru.mipt.bit.platformer.managers.CollidingManager;
 import ru.mipt.bit.platformer.models.logic.LogicObstacle;
 import ru.mipt.bit.platformer.models.logic.LogicTank;
 import ru.mipt.bit.platformer.preferences.TexturePreferences;
@@ -34,27 +35,32 @@ public class LevelGeneratorRandom implements LevelGenerator {
         int height = texturePreferences.getMapHeight();
 
         List<LogicObstacle> trees = new ArrayList<>();
-        List<LogicTank> botTanks = new ArrayList<>();
+        List<LogicTank> tanks = new ArrayList<>();
+
+        Level level = new Level(trees, tanks);
+        CollidingManager collidingManager = new CollidingManager(level, texturePreferences);
 
         int totalObjectsQuantity = treesQuantity + tanksQuantity;
         List<Point> randomPoints = generateRandomPoints(width, height, totalObjectsQuantity);
 
-        int i;
+        int i = 0;
+        // добавляем танк игрока, всегда первый
+        tanks.add(new LogicTank(
+                collidingManager, level, new Point(randomPoints.get(i))
+        ));
+
         for (i = 0; i < treesQuantity; i++) {
-            trees.add(new LogicObstacle(randomPoints.get(i)));
+            trees.add(new LogicObstacle(randomPoints.get(i + 1), level));
         }
 
         if (tanksQuantity > 1) {
-            for (; i < totalObjectsQuantity - 1; i++) {
-                botTanks.add(new LogicTank(randomPoints.get(i)));
+            for (; i < totalObjectsQuantity - 2; i++) {
+                tanks.add(new LogicTank(collidingManager, level, randomPoints.get(i + 1)));
             }
         }
 
-        LogicTank playerTank = new LogicTank(
-                new Point(randomPoints.get(totalObjectsQuantity - 1))
-        );
-
-        return new Level(trees, botTanks, playerTank, texturePreferences);
+        collidingManager.init();
+        return level;
     }
 
     private List<Point> generateRandomPoints(int width, int height, int totalObjectsQuantity) {

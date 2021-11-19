@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
-import ru.mipt.bit.platformer.geometry.Point;
 import ru.mipt.bit.platformer.geometry.Rotation;
 import ru.mipt.bit.platformer.models.logic.LogicObstacle;
 import ru.mipt.bit.platformer.movement.TileMovement;
@@ -18,8 +17,8 @@ public class LibGdxGraphicObstacle implements Drawable {
     private final Rectangle rectangle;
     private final LogicObstacle logicObstacle;
 
-    public LibGdxGraphicObstacle(Texture texture, Point coordinates) {
-        this.logicObstacle = new LogicObstacle(coordinates);
+    public LibGdxGraphicObstacle(Texture texture, LogicObstacle logicObstacle) {
+        this.logicObstacle = logicObstacle;
         this.texture = texture;
         this.textureRegion = new TextureRegion(texture);
         this.rectangle = createBoundingRectangle(textureRegion);

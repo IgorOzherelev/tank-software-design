@@ -5,9 +5,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import org.awesome.ai.strategy.NotRecommendingAI;
 import ru.mipt.bit.platformer.actions.LibGdxActionKeyboardMapper;
-import ru.mipt.bit.platformer.controllers.AiTankControllerAdapter;
+import ru.mipt.bit.platformer.controllers.AiRandomTankController;
 import ru.mipt.bit.platformer.controllers.PlayerTankController;
 import ru.mipt.bit.platformer.controllers.TankController;
 import ru.mipt.bit.platformer.models.Player;
@@ -25,7 +24,6 @@ public class GameDesktopListener implements ApplicationListener {
     private TankController playerTankController;
     private TankController aiTankController;
 
-    private TexturePreferences texturePreferences;
     private LibGdxLevelRenderer rendererService;
 
     private Level level;
@@ -35,7 +33,7 @@ public class GameDesktopListener implements ApplicationListener {
         TiledMap tiledMap = new TmxMapLoader().load("level.tmx");
         TiledMapTileLayer groundLayer = getSingleLayer(tiledMap);
 
-        texturePreferences = new LibGdxGameTexturePreferences(tiledMap);
+        TexturePreferences texturePreferences = new LibGdxGameTexturePreferences(tiledMap);
 
         LevelGenerator levelGenerator = new LevelGeneratorFromFile("level.map", texturePreferences);
 //      LevelGenerator levelGenerator = new LevelGeneratorRandom(6, 6, texturePreferences);
@@ -45,16 +43,16 @@ public class GameDesktopListener implements ApplicationListener {
         rendererService = new LibGdxLevelRenderer(level, tiledMap, tileMovement);
         Player player = new Player("nick", level.getPlayerLogicTank());
 
-        playerTankController = new PlayerTankController(level, player, new LibGdxActionKeyboardMapper());
-//        aiTankController = new AiRandomTankController(collidingManager, level.getBotLogicTanks());
-        aiTankController = new AiTankControllerAdapter(level, new NotRecommendingAI());
+        playerTankController = new PlayerTankController(player, new LibGdxActionKeyboardMapper());
+        aiTankController = new AiRandomTankController(level.getBotLogicTanks());
+//        aiTankController = new AiTankControllerAdapter(level, new NotRecommendingAI());
     }
 
     @Override
     public void render() {
         float deltaTime = Gdx.graphics.getDeltaTime();
 
-        level.tick(deltaTime);
+        level.handleTick(deltaTime);
         playerTankController.handleTickAction();
         aiTankController.handleTickAction();
         rendererService.render();

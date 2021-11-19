@@ -1,6 +1,7 @@
 package ru.mipt.bit.platformer.level;
 
 import ru.mipt.bit.platformer.geometry.Point;
+import ru.mipt.bit.platformer.managers.CollidingManager;
 import ru.mipt.bit.platformer.models.logic.LogicObstacle;
 import ru.mipt.bit.platformer.models.logic.LogicTank;
 import ru.mipt.bit.platformer.preferences.TexturePreferences;
@@ -13,7 +14,7 @@ import static ru.mipt.bit.platformer.utils.CommonUtils.checkStringLength;
 
 public class LevelGeneratorFromFile implements LevelGenerator {
     private final static char TREE_TOKEN = 'T';
-    private final static char FREE_TOKEN = '_';
+    private final static char EMPTY_TILE_TOKEN = '_';
     private final static char TANK_TOKEN = 'X';
 
     private final String filePath;
@@ -38,8 +39,10 @@ public class LevelGeneratorFromFile implements LevelGenerator {
         List<String> map = splitFile(file);
         String line;
         LogicObstacle tree;
-        LogicTank playerTank = null;
-        List<LogicTank> botTanks = new ArrayList<>();
+        List<LogicTank> logicTanks = new ArrayList<>();
+
+        Level level = new Level(trees, logicTanks);
+        CollidingManager collidingManager = new CollidingManager(level, texturePreferences);
         for (int i = 0; i < map.size(); i++) {
             line = map.get(i);
             checkStringLength(line, width);
@@ -47,18 +50,13 @@ public class LevelGeneratorFromFile implements LevelGenerator {
                 char currentChar = line.charAt(j);
                 switch (currentChar) {
                     case TREE_TOKEN:
-                        tree = new LogicObstacle(new Point(i, j));
+                        tree = new LogicObstacle(new Point(i, j), level);
                         trees.add(tree);
                         break;
                     case TANK_TOKEN:
-                        if (playerTank == null) {
-                            playerTank = new LogicTank(new Point(i, j));
-                        } else {
-                            botTanks.add(new LogicTank(new Point(i, j)));
-                        }
-
+                        logicTanks.add(new LogicTank(collidingManager, level, new Point(i, j)));
                         break;
-                    case FREE_TOKEN:
+                    case EMPTY_TILE_TOKEN:
                         break;
                     default:
                         throw new IllegalArgumentException("Wrong map format, illegal tokens:\n" + map);
@@ -66,6 +64,7 @@ public class LevelGeneratorFromFile implements LevelGenerator {
             }
         }
 
-        return new Level(trees, botTanks, playerTank, texturePreferences);
+        collidingManager.init();
+        return level;
     }
 }

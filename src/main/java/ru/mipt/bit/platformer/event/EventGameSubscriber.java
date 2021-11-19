@@ -1,7 +1,7 @@
 package ru.mipt.bit.platformer.event;
 
-import ru.mipt.bit.platformer.models.Colliding;
+import ru.mipt.bit.platformer.models.GameObject;
 
 public interface EventGameSubscriber {
-    void update(EventGameType eventGameType, Colliding colliding);
+    void onEvent(EventGameType eventGameType, GameObject gameObject);
 }

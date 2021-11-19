@@ -4,24 +4,30 @@ import ru.mipt.bit.platformer.geometry.Direction;
 import ru.mipt.bit.platformer.geometry.Point;
 import ru.mipt.bit.platformer.geometry.Rotation;
 import ru.mipt.bit.platformer.level.Level;
-import ru.mipt.bit.platformer.models.Movable;
+import ru.mipt.bit.platformer.managers.CollidingManager;
+import ru.mipt.bit.platformer.models.GameObject;
 
 import java.util.Objects;
 
 import static com.badlogic.gdx.math.MathUtils.isEqual;
 
-public class LogicBullet implements Movable {
+public class LogicBullet implements GameObject {
     private static final float MOVEMENT_SPEED = 0.4f;
 
     private Point currentCoordinates;
     private Point destinationCoordinates;
     private Direction direction;
 
+    private final CollidingManager collidingManager;
+    private final Level level;
+
     private float movementProgress = MAX_PROGRESS;
 
-    public LogicBullet(Point currentCoordinates, Direction direction) {
+    public LogicBullet(Point currentCoordinates, Direction direction, CollidingManager collidingManager, Level level) {
         this.currentCoordinates = currentCoordinates;
         this.direction = direction;
+        this.collidingManager = collidingManager;
+        this.level = level;
     }
 
     public Rotation getRotation() {
@@ -65,5 +71,13 @@ public class LogicBullet implements Movable {
     }
 
     @Override
-    public void move(Direction direction, Level level) {}
+    public boolean isAlive() {
+        return false;
+    }
+
+    @Override
+    public void move(Direction direction) {}
+
+    @Override
+    public void live(float deltaTime) {}
 }
