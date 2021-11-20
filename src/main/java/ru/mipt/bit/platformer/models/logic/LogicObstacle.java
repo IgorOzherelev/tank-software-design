@@ -1,18 +1,10 @@
 package ru.mipt.bit.platformer.models.logic;
 
 import ru.mipt.bit.platformer.geometry.Point;
-import ru.mipt.bit.platformer.models.GameObject;
 
-public class LogicObstacle implements GameObject {
-    private final Point currentCoordinates;
-
+public class LogicObstacle extends BaseLogicObject {
     public LogicObstacle(Point currentCoordinates) {
-        this.currentCoordinates = currentCoordinates;
-    }
-
-    @Override
-    public Point getCurrentCoordinates() {
-        return currentCoordinates;
+        super(currentCoordinates);
     }
 
     @Override

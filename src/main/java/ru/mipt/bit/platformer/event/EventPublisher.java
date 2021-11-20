@@ -12,6 +12,4 @@ public interface EventPublisher {
     void notifySubscribers(Event event, GameObject gameObject);
 
     void registerEvent(Event event, GameObject gameObject);
-
-    void notifyAllAboutInitiation();
 }

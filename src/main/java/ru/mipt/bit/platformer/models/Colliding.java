@@ -17,13 +17,4 @@ public interface Colliding {
      * Проверка на наличие коллизии
      * */
     boolean isCollisionPossible(Point point);
-
-    Point getCurrentCoordinates();
-
-    /**
-     * Возвращает урон, который нанесет этот объект другому
-     * */
-    default int getCollisionDamage() {
-        return 0;
-    }
 }

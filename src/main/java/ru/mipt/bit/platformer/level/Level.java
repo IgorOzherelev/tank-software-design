@@ -46,6 +46,11 @@ public class Level implements EventPublisher {
         tmpLogicBullets.forEach(logicBullet -> logicBullet.live(deltaTime));
     }
 
+    public void init() {
+        logicTanks.forEach(logicTank -> notifySubscribers(new EventAddTank(), logicTank));
+        trees.forEach(tree -> notifySubscribers(new EventAddTree(), tree));
+    }
+
     @Override
     public void subscribe(Event event, EventSubscriber eventSubscriber) {
         if (eventToSubscribers.get(event.getClass()) == null) {
@@ -87,11 +92,5 @@ public class Level implements EventPublisher {
             event.performGameObjectList(logicTanks, (LogicTank) gameObject);
         }
         notifySubscribers(event, gameObject);
-    }
-
-    @Override
-    public void notifyAllAboutInitiation() {
-        logicTanks.forEach(logicTank -> notifySubscribers(new EventAddTank(), logicTank));
-        trees.forEach(tree -> notifySubscribers(new EventAddTree(), tree));
     }
 }

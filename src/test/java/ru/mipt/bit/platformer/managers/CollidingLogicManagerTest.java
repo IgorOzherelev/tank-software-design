@@ -11,8 +11,8 @@ import ru.mipt.bit.platformer.preferences.TexturePreferences;
 
 import java.util.*;
 
-public class CollidingManagerTest {
-    private static CollidingManager collidingManager;
+public class CollidingLogicManagerTest {
+    private static CollidingLogicManager collidingLogicManager;
     private static Level level;
     private static LogicTank TANK;
 
@@ -32,41 +32,41 @@ public class CollidingManagerTest {
 
         List<LogicTank> logicTanks = new ArrayList<>();
         level = new Level(new ArrayList<>(), logicTanks);
-        collidingManager = new CollidingManager(level, preferences);
-        TANK = new LogicTank(collidingManager, level, new Point(5, 5));
+        collidingLogicManager = new CollidingLogicManager(level, preferences);
+        TANK = new LogicTank(collidingLogicManager, level, new Point(5, 5));
 
         logicTanks.add(TANK);
-        logicTanks.add(new LogicTank(collidingManager, level, new Point(5, 6)));
-        logicTanks.add(new LogicTank(collidingManager, level, new Point(6, 5)));
-        logicTanks.add(new LogicTank(collidingManager, level, new Point(4, 5)));
-        logicTanks.add(new LogicTank(collidingManager, level, new Point(5, 4)));
+        logicTanks.add(new LogicTank(collidingLogicManager, level, new Point(5, 6)));
+        logicTanks.add(new LogicTank(collidingLogicManager, level, new Point(6, 5)));
+        logicTanks.add(new LogicTank(collidingLogicManager, level, new Point(4, 5)));
+        logicTanks.add(new LogicTank(collidingLogicManager, level, new Point(5, 4)));
 
-        level.notifyAllAboutInitiation();
+        level.init();
     }
 
     @Test
     public void testMoveDown_negative() {
-        Assertions.assertFalse(collidingManager.isSafeDirection(Direction.DOWN, TANK));
+        Assertions.assertFalse(collidingLogicManager.isSafeDirection(Direction.DOWN, TANK));
     }
 
     @Test
     public void testMoveUp_negative() {
-        Assertions.assertFalse(collidingManager.isSafeDirection(Direction.UP, TANK));
+        Assertions.assertFalse(collidingLogicManager.isSafeDirection(Direction.UP, TANK));
     }
 
     @Test
     public void testMoveLeft_negative() {
-        Assertions.assertFalse(collidingManager.isSafeDirection(Direction.LEFT, TANK));
+        Assertions.assertFalse(collidingLogicManager.isSafeDirection(Direction.LEFT, TANK));
     }
 
     @Test
     public void testMoveRight_negative() {
-        Assertions.assertFalse(collidingManager.isSafeDirection(Direction.RIGHT, TANK));
+        Assertions.assertFalse(collidingLogicManager.isSafeDirection(Direction.RIGHT, TANK));
     }
 
     @Test
     public void test_positive() {
-        LogicTank logicTank = new LogicTank(collidingManager, level, new Point(0, 0));
-        Assertions.assertTrue(collidingManager.isSafeDirection(Direction.UP, logicTank));
+        LogicTank logicTank = new LogicTank(collidingLogicManager, level, new Point(0, 0));
+        Assertions.assertTrue(collidingLogicManager.isSafeDirection(Direction.UP, logicTank));
     }
 }

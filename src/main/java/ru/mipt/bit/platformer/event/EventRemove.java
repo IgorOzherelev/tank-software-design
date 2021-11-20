@@ -20,11 +20,6 @@ public class EventRemove implements Event {
     }
 
     @Override
-    public void performCollidingList(List<Colliding> collidingList, Colliding colliding) {
-        collidingList.remove(colliding);
-    }
-
-    @Override
     public <T extends GameObject> void performGameObjectList(List<T> gameObjectList, T gameObject) {
         gameObjectList.remove(gameObject);
     }

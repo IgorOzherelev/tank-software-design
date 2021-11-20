@@ -5,34 +5,34 @@ import ru.mipt.bit.platformer.event.Event;
 import ru.mipt.bit.platformer.geometry.Direction;
 import ru.mipt.bit.platformer.geometry.Point;
 import ru.mipt.bit.platformer.level.Level;
-import ru.mipt.bit.platformer.models.Colliding;
 import ru.mipt.bit.platformer.models.GameObject;
+import ru.mipt.bit.platformer.models.logic.BaseLogicObject;
 import ru.mipt.bit.platformer.models.logic.LogicBullet;
 import ru.mipt.bit.platformer.preferences.TexturePreferences;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CollidingManager implements EventSubscriber {
-    private final List<Colliding> collidingList = new ArrayList<>();
+public class CollidingLogicManager implements EventSubscriber {
+    private final List<BaseLogicObject> logicObjects = new ArrayList<>();
     private final TexturePreferences texturePreferences;
 
-    public CollidingManager(Level level, TexturePreferences texturePreferences) {
+    public CollidingLogicManager(Level level, TexturePreferences texturePreferences) {
         this.texturePreferences = texturePreferences;
 
         level.subscribeAll(this);
     }
 
-    public boolean isSafeDirection(Direction direction, Colliding colliding) {
-        Point positionToMove = new Point(colliding.getCurrentCoordinates()).add(direction.getShift());
+    public boolean isSafeDirection(Direction direction, BaseLogicObject logicObject) {
+        Point positionToMove = new Point(logicObject.getCurrentCoordinates()).add(direction.getShift());
         if (positionToMove.getX() >= texturePreferences.getMapWidth() || positionToMove.getX() < 0
                 || positionToMove.getY() >= texturePreferences.getMapHeight() || positionToMove.getY() < 0) {
             return false;
         }
 
-        for (Colliding collidingElem : collidingList) {
-            if (collidingElem.isCollisionPossible(positionToMove) && collidingElem != colliding) {
-                performCollisionDamageRegistration(colliding, collidingElem);
+        for (BaseLogicObject logicObjectElem : logicObjects) {
+            if (logicObjectElem.isCollisionPossible(positionToMove) && logicObjectElem != logicObject) {
+                performCollisionDamageRegistration(logicObject, logicObjectElem);
 
                 return false;
             }
@@ -41,7 +41,7 @@ public class CollidingManager implements EventSubscriber {
         return true;
     }
 
-    private void performCollisionDamageRegistration(Colliding colliding, Colliding collidingElem) {
+    private void performCollisionDamageRegistration(BaseLogicObject colliding, BaseLogicObject collidingElem) {
         // соглашусь, что мб некрасиво, но как переделать?
         if (colliding instanceof LogicBullet) {
             collidingElem.registerCollisionDamage(colliding.getCollisionDamage());
@@ -55,6 +55,6 @@ public class CollidingManager implements EventSubscriber {
 
     @Override
     public void onEvent(Event event, GameObject gameObject) {
-        event.performCollidingList(collidingList, gameObject);
+        event.performGameObjectList(logicObjects, (BaseLogicObject) gameObject);
     }
 }

@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.mipt.bit.platformer.geometry.Point;
 import ru.mipt.bit.platformer.level.Level;
-import ru.mipt.bit.platformer.managers.CollidingManager;
+import ru.mipt.bit.platformer.managers.CollidingLogicManager;
 import ru.mipt.bit.platformer.models.logic.LogicTank;
 import ru.mipt.bit.platformer.geometry.Direction;
 import ru.mipt.bit.platformer.preferences.TexturePreferences;
@@ -32,10 +32,10 @@ public class LogicTankMoveTest {
 
         logicTanks.clear();
         Level level = new Level(new ArrayList<>(), logicTanks);
-        CollidingManager collidingManager = new CollidingManager(level, preferences);
-        logicTanks.add(new LogicTank(collidingManager, level, new Point(3, 5)));
+        CollidingLogicManager collidingLogicManager = new CollidingLogicManager(level, preferences);
+        logicTanks.add(new LogicTank(collidingLogicManager, level, new Point(3, 5)));
 
-        level.notifyAllAboutInitiation();
+        level.init();
     }
     
     @Test
