@@ -14,4 +14,8 @@ public interface Event {
     default void performCollidingList(List<Colliding> collidingList, Colliding colliding) {
         collidingList.add(colliding);
     }
+
+    default <T extends GameObject> void performGameObjectList(List<T> gameObjectList, T gameObject) {
+        gameObjectList.add(gameObject);
+    }
 }

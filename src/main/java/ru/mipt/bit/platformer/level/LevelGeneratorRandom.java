@@ -50,7 +50,7 @@ public class LevelGeneratorRandom implements LevelGenerator {
         ));
 
         for (i = 0; i < treesQuantity; i++) {
-            trees.add(new LogicObstacle(randomPoints.get(i + 1), level));
+            trees.add(new LogicObstacle(randomPoints.get(i + 1)));
         }
 
         if (tanksQuantity > 1) {

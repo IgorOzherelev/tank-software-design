@@ -7,6 +7,7 @@ import ru.mipt.bit.platformer.geometry.Point;
 import ru.mipt.bit.platformer.level.Level;
 import ru.mipt.bit.platformer.models.Colliding;
 import ru.mipt.bit.platformer.models.GameObject;
+import ru.mipt.bit.platformer.models.logic.LogicBullet;
 import ru.mipt.bit.platformer.preferences.TexturePreferences;
 
 import java.util.ArrayList;
@@ -31,11 +32,25 @@ public class CollidingManager implements EventSubscriber {
 
         for (Colliding collidingElem : collidingList) {
             if (collidingElem.isCollisionPossible(positionToMove) && collidingElem != colliding) {
+                performCollisionDamageRegistration(colliding, collidingElem);
+
                 return false;
             }
         }
 
         return true;
+    }
+
+    private void performCollisionDamageRegistration(Colliding colliding, Colliding collidingElem) {
+        // соглашусь, что мб некрасиво, но как переделать?
+        if (colliding instanceof LogicBullet) {
+            collidingElem.registerCollisionDamage(colliding.getCollisionDamage());
+        } else if (collidingElem instanceof LogicBullet) {
+            colliding.registerCollisionDamage(collidingElem.getCollisionDamage());
+        } else {
+            colliding.registerCollisionDamage(collidingElem.getCollisionDamage());
+            collidingElem.registerCollisionDamage(colliding.getCollisionDamage());
+        }
     }
 
     @Override

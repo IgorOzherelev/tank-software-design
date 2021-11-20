@@ -33,13 +33,13 @@ public class LevelGeneratorTest {
     public void test001_gameObjectsFromFileMapGenerator_positive() {
         generator = new LevelGeneratorFromFile("level.map", preferences);
         List<LogicObstacle> expected = List.of(
-                new LogicObstacle(new Point(0, 2), level),
-                new LogicObstacle(new Point(0, 6), level),
-                new LogicObstacle(new Point(1, 4), level),
-                new LogicObstacle(new Point(3, 1), level),
-                new LogicObstacle(new Point(3, 7), level),
-                new LogicObstacle(new Point(4, 4), level),
-                new LogicObstacle(new Point(5, 7), level)
+                new LogicObstacle(new Point(0, 2)),
+                new LogicObstacle(new Point(0, 6)),
+                new LogicObstacle(new Point(1, 4)),
+                new LogicObstacle(new Point(3, 1)),
+                new LogicObstacle(new Point(3, 7)),
+                new LogicObstacle(new Point(4, 4)),
+                new LogicObstacle(new Point(5, 7))
         );
 
         level = generator.generate();

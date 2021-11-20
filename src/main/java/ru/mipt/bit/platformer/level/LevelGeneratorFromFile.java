@@ -50,7 +50,7 @@ public class LevelGeneratorFromFile implements LevelGenerator {
                 char currentChar = line.charAt(j);
                 switch (currentChar) {
                     case TREE_TOKEN:
-                        tree = new LogicObstacle(new Point(i, j), level);
+                        tree = new LogicObstacle(new Point(i, j));
                         trees.add(tree);
                         break;
                     case TANK_TOKEN:

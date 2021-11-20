@@ -1,8 +1,10 @@
 package ru.mipt.bit.platformer.controllers;
 
 import ru.mipt.bit.platformer.actions.Action;
+import ru.mipt.bit.platformer.level.Level;
 import ru.mipt.bit.platformer.models.logic.LogicTank;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -10,8 +12,8 @@ public class AiRandomTankController implements TankController {
     private final List<LogicTank> aiTanks;
     private final Random random = new Random();
 
-    public AiRandomTankController(List<LogicTank> aiTanks) {
-        this.aiTanks = aiTanks;
+    public AiRandomTankController(Level level) {
+        this.aiTanks = new ArrayList<>(level.getBotLogicTanks());
     }
 
     @Override

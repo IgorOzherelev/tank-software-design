@@ -15,7 +15,8 @@ public class LibGdxActionKeyboardMapper implements ActionKeyboardMapper {
                 String.valueOf(W), Action.MoveNorth,
                 String.valueOf(S), Action.MoveSouth,
                 String.valueOf(A), Action.MoveWest,
-                String.valueOf(D), Action.MoveEast
+                String.valueOf(D), Action.MoveEast,
+                String.valueOf(SPACE), Action.Shoot
         );
     }
 

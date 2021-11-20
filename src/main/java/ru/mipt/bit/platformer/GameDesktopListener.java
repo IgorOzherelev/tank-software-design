@@ -5,8 +5,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import org.awesome.ai.strategy.NotRecommendingAI;
 import ru.mipt.bit.platformer.actions.LibGdxActionKeyboardMapper;
 import ru.mipt.bit.platformer.controllers.AiRandomTankController;
+import ru.mipt.bit.platformer.controllers.AiTankControllerAdapter;
 import ru.mipt.bit.platformer.controllers.PlayerTankController;
 import ru.mipt.bit.platformer.controllers.TankController;
 import ru.mipt.bit.platformer.models.Player;
@@ -46,18 +48,18 @@ public class GameDesktopListener implements ApplicationListener {
         level.notifyAllAboutInitiation();
 
         playerTankController = new PlayerTankController(player, new LibGdxActionKeyboardMapper());
-        aiTankController = new AiRandomTankController(level.getBotLogicTanks());
-//        aiTankController = new AiTankControllerAdapter(level, new NotRecommendingAI());
+//        aiTankController = new AiRandomTankController(level);
+        aiTankController = new AiTankControllerAdapter(level, new NotRecommendingAI());
     }
 
     @Override
     public void render() {
         float deltaTime = Gdx.graphics.getDeltaTime();
 
+        rendererService.render();
         level.handleTick(deltaTime);
         playerTankController.handleTickAction();
         aiTankController.handleTickAction();
-        rendererService.render();
     }
 
     @Override

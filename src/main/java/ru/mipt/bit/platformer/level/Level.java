@@ -2,6 +2,7 @@ package ru.mipt.bit.platformer.level;
 
 import ru.mipt.bit.platformer.event.*;
 import ru.mipt.bit.platformer.models.GameObject;
+import ru.mipt.bit.platformer.models.logic.LogicBullet;
 import ru.mipt.bit.platformer.models.logic.LogicObstacle;
 import ru.mipt.bit.platformer.models.logic.LogicTank;
 
@@ -12,8 +13,10 @@ import java.util.Map;
 
 public class Level implements EventPublisher {
     private static final int PLAYER_INDEX = 0;
+
     private final List<LogicObstacle> trees;
     private final List<LogicTank> logicTanks;
+    private final List<LogicBullet> logicBullets = new ArrayList<>();
 
     private final Map<Class<? extends Event>, List<EventSubscriber>> eventToSubscribers = new HashMap<>();
 
@@ -34,12 +37,13 @@ public class Level implements EventPublisher {
         return logicTanks.subList(PLAYER_INDEX + 1, logicTanks.size());
     }
 
-    public List<LogicTank> getAllLogicTanks() {
-        return logicTanks;
-    }
-
     public void handleTick(float deltaTime) {
-        logicTanks.forEach(logicTank -> logicTank.live(deltaTime));
+        // примитивная защита от fail-fast
+        List<LogicTank> tmpLogicTanks = new ArrayList<>(logicTanks);
+        List<LogicBullet> tmpLogicBullets = new ArrayList<>(logicBullets);
+
+        tmpLogicTanks.forEach(logicTank -> logicTank.live(deltaTime));
+        tmpLogicBullets.forEach(logicBullet -> logicBullet.live(deltaTime));
     }
 
     @Override
@@ -76,6 +80,12 @@ public class Level implements EventPublisher {
 
     @Override
     public void registerEvent(Event event, GameObject gameObject) {
+        // выглядит некрасиво, но можно ли по-другому?
+        if (LogicBullet.class.equals(gameObject.getClass())) {
+            event.performGameObjectList(logicBullets, (LogicBullet) gameObject);
+        } else if (LogicTank.class.equals(gameObject.getClass())) {
+            event.performGameObjectList(logicTanks, (LogicTank) gameObject);
+        }
         notifySubscribers(event, gameObject);
     }
 
