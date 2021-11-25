@@ -7,6 +7,7 @@ import ru.mipt.bit.platformer.geometry.Direction;
 import ru.mipt.bit.platformer.level.Level;
 import ru.mipt.bit.platformer.managers.CollidingLogicManager;
 import ru.mipt.bit.platformer.models.Shooting;
+import ru.mipt.bit.platformer.models.state.TankState;
 
 import static com.badlogic.gdx.math.MathUtils.isEqual;
 
@@ -14,10 +15,16 @@ public class LogicTank extends BaseLogicObject implements Shooting {
     private final static float RELOADING_SPEED = 0.5f;
     private float reloadingProgress = MAX_PROGRESS;
 
+    private TankState tankState;
+
     public LogicTank(CollidingLogicManager collidingLogicManager, Level level, Point currentCoordinates) {
         super(collidingLogicManager, level, currentCoordinates);
         this.currentCoordinates = currentCoordinates;
         this.destinationCoordinates = new Point(currentCoordinates);
+    }
+
+    public void setTankState(TankState tankState) {
+        this.tankState = tankState;
     }
 
     @Override

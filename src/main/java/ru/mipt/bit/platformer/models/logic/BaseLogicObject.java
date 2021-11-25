@@ -60,6 +60,10 @@ public abstract class BaseLogicObject implements GameObject {
         return collisionDamage;
     }
 
+    public int getHealth() {
+        return health;
+    }
+
     @Override
     public boolean isAlive() {
         return health > 0;
