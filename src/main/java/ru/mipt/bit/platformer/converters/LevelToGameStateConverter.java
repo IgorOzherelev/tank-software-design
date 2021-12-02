@@ -3,6 +3,9 @@ package ru.mipt.bit.platformer.converters;
 import org.awesome.ai.state.GameState;
 import ru.mipt.bit.platformer.level.Level;
 
+/**
+ * Adapter
+ * */
 public class LevelToGameStateConverter implements Converter<GameState, Level> {
     private final LogicObstacleToObstacleConverter logicObstacleToObstacleConverter;
     private final LogicTankToBotConverter logicTankToBotConverter;

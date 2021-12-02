@@ -3,6 +3,9 @@ package ru.mipt.bit.platformer.commands;
 import ru.mipt.bit.platformer.geometry.Direction;
 import ru.mipt.bit.platformer.models.logic.LogicTank;
 
+/**
+ * Entity
+ * */
 public class MoveCommand implements Command {
     private final LogicTank logicTank;
     private final Direction direction;

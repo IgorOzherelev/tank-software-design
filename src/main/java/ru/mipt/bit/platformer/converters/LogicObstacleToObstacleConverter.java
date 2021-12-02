@@ -4,6 +4,9 @@ import org.awesome.ai.state.immovable.Obstacle;
 import ru.mipt.bit.platformer.geometry.Point;
 import ru.mipt.bit.platformer.models.logic.LogicObstacle;
 
+/**
+ * Adapter
+ * */
 public class LogicObstacleToObstacleConverter implements Converter<Obstacle, LogicObstacle> {
 
     @Override

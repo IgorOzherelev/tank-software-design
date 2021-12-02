@@ -7,6 +7,9 @@ import ru.mipt.bit.platformer.models.GameObject;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Entity
+ * */
 public class EventRemove implements Event {
     @Override
     public void performGameObjectToDrawableMap(Map<GameObject, Drawable> gameObjectToDrawableMap, GameObject gameObject) {

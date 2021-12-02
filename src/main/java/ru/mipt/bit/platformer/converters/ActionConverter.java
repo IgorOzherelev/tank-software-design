@@ -2,6 +2,9 @@ package ru.mipt.bit.platformer.converters;
 
 import ru.mipt.bit.platformer.actions.Action;
 
+/**
+ * Adapter
+ * */
 public class ActionConverter implements Converter<Action, org.awesome.ai.Action> {
 
     @Override

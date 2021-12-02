@@ -5,6 +5,9 @@ import ru.mipt.bit.platformer.actions.ActionKeyboardMapper;
 import ru.mipt.bit.platformer.models.Player;
 import ru.mipt.bit.platformer.models.logic.LogicTank;
 
+/**
+ * Use-case
+ * */
 public class PlayerTankController implements TankController {
     private final Player player;
     private final ActionKeyboardMapper actionKeyboardMapper;

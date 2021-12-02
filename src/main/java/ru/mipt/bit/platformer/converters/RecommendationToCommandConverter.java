@@ -5,6 +5,9 @@ import ru.mipt.bit.platformer.actions.Action;
 import ru.mipt.bit.platformer.commands.Command;
 import ru.mipt.bit.platformer.models.logic.LogicTank;
 
+/**
+ * Adapter
+ * */
 public class RecommendationToCommandConverter implements Converter<Command, Recommendation> {
     private final ActionConverter actionConverter;
 

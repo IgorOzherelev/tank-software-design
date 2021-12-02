@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Use-case
+ * */
 public class AiRandomTankController implements TankController {
     private final List<LogicTank> aiTanks;
     private final Random random = new Random();

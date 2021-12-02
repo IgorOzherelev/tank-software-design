@@ -3,6 +3,9 @@ package ru.mipt.bit.platformer.converters;
 import org.awesome.ai.state.movable.Bot;
 import ru.mipt.bit.platformer.models.logic.LogicTank;
 
+/**
+ * Adapter
+ * */
 public class LogicTankToBotConverter implements Converter<Bot, LogicTank> {
     private final RotationToOrientationConverter rotationToOrientationConverter;
 

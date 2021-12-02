@@ -6,6 +6,9 @@ import ru.mipt.bit.platformer.models.GameObject;
 import java.util.List;
 import java.util.Map;
 
+/**
+ *
+ * */
 public interface Event {
     void performGameObjectToDrawableMap(
             Map<GameObject, Drawable> gameObjectToDrawableMap, GameObject gameObject);

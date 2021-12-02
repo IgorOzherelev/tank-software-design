@@ -10,6 +10,9 @@ import java.util.Map;
 
 import static ru.mipt.bit.platformer.graphics.TexturePathsConst.treeTexturePath;
 
+/**
+ * Entity
+ * */
 public class EventAddTree implements Event {
     @Override
     public void performGameObjectToDrawableMap(Map<GameObject, Drawable> gameObjectToDrawableMap, GameObject gameObject) {
