@@ -2,6 +2,9 @@ package ru.mipt.bit.platformer.models;
 
 import static com.badlogic.gdx.math.MathUtils.clamp;
 
+/**
+ * Entity
+ * */
 public interface GameObject extends Movable {
     float MAX_PROGRESS = 1f;
     float MIN_PROGRESS = 0f;

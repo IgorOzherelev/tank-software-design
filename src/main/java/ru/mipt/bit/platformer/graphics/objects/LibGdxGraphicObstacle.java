@@ -11,6 +11,9 @@ import ru.mipt.bit.platformer.movement.TileMovement;
 import static ru.mipt.bit.platformer.utils.LibGdxGraphicUtils.createBoundingRectangle;
 import static ru.mipt.bit.platformer.utils.LibGdxGraphicUtils.drawRegionUnscaled;
 
+/**
+ * Use case
+ * */
 public class LibGdxGraphicObstacle implements Drawable {
     private final Texture texture;
     private final TextureRegion textureRegion;

@@ -2,6 +2,9 @@ package ru.mipt.bit.platformer.models;
 
 import ru.mipt.bit.platformer.models.logic.LogicTank;
 
+/**
+ * Entity
+ * */
 public class Player {
     private String nick;
     private LogicTank playerTank;

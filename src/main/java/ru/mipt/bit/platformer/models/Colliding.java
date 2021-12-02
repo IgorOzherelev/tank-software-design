@@ -2,6 +2,9 @@ package ru.mipt.bit.platformer.models;
 
 import ru.mipt.bit.platformer.geometry.Point;
 
+/**
+ * Entity
+ * */
 public interface Colliding {
     /**
      * Метод занимается регистрацией полученного урона объектом

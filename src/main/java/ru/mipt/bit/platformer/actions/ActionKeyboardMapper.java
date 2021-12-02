@@ -1,7 +1,7 @@
 package ru.mipt.bit.platformer.actions;
 
 /**
- * Use-case
+ * Adapter
  * */
 public interface ActionKeyboardMapper {
     Action getCalledAction();

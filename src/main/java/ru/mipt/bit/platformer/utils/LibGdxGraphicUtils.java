@@ -9,6 +9,9 @@ import com.badlogic.gdx.math.Vector2;
 import ru.mipt.bit.platformer.geometry.Point;
 import ru.mipt.bit.platformer.geometry.Rotation;
 
+/**
+ * Infrastructure
+ */
 public final class LibGdxGraphicUtils {
     private LibGdxGraphicUtils() {
     }

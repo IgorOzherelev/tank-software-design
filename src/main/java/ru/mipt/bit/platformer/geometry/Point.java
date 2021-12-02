@@ -2,6 +2,9 @@ package ru.mipt.bit.platformer.geometry;
 
 import java.util.Objects;
 
+/**
+ * Entity
+ * */
 public class Point {
     private int x;
     private int y;

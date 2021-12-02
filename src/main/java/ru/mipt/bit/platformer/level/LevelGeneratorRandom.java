@@ -13,6 +13,9 @@ import java.util.Random;
 import static ru.mipt.bit.platformer.utils.LevelGeneratorUtils.checkTotalObjectsQuantity;
 import static ru.mipt.bit.platformer.utils.LevelGeneratorUtils.checkTreesAndTanksQuantity;
 
+/**
+ * Use case
+ * */
 public class LevelGeneratorRandom implements LevelGenerator {
     private final TexturePreferences texturePreferences;
 

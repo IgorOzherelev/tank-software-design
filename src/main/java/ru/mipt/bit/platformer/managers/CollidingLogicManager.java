@@ -13,6 +13,9 @@ import ru.mipt.bit.platformer.preferences.TexturePreferences;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Use case
+ * */
 public class CollidingLogicManager implements EventSubscriber {
     private final List<BaseLogicObject> logicObjects = new ArrayList<>();
     private final TexturePreferences texturePreferences;

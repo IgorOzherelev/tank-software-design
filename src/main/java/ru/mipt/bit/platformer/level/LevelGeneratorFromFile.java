@@ -12,6 +12,9 @@ import java.util.List;
 import static ru.mipt.bit.platformer.utils.CommonUtils.*;
 import static ru.mipt.bit.platformer.utils.CommonUtils.checkStringLength;
 
+/**
+ * Use case
+ * */
 public class LevelGeneratorFromFile implements LevelGenerator {
     private final static char TREE_TOKEN = 'T';
     private final static char EMPTY_TILE_TOKEN = '_';

@@ -2,6 +2,9 @@ package ru.mipt.bit.platformer.models.state;
 
 import ru.mipt.bit.platformer.models.logic.LogicTank;
 
+/**
+ * Use case
+ * */
 public class Medium extends TankState {
     public Medium() {
     }

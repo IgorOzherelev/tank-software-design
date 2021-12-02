@@ -1,5 +1,8 @@
 package ru.mipt.bit.platformer.geometry;
 
+/**
+ * Entity
+ * */
 public enum Direction {
     UP(new Point(0, 1), Rotation.N),
     DOWN(new Point(0, -1), Rotation.S),

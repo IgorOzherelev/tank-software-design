@@ -11,6 +11,9 @@ import ru.mipt.bit.platformer.models.state.TankState;
 
 import static com.badlogic.gdx.math.MathUtils.isEqual;
 
+/**
+ * Entity
+ * */
 public class LogicTank extends BaseLogicObject implements Shooting {
     private final static float RELOADING_SPEED = 0.5f;
     private float reloadingProgress = MAX_PROGRESS;

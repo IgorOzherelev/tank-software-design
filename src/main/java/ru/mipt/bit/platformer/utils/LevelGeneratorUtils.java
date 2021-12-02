@@ -2,6 +2,9 @@ package ru.mipt.bit.platformer.utils;
 
 import ru.mipt.bit.platformer.preferences.TexturePreferences;
 
+/**
+ * Infrastructure
+ */
 public class LevelGeneratorUtils {
     public static void checkTreesAndTanksQuantity(int treesQuantity, int tanksQuantity) {
         if (tanksQuantity <= 0 || treesQuantity < 0) {

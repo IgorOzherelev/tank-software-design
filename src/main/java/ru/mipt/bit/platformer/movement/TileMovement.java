@@ -8,6 +8,9 @@ import ru.mipt.bit.platformer.geometry.Point;
 
 import static ru.mipt.bit.platformer.utils.LibGdxGraphicUtils.placeRectangleAtTileCenter;
 
+/**
+ * Infrastructure
+ */
 public class TileMovement {
     private final TiledMapTileLayer tileLayer;
     private final Interpolation interpolation = Interpolation.smooth;

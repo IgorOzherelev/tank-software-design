@@ -2,6 +2,9 @@ package ru.mipt.bit.platformer.models;
 
 import ru.mipt.bit.platformer.geometry.Direction;
 
+/**
+ * Entity
+ * */
 public interface Movable extends Colliding {
     default boolean isStopped() {
         return false;

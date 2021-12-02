@@ -3,7 +3,7 @@ package ru.mipt.bit.platformer.event;
 import ru.mipt.bit.platformer.models.GameObject;
 
 /**
- * Adapter
+ * Entity
  * */
 public interface EventPublisher {
     void subscribe(Event event, EventSubscriber eventSubscriber);

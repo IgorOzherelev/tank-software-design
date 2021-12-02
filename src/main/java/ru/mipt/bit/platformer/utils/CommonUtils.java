@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
+/**
+ *
+ * */
 public final class CommonUtils {
     public static <T> String loadFile(String filePath, Class<T> clazz) {
         try {

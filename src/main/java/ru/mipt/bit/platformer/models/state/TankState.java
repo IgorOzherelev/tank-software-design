@@ -3,6 +3,9 @@ package ru.mipt.bit.platformer.models.state;
 import ru.mipt.bit.platformer.geometry.Direction;
 import ru.mipt.bit.platformer.models.logic.LogicTank;
 
+/**
+ * Entity
+ * */
 public abstract class TankState {
     protected LogicTank logicTank;
     protected int health;

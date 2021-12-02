@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
+ * Entity
  * */
 public interface Event {
     void performGameObjectToDrawableMap(

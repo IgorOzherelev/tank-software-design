@@ -21,6 +21,9 @@ import ru.mipt.bit.platformer.graphics.renderers.LibGdxLevelRenderer;
 
 import static ru.mipt.bit.platformer.utils.LibGdxGameUtils.getSingleLayer;
 
+/**
+ * Adapter
+ * */
 public class GameDesktopListener implements ApplicationListener {
     private TankController playerTankController;
     private TankController aiTankController;

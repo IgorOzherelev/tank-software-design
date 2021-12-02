@@ -6,6 +6,9 @@ import ru.mipt.bit.platformer.geometry.Point;
 import ru.mipt.bit.platformer.level.Level;
 import ru.mipt.bit.platformer.managers.CollidingLogicManager;
 
+/**
+ * Entity
+ * */
 public class LogicBullet extends BaseLogicObject {
     public LogicBullet(Point currentCoordinates, Direction direction,
                        CollidingLogicManager collidingLogicManager, Level level) {

@@ -9,6 +9,9 @@ import ru.mipt.bit.platformer.models.GameObject;
 
 import static com.badlogic.gdx.math.MathUtils.isEqual;
 
+/**
+ * Entity
+ * */
 public abstract class BaseLogicObject implements GameObject {
     protected Point currentCoordinates;
     protected Point destinationCoordinates;

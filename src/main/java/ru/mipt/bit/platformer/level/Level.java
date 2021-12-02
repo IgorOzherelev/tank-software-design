@@ -11,6 +11,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Use case
+ * */
 public class Level implements EventPublisher {
     private static final int PLAYER_INDEX = 0;
 

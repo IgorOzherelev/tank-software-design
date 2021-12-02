@@ -1,5 +1,8 @@
 package ru.mipt.bit.platformer.geometry;
 
+/**
+ * Entity
+ * */
 public enum Rotation {
     N(90f),
     S(-90f),
