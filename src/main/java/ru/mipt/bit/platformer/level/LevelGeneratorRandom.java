@@ -14,7 +14,7 @@ import static ru.mipt.bit.platformer.utils.LevelGeneratorUtils.checkTotalObjects
 import static ru.mipt.bit.platformer.utils.LevelGeneratorUtils.checkTreesAndTanksQuantity;
 
 /**
- * Use case
+ * Adapter
  * */
 public class LevelGeneratorRandom implements LevelGenerator {
     private final TexturePreferences texturePreferences;

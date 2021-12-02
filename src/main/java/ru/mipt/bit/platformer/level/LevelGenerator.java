@@ -1,7 +1,7 @@
 package ru.mipt.bit.platformer.level;
 
 /**
- * Entity
+ * Adapter
  * */
 public interface LevelGenerator {
     Level generate();

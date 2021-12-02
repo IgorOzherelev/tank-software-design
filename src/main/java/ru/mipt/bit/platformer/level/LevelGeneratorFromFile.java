@@ -13,7 +13,7 @@ import static ru.mipt.bit.platformer.utils.CommonUtils.*;
 import static ru.mipt.bit.platformer.utils.CommonUtils.checkStringLength;
 
 /**
- * Use case
+ * Adapter
  * */
 public class LevelGeneratorFromFile implements LevelGenerator {
     private final static char TREE_TOKEN = 'T';

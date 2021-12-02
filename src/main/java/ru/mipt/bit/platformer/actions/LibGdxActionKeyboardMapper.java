@@ -7,7 +7,7 @@ import static com.badlogic.gdx.Input.Keys.*;
 import java.util.Map;
 
 /**
- * Port
+ * Adapter
  * */
 public class LibGdxActionKeyboardMapper implements ActionKeyboardMapper {
     private final Map<String, Action> keyToActionMap;
