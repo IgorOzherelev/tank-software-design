@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Use-case
+ * Adapter
  * */
 public class AiRandomTankController implements TankController {
     private final List<LogicTank> aiTanks;

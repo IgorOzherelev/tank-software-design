@@ -6,7 +6,7 @@ import ru.mipt.bit.platformer.models.Player;
 import ru.mipt.bit.platformer.models.logic.LogicTank;
 
 /**
- * Use-case
+ * Adapter
  * */
 public class PlayerTankController implements TankController {
     private final Player player;

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Entity
+ * Use case
  * */
 public class Level implements EventPublisher {
     private static final int PLAYER_INDEX = 0;

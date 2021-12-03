@@ -3,7 +3,7 @@ package ru.mipt.bit.platformer.models.state;
 import ru.mipt.bit.platformer.models.logic.LogicTank;
 
 /**
- * Use case
+ * Entity
  * */
 public class Light extends TankState {
     public Light() {

@@ -10,7 +10,7 @@ import ru.mipt.bit.platformer.level.Level;
 import java.util.List;
 
 /**
- * Use-case
+ * Adapter
  * */
 public class AiTankControllerAdapter implements TankController {
     private final Level level;
