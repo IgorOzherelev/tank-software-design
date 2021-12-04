@@ -9,10 +9,6 @@ public interface GameObject extends Movable {
     float MAX_PROGRESS = 1f;
     float MIN_PROGRESS = 0f;
 
-    default boolean isAlive() {
-        return true;
-    }
-
     default void live(float deltaTime) {}
 
     default float continueProgress(float previousProgress, float deltaTime, float speed) {

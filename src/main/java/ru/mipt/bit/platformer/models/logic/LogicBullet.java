@@ -23,16 +23,14 @@ public class LogicBullet extends BaseLogicObject {
 
     @Override
     public void live(float deltaTime) {
-        if (isAlive()) {
-            movementProgress = continueProgress(movementProgress, deltaTime, BULLET_MOVEMENT_SPEED);
-            if (isStopped()) {
-                if (collidingLogicManager.isSafeDirection(direction, this)) {
-                    currentCoordinates = new Point(destinationCoordinates);
-                    destinationCoordinates = new Point(destinationCoordinates).add(direction.getShift());
-                    movementProgress = MIN_PROGRESS;
-                } else {
-                    registerCollisionDamage();
-                }
+        movementProgress = continueProgress(movementProgress, deltaTime, BULLET_MOVEMENT_SPEED);
+        if (isStopped()) {
+            if (collidingLogicManager.isSafeDirection(direction, this)) {
+                currentCoordinates = new Point(destinationCoordinates);
+                destinationCoordinates = new Point(destinationCoordinates).add(direction.getShift());
+                movementProgress = MIN_PROGRESS;
+            } else {
+                registerCollisionDamage();
             }
         }
     }

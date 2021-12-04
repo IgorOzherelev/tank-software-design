@@ -60,6 +60,10 @@ public abstract class BaseLogicObject implements GameObject {
         return movementProgress;
     }
 
+    public void setMovementProgress(float movementProgress) {
+        this.movementProgress = movementProgress;
+    }
+
     public Point getCurrentCoordinates() {
         return currentCoordinates;
     }
@@ -67,6 +71,8 @@ public abstract class BaseLogicObject implements GameObject {
     public float getCollisionDamage() {
         return collisionDamage;
     }
+
+
 
     @Override
     public boolean isStopped() {

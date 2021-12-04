@@ -8,6 +8,7 @@ import ru.mipt.bit.platformer.models.logic.LogicTank;
 public abstract class LogicTankState {
     public static final float MAX_TANK_HP = 100f;
     public static final float MAX_TANK_MOVEMENT_SPEED = 1.6f;
+    private final static float RELOADING_SPEED = 1.4f;
 
     protected LogicTank logicTank;
 
@@ -30,10 +31,6 @@ public abstract class LogicTankState {
         this.logicTank = logicTank;
     }
 
-    public float getMovementSpeed() {
-        return movementSpeed;
-    }
-
     public void registerCollisionDamage(float collisionDamage) {
         health -= collisionDamage;
         if (health <= 0) {
@@ -48,6 +45,16 @@ public abstract class LogicTankState {
     public void shoot() {
         LogicBullet logicBullet = new LogicBullet(logicTank);
         logicTank.getLevel().registerEvent(new EventAddBullet(), logicBullet);
+    }
+
+    public void live(float deltaTime) {
+        logicTank.setMovementProgress(
+                logicTank.continueProgress(logicTank.getMovementProgress(), deltaTime, movementSpeed)
+        );
+
+        logicTank.setReloadingProgress(
+                logicTank.continueProgress(logicTank.getReloadingProgress(), deltaTime, RELOADING_SPEED)
+        );
     }
 
     public float getHealth() {

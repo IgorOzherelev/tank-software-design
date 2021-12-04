@@ -13,7 +13,6 @@ import static com.badlogic.gdx.math.MathUtils.isEqual;
  * Entity
  * */
 public class LogicTank extends BaseLogicObject implements Shooting {
-    private final static float RELOADING_SPEED = 1.4f;
     private float reloadingProgress = MAX_PROGRESS;
 
     private LogicTankState logicTankState;
@@ -29,14 +28,19 @@ public class LogicTank extends BaseLogicObject implements Shooting {
         this.logicTankState = logicTankState;
     }
 
+    public float getReloadingProgress() {
+        return reloadingProgress;
+    }
+
+    public void setReloadingProgress(float reloadingProgress) {
+        this.reloadingProgress = reloadingProgress;
+    }
+
     @Override
     public void live(float deltaTime) {
-        if (isAlive()) {
-            movementProgress = continueProgress(movementProgress, deltaTime, logicTankState.getMovementSpeed());
-            reloadingProgress = continueProgress(reloadingProgress, deltaTime, RELOADING_SPEED);
-            if (isReadyToProceed()) {
-                currentCoordinates = new Point(destinationCoordinates);
-            }
+        logicTankState.live(deltaTime);
+        if (isReadyToProceed()) {
+            currentCoordinates = new Point(destinationCoordinates);
         }
     }
 
