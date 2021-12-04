@@ -3,7 +3,7 @@ package ru.mipt.bit.platformer.preferences;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 
 /**
- * Use case
+ * Adapter
  * */
 public class LibGdxGameTexturePreferences implements TexturePreferences {
     private final TiledMap level;

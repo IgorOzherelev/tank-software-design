@@ -11,6 +11,7 @@ import static com.badlogic.gdx.math.MathUtils.isEqual;
 
 /**
  * Entity
+ * Domain
  * */
 public class LogicTank extends BaseLogicObject implements Shooting {
     private float reloadingProgress = MAX_PROGRESS;

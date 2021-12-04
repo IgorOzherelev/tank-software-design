@@ -7,6 +7,9 @@ import ru.mipt.bit.platformer.graphics.objects.LibGdxGraphicTank;
 import ru.mipt.bit.platformer.graphics.renderers.LibGdxLevelRenderer;
 import ru.mipt.bit.platformer.movement.TileMovement;
 
+/**
+ * Adapter
+ * */
 public class LibGdxGraphicTankWithHealthDecorator implements Drawable {
     private final LibGdxGraphicTank graphicTank;
     private final LibGdxGraphicHealthBar graphicHealthBar;

@@ -11,6 +11,7 @@ import static com.badlogic.gdx.math.MathUtils.isEqual;
 
 /**
  * Entity
+ * Domain
  * */
 public abstract class BaseLogicObject implements GameObject {
     protected Point currentCoordinates;

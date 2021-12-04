@@ -1,7 +1,7 @@
 package ru.mipt.bit.platformer.preferences;
 
 /**
- * Entity
+ * Adapter
  * */
 public interface TexturePreferences {
     int getMapWidth();

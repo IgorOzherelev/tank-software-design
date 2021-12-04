@@ -8,6 +8,9 @@ import ru.mipt.bit.platformer.graphics.renderers.Renderer;
 import ru.mipt.bit.platformer.models.GameObject;
 import ru.mipt.bit.platformer.models.logic.LogicTank;
 
+/**
+ * Adapter
+ * */
 public class EventAddTank implements Event {
     @Override
     public void performGameObjectToRenderer(Renderer renderer, GameObject gameObject) {

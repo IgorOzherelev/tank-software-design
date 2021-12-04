@@ -7,7 +7,8 @@ import ru.mipt.bit.platformer.models.GameObject;
 import java.util.Map;
 
 /**
- * Entity
+ * Application/Adapter Port
+ * Use case
  * */
 public interface Renderer extends EventSubscriber {
     void render();

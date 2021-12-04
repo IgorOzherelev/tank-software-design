@@ -10,7 +10,7 @@ import ru.mipt.bit.platformer.geometry.Point;
 import ru.mipt.bit.platformer.geometry.Rotation;
 
 /**
- * Infrastructure
+ * Adapter
  */
 public final class LibGdxGraphicUtils {
     private LibGdxGraphicUtils() {

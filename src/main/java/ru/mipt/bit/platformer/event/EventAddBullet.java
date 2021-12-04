@@ -5,6 +5,10 @@ import ru.mipt.bit.platformer.graphics.renderers.Renderer;
 import ru.mipt.bit.platformer.models.GameObject;
 import ru.mipt.bit.platformer.models.logic.LogicBullet;
 
+/**
+ * Application
+ * Use case
+ * */
 public class EventAddBullet implements Event {
     @Override
     public void performGameObjectToRenderer(Renderer renderer, GameObject gameObject) {

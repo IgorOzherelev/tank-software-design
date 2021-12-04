@@ -1,7 +1,8 @@
 package ru.mipt.bit.platformer.commands;
 
 /**
- * Entity
+ * Application
+ * Use case
  * */
 @FunctionalInterface
 public interface Command {

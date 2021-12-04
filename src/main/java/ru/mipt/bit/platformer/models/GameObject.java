@@ -4,6 +4,7 @@ import static com.badlogic.gdx.math.MathUtils.clamp;
 
 /**
  * Entity
+ * Domain
  * */
 public interface GameObject extends Movable {
     float MAX_PROGRESS = 1f;

@@ -6,7 +6,7 @@ import ru.mipt.bit.platformer.models.GameObject;
 import java.util.List;
 
 /**
- * Entity
+ * Application/Adapter Port
  * */
 public interface Event {
     default void performGameObjectToRenderer(Renderer renderer, GameObject gameObject) {}

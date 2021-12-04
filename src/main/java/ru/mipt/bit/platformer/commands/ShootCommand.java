@@ -3,7 +3,8 @@ package ru.mipt.bit.platformer.commands;
 import ru.mipt.bit.platformer.models.logic.LogicTank;
 
 /**
- * Entity
+ * Application
+ * Use case
  * */
 public class ShootCommand implements Command {
     private final LogicTank logicTank;

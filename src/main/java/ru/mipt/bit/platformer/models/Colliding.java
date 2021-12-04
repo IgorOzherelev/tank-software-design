@@ -4,6 +4,7 @@ import ru.mipt.bit.platformer.geometry.Point;
 
 /**
  * Entity
+ * Domain
  * */
 public interface Colliding {
     /**

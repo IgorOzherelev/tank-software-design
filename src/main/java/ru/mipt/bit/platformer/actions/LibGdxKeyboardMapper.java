@@ -8,6 +8,9 @@ import static com.badlogic.gdx.Input.Keys.*;
 
 import java.util.Map;
 
+/**
+ * Adapter
+ * */
 public class LibGdxKeyboardMapper implements KeyboardMapper {
     private final Map<String, Action> keyToActionMap;
     private Map<String, Command> keyToCommandMap;

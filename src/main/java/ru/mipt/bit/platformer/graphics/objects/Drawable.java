@@ -5,7 +5,7 @@ import com.badlogic.gdx.utils.Disposable;
 import ru.mipt.bit.platformer.movement.TileMovement;
 
 /**
- * Entity
+ * Adapter
  * */
 public interface Drawable extends Disposable {
     void draw(Batch batch, TileMovement tileMovement);

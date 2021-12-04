@@ -15,6 +15,7 @@ import java.util.List;
 
 /**
  * Use case
+ * Application
  * */
 public class CollidingLogicManager implements EventSubscriber {
     private final List<BaseLogicObject> logicObjects = new ArrayList<>();

@@ -10,6 +10,9 @@ import ru.mipt.bit.platformer.movement.TileMovement;
 import static ru.mipt.bit.platformer.utils.LibGdxGraphicUtils.createBoundingRectangle;
 import static ru.mipt.bit.platformer.utils.LibGdxGraphicUtils.drawRegionUnscaled;
 
+/**
+ * Adapter
+ * */
 public abstract class LibGdxBaseGraphicObject implements Drawable {
     private final Texture texture;
     private final TextureRegion textureRegion;

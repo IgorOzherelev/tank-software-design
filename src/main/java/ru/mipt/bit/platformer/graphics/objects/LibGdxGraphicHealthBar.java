@@ -10,6 +10,9 @@ import ru.mipt.bit.platformer.models.logic.LogicTank;
 import ru.mipt.bit.platformer.models.state.LogicTankState;
 import ru.mipt.bit.platformer.movement.TileMovement;
 
+/**
+ * Adapter
+ * */
 public class LibGdxGraphicHealthBar implements Drawable {
     private static final float MAX_WIDTH = 50;
     private static final float HEIGHT = 10;

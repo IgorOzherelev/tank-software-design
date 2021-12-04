@@ -5,6 +5,7 @@ import ru.mipt.bit.platformer.geometry.Point;
 
 /**
  * Entity
+ * Domain
  * */
 public class LogicBullet extends BaseLogicObject {
     private final static float BULLET_MOVEMENT_SPEED = 1.7f;

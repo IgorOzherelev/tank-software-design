@@ -1,7 +1,7 @@
 package ru.mipt.bit.platformer.graphics;
 
 /**
- * Infrastructure
+ * Adapter
  */
 public class TexturePathsConst {
     public static final String tankTexturePath = "images/tank_blue.png";

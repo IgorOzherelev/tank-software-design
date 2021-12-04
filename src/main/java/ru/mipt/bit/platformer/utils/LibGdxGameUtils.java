@@ -12,7 +12,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import java.util.NoSuchElementException;
 
 /**
- * Infrastructure
+ * Adapter
  */
 public final class LibGdxGameUtils {
     public static <L extends MapLayer> L getSingleLayer(Map map) {

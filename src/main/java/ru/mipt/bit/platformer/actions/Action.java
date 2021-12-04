@@ -7,7 +7,8 @@ import ru.mipt.bit.platformer.geometry.Direction;
 import ru.mipt.bit.platformer.models.logic.LogicTank;
 
 /**
- * Entity
+ * Application
+ * Use case
  * */
 public enum Action {
     Shoot() {

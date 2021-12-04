@@ -5,6 +5,10 @@ import ru.mipt.bit.platformer.event.EventRemove;
 import ru.mipt.bit.platformer.models.logic.LogicBullet;
 import ru.mipt.bit.platformer.models.logic.LogicTank;
 
+/**
+ * Entity
+ * Domain
+ * */
 public abstract class LogicTankState {
     public static final float MAX_TANK_HP = 100f;
     public static final float MAX_TANK_MOVEMENT_SPEED = 1.6f;

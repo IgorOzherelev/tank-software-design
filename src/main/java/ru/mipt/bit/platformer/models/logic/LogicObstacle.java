@@ -4,6 +4,7 @@ import ru.mipt.bit.platformer.geometry.Point;
 
 /**
  * Entity
+ * Domain
  * */
 public class LogicObstacle extends BaseLogicObject {
     public LogicObstacle(Point currentCoordinates) {

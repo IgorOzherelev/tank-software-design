@@ -2,6 +2,10 @@ package ru.mipt.bit.platformer.models.state;
 
 import ru.mipt.bit.platformer.models.logic.LogicTank;
 
+/**
+ * Entity
+ * Domain
+ * */
 public class HeavyLogicTankState extends LogicTankState {
     public static final float MAX_HEAVY_TANK_HP;
     public static final float MAX_HEAVY_TANK_MOVEMENT_SPEED;

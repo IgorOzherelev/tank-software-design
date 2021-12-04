@@ -4,6 +4,7 @@ import ru.mipt.bit.platformer.geometry.Direction;
 
 /**
  * Entity
+ * Domain
  * */
 public interface Movable extends Colliding {
     default boolean isStopped() {

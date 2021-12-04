@@ -4,6 +4,7 @@ import ru.mipt.bit.platformer.models.logic.LogicTank;
 
 /**
  * Entity
+ * Domain
  * */
 public class Player {
     private String nick;
