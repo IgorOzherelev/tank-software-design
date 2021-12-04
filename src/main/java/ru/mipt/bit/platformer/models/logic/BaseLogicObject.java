@@ -17,13 +17,12 @@ public abstract class BaseLogicObject implements GameObject {
     protected CollidingLogicManager collidingLogicManager;
     protected Level level;
 
-    protected float movementSpeed = 0.5f;
     protected float movementProgress = MAX_PROGRESS;
-    protected int collisionDamage = 0;
-    protected int health = 1;
+    protected float collisionDamage = 0;
 
     public BaseLogicObject(CollidingLogicManager collidingLogicManager, Level level, Point currentCoordinates) {
         this.currentCoordinates = currentCoordinates;
+        this.destinationCoordinates = new Point(currentCoordinates);
         this.collidingLogicManager = collidingLogicManager;
         this.level = level;
     }
@@ -31,6 +30,7 @@ public abstract class BaseLogicObject implements GameObject {
     public BaseLogicObject(Point currentCoordinates, Direction direction,
                            CollidingLogicManager collidingLogicManager, Level level) {
         this.currentCoordinates = currentCoordinates;
+        this.destinationCoordinates = new Point(currentCoordinates);
         this.direction = direction;
         this.collidingLogicManager = collidingLogicManager;
         this.level = level;
@@ -38,6 +38,11 @@ public abstract class BaseLogicObject implements GameObject {
 
     public BaseLogicObject(Point currentCoordinates) {
         this.currentCoordinates = currentCoordinates;
+        this.destinationCoordinates = new Point(currentCoordinates);
+    }
+
+    public Level getLevel() {
+        return level;
     }
 
     public Rotation getRotation() {
@@ -56,17 +61,8 @@ public abstract class BaseLogicObject implements GameObject {
         return currentCoordinates;
     }
 
-    public int getCollisionDamage() {
+    public float getCollisionDamage() {
         return collisionDamage;
-    }
-
-    public int getHealth() {
-        return health;
-    }
-
-    @Override
-    public boolean isAlive() {
-        return health > 0;
     }
 
     @Override

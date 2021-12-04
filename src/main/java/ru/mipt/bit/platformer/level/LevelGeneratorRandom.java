@@ -4,6 +4,7 @@ import ru.mipt.bit.platformer.geometry.Point;
 import ru.mipt.bit.platformer.managers.CollidingLogicManager;
 import ru.mipt.bit.platformer.models.logic.LogicObstacle;
 import ru.mipt.bit.platformer.models.logic.LogicTank;
+import ru.mipt.bit.platformer.models.state.LightLogicTankState;
 import ru.mipt.bit.platformer.preferences.TexturePreferences;
 
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class LevelGeneratorRandom implements LevelGenerator {
         int i = 0;
         // добавляем танк игрока, всегда первый
         tanks.add(new LogicTank(
-                collidingLogicManager, level, new Point(randomPoints.get(i))
+                collidingLogicManager, level, new Point(randomPoints.get(i)), new LightLogicTankState()
         ));
 
         for (i = 0; i < treesQuantity; i++) {
@@ -55,7 +56,7 @@ public class LevelGeneratorRandom implements LevelGenerator {
 
         if (tanksQuantity > 1) {
             for (; i < totalObjectsQuantity - 2; i++) {
-                tanks.add(new LogicTank(collidingLogicManager, level, randomPoints.get(i + 1)));
+                tanks.add(new LogicTank(collidingLogicManager, level, randomPoints.get(i + 1), new LightLogicTankState()));
             }
         }
 

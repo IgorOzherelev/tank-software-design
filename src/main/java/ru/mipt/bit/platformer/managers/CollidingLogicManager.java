@@ -25,8 +25,7 @@ public class CollidingLogicManager implements EventSubscriber {
 
     public boolean isSafeDirection(Direction direction, BaseLogicObject logicObject) {
         Point positionToMove = new Point(logicObject.getCurrentCoordinates()).add(direction.getShift());
-        if (positionToMove.getX() >= texturePreferences.getMapWidth() || positionToMove.getX() < 0
-                || positionToMove.getY() >= texturePreferences.getMapHeight() || positionToMove.getY() < 0) {
+        if (isBorderUnsafe(positionToMove)) {
             return false;
         }
 
@@ -39,6 +38,11 @@ public class CollidingLogicManager implements EventSubscriber {
         }
 
         return true;
+    }
+
+    private boolean isBorderUnsafe(Point positionToMove) {
+        return positionToMove.getX() >= texturePreferences.getMapWidth() || positionToMove.getX() < 0
+                || positionToMove.getY() >= texturePreferences.getMapHeight() || positionToMove.getY() < 0;
     }
 
     private void performCollisionDamageRegistration(BaseLogicObject colliding, BaseLogicObject collidingElem) {

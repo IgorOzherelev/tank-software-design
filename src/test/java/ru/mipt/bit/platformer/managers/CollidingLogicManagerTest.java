@@ -7,6 +7,7 @@ import ru.mipt.bit.platformer.geometry.Point;
 import ru.mipt.bit.platformer.level.Level;
 import ru.mipt.bit.platformer.geometry.Direction;
 import ru.mipt.bit.platformer.models.logic.LogicTank;
+import ru.mipt.bit.platformer.models.state.LightLogicTankState;
 import ru.mipt.bit.platformer.preferences.TexturePreferences;
 
 import java.util.*;
@@ -33,13 +34,13 @@ public class CollidingLogicManagerTest {
         List<LogicTank> logicTanks = new ArrayList<>();
         level = new Level(new ArrayList<>(), logicTanks);
         collidingLogicManager = new CollidingLogicManager(level, preferences);
-        TANK = new LogicTank(collidingLogicManager, level, new Point(5, 5));
+        TANK = new LogicTank(collidingLogicManager, level, new Point(5, 5), new LightLogicTankState());
 
         logicTanks.add(TANK);
-        logicTanks.add(new LogicTank(collidingLogicManager, level, new Point(5, 6)));
-        logicTanks.add(new LogicTank(collidingLogicManager, level, new Point(6, 5)));
-        logicTanks.add(new LogicTank(collidingLogicManager, level, new Point(4, 5)));
-        logicTanks.add(new LogicTank(collidingLogicManager, level, new Point(5, 4)));
+        logicTanks.add(new LogicTank(collidingLogicManager, level, new Point(5, 6), new LightLogicTankState()));
+        logicTanks.add(new LogicTank(collidingLogicManager, level, new Point(6, 5), new LightLogicTankState()));
+        logicTanks.add(new LogicTank(collidingLogicManager, level, new Point(4, 5), new LightLogicTankState()));
+        logicTanks.add(new LogicTank(collidingLogicManager, level, new Point(5, 4), new LightLogicTankState()));
 
         level.init();
     }
@@ -66,7 +67,7 @@ public class CollidingLogicManagerTest {
 
     @Test
     public void test_positive() {
-        LogicTank logicTank = new LogicTank(collidingLogicManager, level, new Point(0, 0));
+        LogicTank logicTank = new LogicTank(collidingLogicManager, level, new Point(0, 0), new LightLogicTankState());
         Assertions.assertTrue(collidingLogicManager.isSafeDirection(Direction.UP, logicTank));
     }
 }

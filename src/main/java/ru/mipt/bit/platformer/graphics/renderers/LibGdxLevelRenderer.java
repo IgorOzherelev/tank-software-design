@@ -3,6 +3,7 @@ package ru.mipt.bit.platformer.graphics.renderers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import ru.mipt.bit.platformer.event.Event;
@@ -22,8 +23,10 @@ public class LibGdxLevelRenderer implements Renderer {
     private final Batch batch;
     private final TiledMap tiledMap;
     private final TileMovement tileMovement;
+    private final ShapeRenderer shapeRenderer = new ShapeRenderer();
 
     private final Map<GameObject, Drawable> gameObjectToDrawableMap = new HashMap<>();
+    private boolean isToggledHealth;
 
     public LibGdxLevelRenderer(Level level, TiledMap tiledMap, TileMovement tileMovement) {
         this.batch = new SpriteBatch();
@@ -34,21 +37,30 @@ public class LibGdxLevelRenderer implements Renderer {
         level.subscribeAll(this);
     }
 
+    public ShapeRenderer getShapeRenderer() {
+        return shapeRenderer;
+    }
+
     @Override
     public void render() {
         clear();
         levelRenderer.render();
         batch.begin();
-
         renderDrawables();
-
         batch.end();
+
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        renderShapes();
+        shapeRenderer.end();
+    }
+
+    private void renderShapes() {
+        gameObjectToDrawableMap.values().forEach(Drawable::drawShape);
     }
 
     private void renderDrawables() {
         gameObjectToDrawableMap.values().forEach(drawable -> {
-            drawable.drawTexture(batch);
-            drawable.drawMovement(tileMovement);
+            drawable.draw(batch, tileMovement);
         });
     }
 
@@ -63,12 +75,26 @@ public class LibGdxLevelRenderer implements Renderer {
     }
 
     @Override
+    public Map<GameObject, Drawable> getDrawablesMap() {
+        return gameObjectToDrawableMap;
+    }
+
+    @Override
+    public void toggleHealth() {
+        this.isToggledHealth = !isToggledHealth;
+    }
+
+    @Override
     public void onEvent(Event event, GameObject gameObject) {
-        event.performGameObjectToDrawableMap(gameObjectToDrawableMap, gameObject);
+        event.performGameObjectToRenderer(this, gameObject);
     }
 
     private void clear() {
         Gdx.gl.glClearColor(0f, 0f, 0.2f, 1f);
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
+    }
+
+    public boolean isHealthToggled() {
+        return isToggledHealth;
     }
 }

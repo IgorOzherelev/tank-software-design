@@ -13,6 +13,6 @@ public interface GameObject extends Movable {
     default void live(float deltaTime) {}
 
     default float continueProgress(float previousProgress, float deltaTime, float speed) {
-        return clamp(previousProgress + deltaTime / speed, MIN_PROGRESS, MAX_PROGRESS);
+        return clamp(previousProgress + deltaTime * speed, MIN_PROGRESS, MAX_PROGRESS);
     }
 }

@@ -1,19 +1,16 @@
 package ru.mipt.bit.platformer.models.logic;
 
 import ru.mipt.bit.platformer.event.EventRemove;
-import ru.mipt.bit.platformer.geometry.Direction;
 import ru.mipt.bit.platformer.geometry.Point;
-import ru.mipt.bit.platformer.level.Level;
-import ru.mipt.bit.platformer.managers.CollidingLogicManager;
 
 public class LogicBullet extends BaseLogicObject {
-    public LogicBullet(Point currentCoordinates, Direction direction,
-                       CollidingLogicManager collidingLogicManager, Level level) {
-        super(currentCoordinates, direction, collidingLogicManager, level);
+    private final static float BULLET_MOVEMENT_SPEED = 1.7f;
+
+    public LogicBullet(LogicTank logicTank) {
+        super(logicTank.currentCoordinates, logicTank.direction, logicTank.collidingLogicManager, logicTank.level);
 
         this.destinationCoordinates = new Point(currentCoordinates).add(direction.getShift());
-        this.movementSpeed = 0.4f;
-        this.collisionDamage = 1;
+        this.collisionDamage = 20f;
     }
 
     @Override
@@ -24,7 +21,7 @@ public class LogicBullet extends BaseLogicObject {
     @Override
     public void live(float deltaTime) {
         if (isAlive()) {
-            movementProgress = continueProgress(movementProgress, deltaTime, movementSpeed);
+            movementProgress = continueProgress(movementProgress, deltaTime, BULLET_MOVEMENT_SPEED);
             if (isStopped()) {
                 if (collidingLogicManager.isSafeDirection(direction, this)) {
                     currentCoordinates = new Point(destinationCoordinates);

@@ -1,50 +1,45 @@
 package ru.mipt.bit.platformer.models.logic;
 
-import ru.mipt.bit.platformer.event.EventAddBullet;
-import ru.mipt.bit.platformer.event.EventRemove;
 import ru.mipt.bit.platformer.geometry.Point;
 import ru.mipt.bit.platformer.geometry.Direction;
 import ru.mipt.bit.platformer.level.Level;
 import ru.mipt.bit.platformer.managers.CollidingLogicManager;
 import ru.mipt.bit.platformer.models.Shooting;
-import ru.mipt.bit.platformer.models.state.TankState;
+import ru.mipt.bit.platformer.models.state.LogicTankState;
 
 import static com.badlogic.gdx.math.MathUtils.isEqual;
 
 public class LogicTank extends BaseLogicObject implements Shooting {
-    private final static float RELOADING_SPEED = 0.5f;
+    private final static float RELOADING_SPEED = 1.4f;
     private float reloadingProgress = MAX_PROGRESS;
 
-    private TankState tankState;
+    private LogicTankState logicTankState;
 
-    public LogicTank(CollidingLogicManager collidingLogicManager, Level level, Point currentCoordinates) {
+    public LogicTank(CollidingLogicManager collidingLogicManager, Level level,
+                     Point currentCoordinates, LogicTankState logicTankState) {
         super(collidingLogicManager, level, currentCoordinates);
-        this.currentCoordinates = currentCoordinates;
-        this.destinationCoordinates = new Point(currentCoordinates);
+        this.logicTankState = logicTankState;
+        logicTankState.setLogicTank(this);
     }
 
-    public void setTankState(TankState tankState) {
-        this.tankState = tankState;
+    public void setLogicTankState(LogicTankState logicTankState) {
+        this.logicTankState = logicTankState;
     }
 
     @Override
     public void live(float deltaTime) {
         if (isAlive()) {
-            movementProgress = continueProgress(movementProgress, deltaTime, movementSpeed);
+            movementProgress = continueProgress(movementProgress, deltaTime, logicTankState.getMovementSpeed());
             reloadingProgress = continueProgress(reloadingProgress, deltaTime, RELOADING_SPEED);
             if (isReadyToProceed()) {
                 currentCoordinates = new Point(destinationCoordinates);
             }
         }
-        // gameOver()
     }
 
     @Override
-    public void registerCollisionDamage(int collisionDamage) {
-        health -= collisionDamage;
-        if (!isAlive()) {
-            level.registerEvent(new EventRemove(), this);
-        }
+    public void registerCollisionDamage(float collisionDamage) {
+        logicTankState.registerCollisionDamage(collisionDamage);
     }
 
     @Override
@@ -61,12 +56,13 @@ public class LogicTank extends BaseLogicObject implements Shooting {
     @Override
     public void shoot() {
         if (isReadyToProceed()) {
-            Point bulletCoordinates = new Point(currentCoordinates);
-            LogicBullet logicBullet = new LogicBullet(bulletCoordinates, direction, collidingLogicManager, level);
-            level.registerEvent(new EventAddBullet(), logicBullet);
-
+            logicTankState.shoot();
             reloadingProgress = MIN_PROGRESS;
         }
+    }
+
+    public float getHealth() {
+        return logicTankState.getHealth();
     }
 
     @Override
