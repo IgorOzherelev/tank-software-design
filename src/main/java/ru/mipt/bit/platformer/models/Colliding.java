@@ -9,7 +9,7 @@ public interface Colliding {
     /**
      * Метод занимается регистрацией полученного урона объектом
      * */
-    default void registerCollisionDamage(int collisionDamage) {}
+    default void registerCollisionDamage(float collisionDamage) {}
 
     /**
      * Метод занимается регистрацией полученного урона объектом

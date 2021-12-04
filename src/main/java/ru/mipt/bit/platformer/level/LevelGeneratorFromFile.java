@@ -4,6 +4,7 @@ import ru.mipt.bit.platformer.geometry.Point;
 import ru.mipt.bit.platformer.managers.CollidingLogicManager;
 import ru.mipt.bit.platformer.models.logic.LogicObstacle;
 import ru.mipt.bit.platformer.models.logic.LogicTank;
+import ru.mipt.bit.platformer.models.state.LightLogicTankState;
 import ru.mipt.bit.platformer.preferences.TexturePreferences;
 
 import java.util.ArrayList;
@@ -57,7 +58,7 @@ public class LevelGeneratorFromFile implements LevelGenerator {
                         trees.add(tree);
                         break;
                     case TANK_TOKEN:
-                        logicTanks.add(new LogicTank(collidingLogicManager, level, new Point(i, j)));
+                        logicTanks.add(new LogicTank(collidingLogicManager, level, new Point(i, j), new LightLogicTankState()));
                         break;
                     case EMPTY_TILE_TOKEN:
                         break;

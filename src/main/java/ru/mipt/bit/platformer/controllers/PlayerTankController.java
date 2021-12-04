@@ -1,7 +1,8 @@
 package ru.mipt.bit.platformer.controllers;
 
 import ru.mipt.bit.platformer.actions.Action;
-import ru.mipt.bit.platformer.actions.ActionKeyboardMapper;
+import ru.mipt.bit.platformer.actions.KeyboardMapper;
+import ru.mipt.bit.platformer.commands.Command;
 import ru.mipt.bit.platformer.models.Player;
 import ru.mipt.bit.platformer.models.logic.LogicTank;
 
@@ -10,20 +11,25 @@ import ru.mipt.bit.platformer.models.logic.LogicTank;
  * */
 public class PlayerTankController implements TankController {
     private final Player player;
-    private final ActionKeyboardMapper actionKeyboardMapper;
+    private final KeyboardMapper keyboardMapper;
 
-    public PlayerTankController(Player player, ActionKeyboardMapper actionKeyboardMapper) {
+    public PlayerTankController(Player player, KeyboardMapper keyboardMapper) {
         this.player = player;
-        this.actionKeyboardMapper = actionKeyboardMapper;
+        this.keyboardMapper = keyboardMapper;
     }
 
     @Override
     public void handleTickAction() {
         LogicTank playerTank = player.getPlayerTank();
         if (playerTank.isStopped()) {
-            Action action = actionKeyboardMapper.getCalledAction();
+            Action action = keyboardMapper.getCalledAction();
             if (action != null) {
                 action.createCommand(playerTank).execute();
+            } else {
+                Command command = keyboardMapper.getCalledCommand();
+                if (command != null) {
+                    command.execute();
+                }
             }
         }
     }

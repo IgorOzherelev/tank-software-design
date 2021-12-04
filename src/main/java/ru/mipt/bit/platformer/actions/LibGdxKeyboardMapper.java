@@ -2,15 +2,15 @@ package ru.mipt.bit.platformer.actions;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import ru.mipt.bit.platformer.commands.Command;
+
 import static com.badlogic.gdx.Input.Keys.*;
 
 import java.util.Map;
 
-/**
- * Adapter
- * */
-public class LibGdxActionKeyboardMapper implements ActionKeyboardMapper {
+public class LibGdxKeyboardMapper implements KeyboardMapper {
     private final Map<String, Action> keyToActionMap;
+    private Map<String, Command> keyToCommandMap;
     private final Input input = Gdx.input;
 
     {
@@ -23,13 +23,34 @@ public class LibGdxActionKeyboardMapper implements ActionKeyboardMapper {
         );
     }
 
+    public void setKeyToCommandMap(Map<String, Command> keyToCommandMap) {
+        this.keyToCommandMap = keyToCommandMap;
+    }
+
+    @Override
     public Action getCalledAction() {
         for (String key : keyToActionMap.keySet()) {
-            if (input.isKeyPressed(Integer.parseInt(key))) {
+            if (isKeyPressed(Integer.parseInt(key))) {
                 return keyToActionMap.get(key);
             }
         }
 
         return null;
+    }
+
+    @Override
+    public Command getCalledCommand() {
+        for (String key : keyToCommandMap.keySet()) {
+            if (isKeyPressed(Integer.parseInt(key))) {
+                return keyToCommandMap.get(key);
+            }
+        }
+
+        return null;
+    }
+
+    @Override
+    public boolean isKeyPressed(Integer key) {
+        return input.isKeyPressed(key);
     }
 }

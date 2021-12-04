@@ -8,6 +8,7 @@ import ru.mipt.bit.platformer.level.Level;
 import ru.mipt.bit.platformer.managers.CollidingLogicManager;
 import ru.mipt.bit.platformer.models.logic.LogicTank;
 import ru.mipt.bit.platformer.geometry.Direction;
+import ru.mipt.bit.platformer.models.state.LightLogicTankState;
 import ru.mipt.bit.platformer.preferences.TexturePreferences;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class LogicTankMoveTest {
         logicTanks.clear();
         Level level = new Level(new ArrayList<>(), logicTanks);
         CollidingLogicManager collidingLogicManager = new CollidingLogicManager(level, preferences);
-        logicTanks.add(new LogicTank(collidingLogicManager, level, new Point(3, 5)));
+        logicTanks.add(new LogicTank(collidingLogicManager, level, new Point(3, 5), new LightLogicTankState()));
 
         level.init();
     }
