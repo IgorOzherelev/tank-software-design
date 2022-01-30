@@ -1,1 +1,1 @@
-# tank-software-design
+# libGdxTank-software-design
